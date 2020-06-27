@@ -13,6 +13,7 @@ public class Persona {
 	private String Provincia;
 	private String Email;
 	private String telefono;
+	private Localidad Localidad;
 	
 	public String getLegajo() {
 		return Legajo;
@@ -74,6 +75,15 @@ public class Persona {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public Localidad getLocalidad() {
+		return Localidad;
+	}
+	
+	public void setLocalidad(Localidad localidad) {
+		Localidad = localidad;
+	}
+
 
 
 }
