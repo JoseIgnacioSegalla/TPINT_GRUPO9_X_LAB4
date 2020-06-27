@@ -1,5 +1,5 @@
 package dao;
 
-public class DaoInstanciaXAlumno {
+public interface DaoInstanciaXAlumno {
 
 }

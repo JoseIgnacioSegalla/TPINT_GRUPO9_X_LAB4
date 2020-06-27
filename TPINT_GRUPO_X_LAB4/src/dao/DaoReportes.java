@@ -1,5 +1,5 @@
 package dao;
 
-public class DaoReportes {
+public interface DaoReportes {
 
 }
