@@ -9,7 +9,7 @@ public class Persona {
 	private String Apellido;
 	private String FechaNac;
 	private String Direccion;
-	private String Localidad;
+	//private String Localidad;
 	private String Provincia;
 	private String Email;
 	private String telefono;
@@ -51,12 +51,12 @@ public class Persona {
 	public void setDireccion(String direccion) {
 		Direccion = direccion;
 	}
-	public String getLocalidad() {
+	/*public String getLocalidad() {
 		return Localidad;
 	}
 	public void setLocalidad(String localidad) {
 		Localidad = localidad;
-	}
+	}*/
 	public String getProvincia() {
 		return Provincia;
 	}

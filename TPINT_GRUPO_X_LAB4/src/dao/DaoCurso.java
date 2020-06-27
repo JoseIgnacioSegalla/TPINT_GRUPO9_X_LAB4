@@ -212,7 +212,7 @@ public class DaoCurso {
 		{
 			e.printStackTrace();
 		}
-		return Cursos;
+		return AlumnosXCurso;
 	
 	}
 	

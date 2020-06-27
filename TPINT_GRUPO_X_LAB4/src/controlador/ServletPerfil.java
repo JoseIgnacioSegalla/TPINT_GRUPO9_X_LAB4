@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entidad.Localidad;
 import entidad.Profesor;
 
 @WebServlet("/ServletPerfil")
@@ -36,13 +38,15 @@ public class ServletPerfil extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		Profesor NPro = new Profesor();
+		Localidad loc = new Localidad();
 		//LADO IZQUIERDO
 		NPro.setNombre(request.getParameter("Nombre"));
 		NPro.setLegajo(request.getParameter("Legajo"));
 		NPro.setFechaNac(request.getParameter("FechNac"));
-		NPro.setLocalidad(request.getParameter("Localidad"));
+		loc.setNombre(request.getParameter("Localidad"));
+		//NPro.setLocalidad(request.getParameter("Localidad"));
 		NPro.setEmail(request.getParameter("Email"));
-		
+		NPro.setLocalidad(loc);
 		//LADO DERECHO
 		NPro.setApellido(request.getParameter("Apellido"));
 		NPro.setDni(request.getParameter("Dni"));
