@@ -13,7 +13,6 @@ public class DaoUsuarios {
 
 	private static final String insert = "INSERT INTO usuarios(Nombre, Clave,Tipo) VALUES(?, ?, ?)";
 	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ?, Tipo= ?,Estado= ? WHERE IdUsuario= ?";
-	private static final String delete = "DELETE FROM usuarios WHERE IdUsuario= ?";
 	private static final String logic_delete = "UPDATE usuarios SET Estado = 0 WHERE IdUsuarios= ?";
 	private static final String readall = "SELECT * FROM usuarios where Estado = 1";
 	private static final String find = "SELECT IdUsuario,Tipo FROM usuarios WHERE Nombre= ? AND Clave=? AND Estado = 1";
@@ -102,27 +101,6 @@ public class DaoUsuarios {
 		return isdeleteExitoso;
 	}
 	
-	public boolean delete(Usuario NUsu)
-	{
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isdeleteExitoso = false;
-		try 
-		{
-			statement = conexion.prepareStatement(delete);
-			statement.setInt(1, NUsu.getIdUsuario());
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isdeleteExitoso = true;
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return isdeleteExitoso;
-	}
 	public Usuario find(Usuario NUsu)
 	{
 		PreparedStatement statement;
@@ -160,7 +138,7 @@ public class DaoUsuarios {
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
-		ArrayList<Usuario> personas = new ArrayList<Usuario>();
+		ArrayList<Usuario> LUsu = new ArrayList<Usuario>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -168,17 +146,17 @@ public class DaoUsuarios {
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
-				personas.add(getPersona(resultSet));
+				LUsu.add(getUsuario(resultSet));
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return personas;
+		return LUsu;
 	}
 	
-	private Usuario getPersona(ResultSet resultSet) throws SQLException
+	private Usuario getUsuario(ResultSet resultSet) throws SQLException
 	{
 		Usuario NUsu = new Usuario(); 
 		NUsu.setIdUsuario(resultSet.getInt("IdUsuario"));
