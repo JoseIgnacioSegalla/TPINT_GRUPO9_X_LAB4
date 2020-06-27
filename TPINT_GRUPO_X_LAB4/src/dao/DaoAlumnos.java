@@ -11,12 +11,11 @@ import entidad.Alumno;
 
 public class DaoAlumnos {
 
-	private static final String insert = "INSERT INTO alumnos(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Localidad,Provincia,Email,Telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String edit = "UPDATE alumnos SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Localidad= ?,Provincia= ?,Email= ?,Telefono=? WHERE IdAlumno = ?";
-	private static final String delete = "DELETE FROM alumnos WHERE IdAlumno= ?";
+	private static final String insert = "INSERT INTO alumnos(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Email,Telefono,IdLocalidad) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String edit = "UPDATE alumnos SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad= ? WHERE IdAlumno = ?";
 	private static final String logic_delete = "UPDATE alumnos SET Estado = 0 WHERE IdAlumno = ?";
-	private static final String readall = "SELECT * FROM alumnos where Estado = 1";
-	private static final String find = "SELECT Dni FROM alumnos WHERE IdAlumno = ? AND Estado = 1";
+	private static final String readall =  "SELECT a.Legajo,a.Dni,a.Nombre,a.Apellido,a.FechaNac,a.Direccion,a.Email,a.Telefono,l.Nombre FROM alumnos as a inner join localidades as l on l.IdLocalidad = a.IdLocalidad where Estado = 1";
+	private static final String find_Alumno = "SELECT Dni FROM alumnos WHERE IdAlumno = ? AND Estado = 1";
 	
 	public boolean insert(Alumno NAlum)
 	{
@@ -32,10 +31,9 @@ public class DaoAlumnos {
 			statement.setString(4, NAlum.getApellido());
 			statement.setString(5, NAlum.getFechNac());
 			statement.setString(6, NAlum.getDireccion());
-			statement.setString(7, NAlum.getLocalidad());
-			statement.setString(8, NAlum.getProvincia());
-			statement.setString(9, NAlum.getEmail());
-			statement.setString(10, NAlum.getTelefono());
+			statement.setString(7, NAlum.getEmail());
+			statement.setString(8, NAlum.getTelefono());
+			statement.setInt(9, NAlum.getLocalidad().getIdLocalidad());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -69,11 +67,10 @@ public class DaoAlumnos {
 			statement.setString(4, NAlum.getApellido());
 			statement.setString(5, NAlum.getFechNac());
 			statement.setString(6, NAlum.getDireccion());
-			statement.setString(7, NAlum.getLocalidad());
-			statement.setString(8, NAlum.getProvincia());
-			statement.setString(9, NAlum.getEmail());
-			statement.setString(10, NAlum.getTelefono());
-			statement.setInt(11, NAlum.getIdAlumno());
+			statement.setString(7, NAlum.getEmail());
+			statement.setString(8, NAlum.getTelefono());
+			statement.setInt(9, NAlum.getLocalidad().getIdLocalidad());
+			statement.setInt(10, NAlum.getIdAlumno());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -114,27 +111,6 @@ public class DaoAlumnos {
 		return isdeleteExitoso;
 	}
 	
-	public boolean delete(Alumno NAlum)
-	{
-		PreparedStatement statement;
-		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isdeleteExitoso = false;
-		try 
-		{
-			statement = conexion.prepareStatement(delete);
-			statement.setInt(1, NAlum.getIdAlumno());
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isdeleteExitoso = true;
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return isdeleteExitoso;
-	}
 	public boolean find(Alumno NAlum)
 	{
 		PreparedStatement statement;
@@ -143,13 +119,13 @@ public class DaoAlumnos {
 		boolean isfindExitoso = false;
 		try 
 		{
-			statement = conexion.prepareStatement(find);
+			statement = conexion.prepareStatement(find_Alumno);
 			statement.setInt(1, NAlum.getIdAlumno());
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
 				
-				if(NAlum.getIdAlumno() == resultSet.getInt("IdAlumno") )
+				if(NAlum.getIdAlumno() == resultSet.getInt("IdAlumno"))
 				{
 					
 					return true;
@@ -190,18 +166,15 @@ public class DaoAlumnos {
 	private Alumno getPersona(ResultSet resultSet) throws SQLException
 	{
 		Alumno NAlum = new Alumno(); 
-		NAlum.setIdAlumno(resultSet.getInt("IdAlumno"));
-		NAlum.setLegajo(resultSet.getString("Legajo"));
-		NAlum.setDni(resultSet.getString("Dni"));
-		NAlum.setNombre(resultSet.getString("Nombre"));
-		NAlum.setApellido(resultSet.getString("Apellido"));
-		NAlum.setFechaNac(resultSet.getString("FechaNac"));
-		NAlum.setDireccion(resultSet.getString("Direccion"));
-		NAlum.setLocalidad(resultSet.getString("Localidad"));
-		NAlum.setProvincia(resultSet.getString("Provincia"));
-		NAlum.setEmail(resultSet.getString("Email"));
-		NAlum.setTelefono(resultSet.getString("Telefono"));
-		
+		NAlum.setLegajo(resultSet.getString("a.Legajo"));
+		NAlum.setDni(resultSet.getString("a.Dni"));
+		NAlum.setNombre(resultSet.getString("a.Nombre"));
+		NAlum.setApellido(resultSet.getString("a.Apellido"));
+		NAlum.setFechaNac(resultSet.getString("a.FechaNac"));
+		NAlum.setDireccion(resultSet.getString("a.Direccion"));
+		NAlum.setEmail(resultSet.getString("a.Email"));
+		NAlum.setTelefono(resultSet.getString("a.Telefono"));
+		NAlum.getLocalidad().setNombre(resultSet.getString("l.Nombre"));
 	
 		return NAlum;
 	}
