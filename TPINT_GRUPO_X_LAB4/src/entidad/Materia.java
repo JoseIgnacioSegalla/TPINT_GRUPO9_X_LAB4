@@ -3,7 +3,7 @@ package entidad;
 public class Materia {
 
 	private int IdMateria;
-	private String Nombre_Materia;
+	private String Nombre;
 	
 	
 
@@ -15,12 +15,12 @@ public class Materia {
 		IdMateria = idMateria;
 	}
 	
-	public String getNombre_Materia() {
-		return Nombre_Materia;
+	public String getNombre() {
+		return Nombre;
 	}
 	
-	public void setNombre_Materia(String nombre_Materia) {
-		Nombre_Materia = nombre_Materia;
+	public void setNombre(String nombre) {
+		Nombre = nombre;
 	}
 	
 }
