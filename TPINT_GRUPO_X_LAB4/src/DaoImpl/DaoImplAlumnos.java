@@ -7,15 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoAlumnos;
 import entidad.Alumno;
 
-public class DaoImplAlumnos {
+public class DaoImplAlumnos implements DaoAlumnos {
 
 	private static final String insert = "INSERT INTO alumnos(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Email,Telefono,IdLocalidad) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String edit = "UPDATE alumnos SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad= ? WHERE IdAlumno = ?";
 	private static final String logic_delete = "UPDATE alumnos SET Estado = 0 WHERE IdAlumno = ?";
 	private static final String readall =  "SELECT a.Legajo,a.Dni,a.Nombre,a.Apellido,a.FechaNac,a.Direccion,a.Email,a.Telefono,l.Nombre FROM alumnos as a inner join localidades as l on l.IdLocalidad = a.IdLocalidad where Estado = 1";
 	private static final String find_Alumno = "SELECT Dni FROM alumnos WHERE IdAlumno = ? AND Estado = 1";
+	
+	public DaoImplAlumnos()
+	{
+		
+	}
 	
 	public boolean insert(Alumno NAlum)
 	{
@@ -178,5 +184,7 @@ public class DaoImplAlumnos {
 	
 		return NAlum;
 	}
+
+	
 	
 }
