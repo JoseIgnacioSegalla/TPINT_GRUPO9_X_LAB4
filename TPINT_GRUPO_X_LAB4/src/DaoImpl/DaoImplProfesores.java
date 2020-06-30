@@ -7,15 +7,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoProfesores;
 import entidad.Profesor;
 
-public class DaoImplProfesores {
+public class DaoImplProfesores implements DaoProfesores {
 
 
 	private static final String insert = "INSERT INTO profesores(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Localidad,Provincia,Email,Telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String edit = "UPDATE profesores SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLpcalidad = ? WHERE IdAlumno = ?";
 	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE idprofesores = ?";
 	private static final String readall = "SELECT * FROM profesores where Estado = 1";
+	private static final String readOne = "SELECT * FROM profesores where Estado = 1 AND Dni=?";
 	private static final String find = "SELECT Dni FROM  WHERE idprofesores = ? AND Estado = 1";
 	
 	public boolean insert(Profesor NProf)
@@ -186,5 +188,29 @@ public class DaoImplProfesores {
 		
 	
 		return NProf;
+	}
+	@Override
+	public Profesor readOne(int dni) {
+		PreparedStatement statement;
+		ResultSet resultSet;
+		
+		Profesor p = new Profesor();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readOne);
+			statement.setInt(1, dni);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				p = getProfesor(resultSet);
+				
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return p;
 	}
 }

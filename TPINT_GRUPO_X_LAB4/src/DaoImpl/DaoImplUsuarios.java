@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoUsuarios;
 import entidad.Usuario;
 
-public class DaoImplUsuarios {
+public class DaoImplUsuarios implements DaoUsuarios {
 	
 	private static final String insert = "INSERT INTO usuarios(Nombre, Clave,Tipo) VALUES(?, ?, ?)";
 	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ?, Tipo= ?,Estado= ? WHERE IdUsuario= ?";
