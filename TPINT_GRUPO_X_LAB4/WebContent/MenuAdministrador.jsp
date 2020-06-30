@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Menu Administrador</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,8 +65,7 @@
 						<input type="submit" class="btn btn-success btn-lg btn-block" value="Crear Curso" name="BtnCrearCurso"/>
 					</div>
 				</div>
-				<table class="table table-bordered table-hover"
-					style="margin-top: 2%">
+				<table class="table table-bordered table-hover"	style="margin-top: 2%" id="TableMenuAdmin">
 
 					<!-- CAMBIAR DATOS DE LA TABLA -->
 					<thead class="thead-dark">
@@ -120,6 +120,15 @@
 	</div>
 </div>
 </form>
-
+					
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>	
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script>
+					
+   $('#TableMenuAdmin').DataTable();
+</script>	
 </body>
 </html>
