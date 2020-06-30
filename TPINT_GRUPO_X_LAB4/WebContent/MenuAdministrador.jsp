@@ -65,6 +65,7 @@
 						<input type="submit" class="btn btn-success btn-lg btn-block" value="Crear Curso" name="BtnCrearCurso"/>
 					</div>
 				</div>
+				<div class="container mb-5 mt-3">
 				<table class="table table-bordered table-hover"	style="margin-top: 2%" id="TableMenuAdmin">
 
 					<!-- CAMBIAR DATOS DE LA TABLA -->
@@ -114,7 +115,9 @@
 							
 						</tr>
 					</tbody>
+
 				</table>
+				</div>
 
 			</div>
 	</div>
@@ -126,10 +129,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>	
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script>
-					
+<script>					
    $('#TableMenuAdmin').DataTable({
-	   orden:[[3,'desc']],
+
 	   pagingType: 'full_numbers'
    });
 </script>	
