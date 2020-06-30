@@ -1,18 +1,21 @@
-package negocioImpl;
+package NegocioImpl;
 
 import java.util.ArrayList;
-import daoImpl.DaoImplUsuarios;
+import DaoImpl.DaoImplUsuarios;
 import entidad.Usuario;
-import negocio.NegUsuarios;
+import Negocio.NegUsuarios;
+import dao.DaoUsuarios;
 
 public class NegImplUsuario implements NegUsuarios {
 
+	private DaoUsuarios DaoUs = new DaoImplUsuarios();
 	DaoImplUsuarios DNUsu = new DaoImplUsuarios();
+	
 	Usuario NUsu = new Usuario();
 	@Override
 	public ArrayList<Usuario> ListarUsuarios() {
 		
-		return null;
+		return (ArrayList<Usuario>) DaoUs.readAll();
 	}
 
 	@Override

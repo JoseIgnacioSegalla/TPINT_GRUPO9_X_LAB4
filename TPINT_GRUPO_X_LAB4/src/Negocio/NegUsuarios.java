@@ -1,4 +1,4 @@
-package negocio;
+package Negocio;
 
 import entidad.Usuario;
 import java.util.ArrayList;

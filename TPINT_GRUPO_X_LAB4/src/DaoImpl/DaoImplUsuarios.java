@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoUsuarios;
 import entidad.Usuario;
 
-public class DaoImplUsuarios {
+public class DaoImplUsuarios implements DaoUsuarios {
 	
 	private static final String insert = "INSERT INTO usuarios(Nombre, Clave,Tipo) VALUES(?, ?, ?)";
 	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ?, Tipo= ?,Estado= ? WHERE IdUsuario= ?";
@@ -107,6 +108,7 @@ public class DaoImplUsuarios {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Usuario NUsuario = new Usuario();
 		
 		try 
 		{
@@ -120,7 +122,6 @@ public class DaoImplUsuarios {
 				
 				if(resultSet.getInt("IdUsuario") > 0)
 				{
-					Usuario NUsuario = new Usuario();
 					NUsuario.setIdUsuario(resultSet.getInt("IdUsuario"));
 					NUsuario.setNombre(NUsu.getNombre());
 					NUsuario.setNombre(NUsu.getClave());

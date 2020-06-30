@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import dao.DaoMateria;
 import entidad.Materia;
 
-public class DaoImplMateria {
+public class DaoImplMateria implements DaoMateria {
 	
 private static final String readall = "SELECT IdMateria,Nombre FROM materias";
 	

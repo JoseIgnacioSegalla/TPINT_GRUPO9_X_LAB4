@@ -1,6 +1,4 @@
-package negocio;
-
-
+package Negocio;
 
 public interface NegReportes {
 
