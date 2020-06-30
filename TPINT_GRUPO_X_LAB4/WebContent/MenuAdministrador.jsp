@@ -130,6 +130,7 @@
 					
    $('#TableMenuAdmin').DataTable({
 	   orden:[[3,'desc']],
+	   
 	   pagingType: 'full_numbers'
    });
 </script>	
