@@ -7,7 +7,6 @@ import entidad.Profesor;
 public interface DaoProfesores {
 
 	public List<Profesor> readAll();
-	public Profesor readOne(int Dni);
 	public boolean insert(Profesor NProf);
 	public boolean edit (Profesor NProf);
 	public boolean logic_delete(Profesor NProf);

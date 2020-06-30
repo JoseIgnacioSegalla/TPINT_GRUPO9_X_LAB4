@@ -46,7 +46,7 @@ public class ServletPerfil extends HttpServlet {
 		loc.setNombre(request.getParameter("Localidad"));
 		//NPro.setLocalidad(request.getParameter("Localidad"));
 		NPro.setEmail(request.getParameter("Email"));
-		NPro.setLocalidad(loc);
+		NPro.setLocalidad(loc.getNombre());
 		//LADO DERECHO
 		NPro.setApellido(request.getParameter("Apellido"));
 		NPro.setDni(request.getParameter("Dni"));

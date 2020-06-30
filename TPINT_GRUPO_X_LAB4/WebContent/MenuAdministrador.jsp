@@ -18,7 +18,7 @@
         <a class="nav-link" href="MenuAdministradorAlumnos.jsp">Alumnos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministradorProfesores.jsp">Profesores</a>
+        <a class="nav-link" href="ServletProfesor?Param=1">Profesores</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="MenuAdministradorReportes.jsp">Reportes</a>

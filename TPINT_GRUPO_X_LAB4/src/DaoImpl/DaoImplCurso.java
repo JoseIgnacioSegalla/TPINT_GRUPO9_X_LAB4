@@ -7,11 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.DaoCurso;
 import entidad.Alumno;
 import entidad.Curso;
 
-public class DaoImplCurso implements DaoCurso {
+public class DaoImplCurso {
 
 	private static final String insert = "INSERT INTO cursos(IdMateria,IdProfesor,Cuatrimestre,Año) VALUES(?, ?, ?, ?)";
 	private static final String edit = "UPDATE cursos SET IdMateria= ?,IdProfesor= ?, Cuatrimestre= ?,Año= ? WHERE IdCurso  = ?";

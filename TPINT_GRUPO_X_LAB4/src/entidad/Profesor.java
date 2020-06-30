@@ -21,7 +21,7 @@ public class Profesor extends Persona{
 	public String toString() {
 		return "Profesor [IdProfesor=" + IdProfesor + ", getLegajo()=" + getLegajo() + ", getDni()=" + getDni()
 				+ ", getNombre()=" + getNombre() + ", getApellido()=" + getApellido() + ", getFechNac()=" + getFechNac()
-				+ ", getDireccion()=" + getDireccion() + ", getLocalidad()=" + getLocalidad() + ", getProvincia()="
+				+ ", getDireccion()=" + getDireccion() + ", getLocalidad()=" + getLocalidad1() + ", getProvincia()="
 				+ getProvincia() + ", getEmail()=" + getEmail() + ", getTelefono()=" + getTelefono() + "]";
 	}
 

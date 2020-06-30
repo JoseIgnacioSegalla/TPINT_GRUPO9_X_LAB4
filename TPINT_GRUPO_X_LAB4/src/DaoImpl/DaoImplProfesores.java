@@ -7,18 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.DaoProfesores;
 import entidad.Profesor;
 
-public class DaoImplProfesores implements DaoProfesores {
+public class DaoImplProfesores {
 
 
 	private static final String insert = "INSERT INTO profesores(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Localidad,Provincia,Email,Telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String edit = "UPDATE profesores SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLpcalidad = ? WHERE IdAlumno = ?";
-	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE IdAlumno = ?";
+	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE idprofesores = ?";
 	private static final String readall = "SELECT * FROM profesores where Estado = 1";
-	private static final String readOne = "SELECT * FROM profesores where Estado = 1 AND Dni= ?";
-	private static final String find = "SELECT Dni FROM  WHERE IdAlumno = ? AND Estado = 1";
+	private static final String find = "SELECT Dni FROM  WHERE idprofesores = ? AND Estado = 1";
 	
 	public boolean insert(Profesor NProf)
 	{
@@ -36,7 +34,7 @@ public class DaoImplProfesores implements DaoProfesores {
 			statement.setString(6, NProf.getDireccion());
 			statement.setString(7, NProf.getEmail());
 			statement.setString(8, NProf.getTelefono());
-			statement.setInt(9, NProf.getLocalidad().getIdLocalidad());
+			statement.setString(9, NProf.getLocalidad1());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -72,7 +70,7 @@ public class DaoImplProfesores implements DaoProfesores {
 			statement.setString(6, NProf.getDireccion());
 			statement.setString(7, NProf.getEmail());
 			statement.setString(8, NProf.getTelefono());
-			statement.setInt(9, NProf.getLocalidad().getIdLocalidad());
+			statement.setString(9, NProf.getLocalidad1());
 			statement.setInt(10, NProf.getIdProfesor());
 			if(statement.executeUpdate() > 0)
 			{
@@ -143,6 +141,14 @@ public class DaoImplProfesores implements DaoProfesores {
 		return isfindExitoso;
 		
 	}
+	public ArrayList<Profesor> all()
+	{
+		ArrayList<Profesor> personas= new ArrayList<Profesor>();
+		
+		
+		
+		return personas;
+	}
 	public List<Profesor> readAll()
 	{
 		PreparedStatement statement;
@@ -165,46 +171,20 @@ public class DaoImplProfesores implements DaoProfesores {
 		return personas;
 	}
 	
-	public Profesor readOne(int Dni)
-	{
-		PreparedStatement statement;
-		ResultSet resultSet;
-		
-		Profesor p = new Profesor();
-		Conexion conexion = Conexion.getConexion();
-		try 
-		{
-			statement = conexion.getSQLConexion().prepareStatement(readOne);
-			statement.setInt(1, Dni);
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				p = getProfesor(resultSet);
-				
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return p;
-	}
 	private Profesor getProfesor(ResultSet resultSet) throws SQLException
 	{
 		Profesor NProf = new Profesor(); 
-		NProf.setLegajo(resultSet.getString("a.Legajo"));
-		NProf.setDni(resultSet.getString("a.Dni"));
-		NProf.setNombre(resultSet.getString("a.Nombre"));
-		NProf.setApellido(resultSet.getString("a.Apellido"));
-		NProf.setFechaNac(resultSet.getString("a.FechaNac"));
-		NProf.setDireccion(resultSet.getString("a.Direccion"));
-		NProf.setEmail(resultSet.getString("a.Email"));
-		NProf.setTelefono(resultSet.getString("a.Telefono"));
-		NProf.getLocalidad().setNombre(resultSet.getString("l.Nombre"));
+		NProf.setLegajo(resultSet.getString("Legajo"));
+		NProf.setDni(resultSet.getString("Dni"));
+		NProf.setNombre(resultSet.getString("Nombre"));
+		NProf.setApellido(resultSet.getString("Apellido"));
+		NProf.setFechaNac(resultSet.getString("FechaNac"));
+		NProf.setDireccion(resultSet.getString("Direccion"));
+		NProf.setEmail(resultSet.getString("Email"));
+		NProf.setTelefono(resultSet.getString("Telefono"));
+		NProf.setLocalidad(resultSet.getString("Localidad"));
 		
 	
 		return NProf;
 	}
-
-	
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="entidad.Profesor" %>
+<%@page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,19 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
+
+			<%
+			String p =null;
+			//Profesor prof;
+			List<Profesor> listaP= null;
+			if(request.getAttribute("listaP")!=null)
+			listaP = (List<Profesor>)request.getAttribute("listaP");
+			
+			
+			
+			%>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
@@ -17,7 +32,7 @@
 				<li class="nav-item"><a class="nav-link"
 					href="MenuAdministradorAlumnos.jsp">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link   active"
-					href="MenuAdministradorProfesores.jsp">Profesores</a></li>
+					href="ServletProfesor?Param=1">Profesores</a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="MenuAdministradorReportes.jsp">Reportes</a></li>
 			</ul>
@@ -74,9 +89,16 @@
 								</tr>
 							</thead>
 							<tbody>
+							
+							
+							<%for(Profesor prof: listaP){
+								
+								
+							
+								%>
 								<tr>
 									<td><a class="nav-link" href="Perfil.jsp">18888</a></td>
-									<td>Octavio Rosamonte</td>
+									<td> <%=prof.getNombre() %></td>
 									<td>477777888</td>
 									<td><input  class="form-control" type="text"></td>
 									<td><input  class="form-control" type="text"></td>
@@ -88,6 +110,7 @@
 
 
 								</tr>
+								<% } %>
 								<tr>
 									<td>14849</td>
 									<td>Lion Foremon</td>

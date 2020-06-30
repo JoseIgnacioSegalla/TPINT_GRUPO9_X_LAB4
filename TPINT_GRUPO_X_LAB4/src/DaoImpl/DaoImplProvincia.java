@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.DaoProvincia;
 import entidad.Provincia;
 
-public class DaoImplProvincia implements DaoProvincia {
+public class DaoImplProvincia {
 private static final String readall = "SELECT IdProvincia,Nombre FROM provincias";
 
 	

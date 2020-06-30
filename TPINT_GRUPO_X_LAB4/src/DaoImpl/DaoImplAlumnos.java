@@ -39,7 +39,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 			statement.setString(6, NAlum.getDireccion());
 			statement.setString(7, NAlum.getEmail());
 			statement.setString(8, NAlum.getTelefono());
-			statement.setInt(9, NAlum.getLocalidad().getIdLocalidad());
+			statement.setString(9, NAlum.getLocalidad1());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -75,7 +75,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 			statement.setString(6, NAlum.getDireccion());
 			statement.setString(7, NAlum.getEmail());
 			statement.setString(8, NAlum.getTelefono());
-			statement.setInt(9, NAlum.getLocalidad().getIdLocalidad());
+			statement.setString(9, NAlum.getLocalidad1());
 			statement.setInt(10, NAlum.getIdAlumno());
 			
 			if(statement.executeUpdate() > 0)
@@ -180,7 +180,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		NAlum.setDireccion(resultSet.getString("a.Direccion"));
 		NAlum.setEmail(resultSet.getString("a.Email"));
 		NAlum.setTelefono(resultSet.getString("a.Telefono"));
-		NAlum.getLocalidad().setNombre(resultSet.getString("l.Nombre"));
+		NAlum.setLocalidad(resultSet.getString("l.Nombre"));
 	
 		return NAlum;
 	}
