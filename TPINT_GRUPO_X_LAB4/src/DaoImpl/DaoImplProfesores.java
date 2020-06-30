@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoProfesores;
+import entidad.Localidad;
 import entidad.Profesor;
 
 public class DaoImplProfesores implements DaoProfesores {
@@ -192,6 +193,7 @@ public class DaoImplProfesores implements DaoProfesores {
 	private Profesor getProfesor(ResultSet resultSet) throws SQLException
 	{
 		Profesor NProf = new Profesor(); 
+		Localidad loc = new Localidad();
 		NProf.setLegajo(resultSet.getString("a.Legajo"));
 		NProf.setDni(resultSet.getString("a.Dni"));
 		NProf.setNombre(resultSet.getString("a.Nombre"));
@@ -200,8 +202,9 @@ public class DaoImplProfesores implements DaoProfesores {
 		NProf.setDireccion(resultSet.getString("a.Direccion"));
 		NProf.setEmail(resultSet.getString("a.Email"));
 		NProf.setTelefono(resultSet.getString("a.Telefono"));
-		NProf.getLocalidad().setNombre(resultSet.getString("l.Nombre"));
-		
+		loc.setNombre(resultSet.getString("l.Nombre"));
+		//NProf.getLocalidad().setNombre(resultSet.getString("l.Nombre"));
+		NProf.setLocalidad(loc);
 	
 		return NProf;
 	}
