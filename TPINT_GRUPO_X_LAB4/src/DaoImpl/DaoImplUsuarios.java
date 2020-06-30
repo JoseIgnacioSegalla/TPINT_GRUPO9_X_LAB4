@@ -120,9 +120,12 @@ public class DaoImplUsuarios {
 				
 				if(resultSet.getInt("IdUsuario") > 0)
 				{
-					NUsu.setIdUsuario(resultSet.getInt("IdUsuario"));
-					NUsu.setTipo(resultSet.getBoolean("Tipo"));
-					return NUsu;
+					Usuario NUsuario = new Usuario();
+					NUsuario.setIdUsuario(resultSet.getInt("IdUsuario"));
+					NUsuario.setNombre(NUsu.getNombre());
+					NUsuario.setNombre(NUsu.getClave());
+					NUsuario.setTipo(resultSet.getBoolean("Tipo"));
+					return NUsuario;
 					
 				}
 			}
@@ -132,7 +135,7 @@ public class DaoImplUsuarios {
 		{
 			e.printStackTrace();
 		}
-		return NUsu;
+		return NUsuario;
 		
 	}
 	public List<Usuario> readAll()
