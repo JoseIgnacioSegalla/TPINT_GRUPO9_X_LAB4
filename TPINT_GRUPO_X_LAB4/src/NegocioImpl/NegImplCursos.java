@@ -1,6 +1,7 @@
 package NegocioImpl;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 import DaoImpl.DaoImplCurso;
 import Negocio.NegCursos;
@@ -13,9 +14,9 @@ public class NegImplCursos implements NegCursos {
 	private DaoCurso DaoCur = new DaoImplCurso();
 	
 	@Override
-	public ArrayList<Curso> ListarCursos() {
+	public List<Curso> ListarCursos() {
 		
-		return (ArrayList<Curso>) DaoCur.readAll_Cursos();
+		return DaoCur.readAll_Cursos();
 	}
 
 	@Override
@@ -43,9 +44,9 @@ public class NegImplCursos implements NegCursos {
 	}
 
 	@Override
-	public ArrayList<Alumno> Alumnos_X_Curso() {
+	public List<Alumno> Alumnos_X_Curso() {
 	
-		return (ArrayList<Alumno>) DaoCur.readAll_AlumnosxCurso();
+		return DaoCur.readAll_AlumnosxCurso();
 	}
 
 	
