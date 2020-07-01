@@ -40,31 +40,11 @@
 				Tecnico Universitario en Programación
 				</h2>
 				<hr>
-				<div class="row">
-						<div class="col-3">
-						<select class="form-control form-control-lg">
-							<option>Ordenar por..</option>
-							<option>Materia</option>
-							<option>Cuatrimestre</option>
-							<option>Año</option>
-							<option>Nombre de Profesor</option>
-							<option>Legajo</option>
-						</select>
-					</div>
-					<div class="col-3">
-						<select class="form-control form-control-lg">
-							<option>De forma..</option>
-							<option>Ascendente</option>
-							<option>Descendente</option>	
-						</select>
-					</div>
-					<div class="col-3">
-						<button type="submit" class=" btn btn-primary btn-lg ">Ordenar</button>
-					</div>
+				
 					<div class="col-3">
 						<input type="submit" class="btn btn-success btn-lg btn-block" value="Crear Curso" name="BtnCrearCurso"/>
 					</div>
-				</div>
+			
 				<div class="container mb-5 mt-3">
 				<table class="table table-bordered table-hover"	style="margin-top: 2%" id="TableMenuAdmin">
 

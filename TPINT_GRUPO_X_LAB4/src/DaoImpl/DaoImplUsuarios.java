@@ -16,7 +16,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ?, Tipo= ?,Estado= ? WHERE IdUsuario= ?";
 	private static final String logic_delete = "UPDATE usuarios SET Estado = 0 WHERE IdUsuarios= ?";
 	private static final String readall = "SELECT * FROM usuarios where Estado = 1";
-	private static final String find = "SELECT IdUsuario,Tipo FROM usuarios WHERE Nombre= ? AND Clave=? AND Estado = 1";
+	private static final String find = "SELECT IdUsuario,Tipo FROM usuarios WHERE Nombre= ? AND Clave= ? AND Estado = 1";
 	
 	public boolean insert(Usuario NUsu)
 	{
@@ -108,22 +108,24 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		
+		Usuario NUs = new Usuario();
 		try 
 		{
 			statement = conexion.prepareStatement(find);
 			statement.setString(1, NUsu.getNombre());
 			statement.setString(2, NUsu.getClave());
-			
+	
 			resultSet = statement.executeQuery();
-			while(resultSet.next())
+			if(resultSet.next())
 			{
 				
 				if(resultSet.getInt("IdUsuario") > 0)
 				{
-					NUsu.setIdUsuario(resultSet.getInt("IdUsuario"));
-					NUsu.setTipo(resultSet.getBoolean("Tipo"));
-					return NUsu;
+					
+					NUs.setIdUsuario(resultSet.getInt("IdUsuario"));
+					NUs.setNombre(NUsu.getNombre());
+					NUs.setTipo(resultSet.getBoolean("Tipo"));
+					return NUs;
 					
 				}
 			}
@@ -133,7 +135,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		{
 			e.printStackTrace();
 		}
-		return NUsu;
+		return NUs;
 		
 	}
 	public List<Usuario> readAll()
