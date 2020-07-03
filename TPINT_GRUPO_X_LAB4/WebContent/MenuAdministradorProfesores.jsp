@@ -27,8 +27,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link"
-					href="MenuAdministrador.jsp">Inicio</a></li>
+				<a class="nav-link active" href="ServletCurso?Value=MenuCurso" >Menu</a>
 				<li class="nav-item"><a class="nav-link"
 					href="MenuAdministradorAlumnos.jsp">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link   active"
