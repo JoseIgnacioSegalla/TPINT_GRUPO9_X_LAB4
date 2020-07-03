@@ -6,10 +6,10 @@ import java.util.List;
 public class Curso {
 
 	private int IdCurso;
-	private Materia NMateria;
+	private Materia NMateria = new Materia();
 	private String Cuatrimestre;
 	private String Año;
-	private Profesor NProfesor;
+	private Profesor NProfesor = new Profesor();
 	private List<Alumno> LAlum = new ArrayList<Alumno>();
 	
 	public int getIdNumCurso() {

@@ -9,10 +9,11 @@ public class Persona {
 	private String Apellido;
 	private String FechaNac;
 	private String Direccion;
-	private String Localidad;
-	private String Provincia;
+	private Localidad Localidad = new Localidad();
 	private String Email;
 	private String telefono;
+	
+	
 	
 	public String getLegajo() {
 		return Legajo;
@@ -50,18 +51,6 @@ public class Persona {
 	public void setDireccion(String direccion) {
 		Direccion = direccion;
 	}
-	public String getLocalidad1() {
-		return Localidad;
-	}
-	public void setLocalidad(String localidad) {
-		Localidad = localidad;
-	}
-	public String getProvincia() {
-		return Provincia;
-	}
-	public void setProvincia(String provincia) {
-		Provincia = provincia;
-	}
 	public String getEmail() {
 		return Email;
 	}
@@ -75,13 +64,13 @@ public class Persona {
 		this.telefono = telefono;
 	}
 	
-/*	public Localidad getLocalidad() {
+	public Localidad getLocalidad() {
 		return Localidad;
 	}
 	
 	public void setLocalidad(Localidad localidad) {
 		Localidad = localidad;
-	}*/
+	}
 
 
 

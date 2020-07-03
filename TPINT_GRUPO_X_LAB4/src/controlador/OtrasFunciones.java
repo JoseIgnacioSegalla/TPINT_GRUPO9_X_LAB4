@@ -29,15 +29,11 @@ public class OtrasFunciones {
 			+ "})" 
 			+ "</script>\r\n";
 		
-		case 3:
-			
-			return "hola1";
-			
 
 		
 		default:
 			
-			return "Hola2";
+			return "";
 		
 		}
 		
@@ -51,21 +47,20 @@ public class OtrasFunciones {
 		
 		case 1:
 			
-			return "<script src=\"https://code.jquery.com/jquery-3.3.1.min.js\"></script>\r\n" + 
+			return "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/sp-1.1.1/sl-1.3.1/datatables.min.css\"/>\r\n" + 
+					"<script type=\"text/javascript\" src=\"https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/sp-1.1.1/sl-1.3.1/datatables.min.js\"></script>\r\n" + 
+					"<script src=\"https://code.jquery.com/jquery-3.3.1.min.js\"></script>\r\n" + 
 					"<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\"></script>\r\n" + 
-					"<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js\"></script>	\r\n" + 
+					"<script src=\"https://stackpath.bootstrapcd	n.com/bootstrap/4.3.1/js/bootstrap.min.js\"></script>	\r\n" + 
 					"<script src=\"https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js\"></script>\r\n" + 
 					"<script src=\"https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js\"></script>\r\n" + 
-					"<script>					\r\n" + 
+					"<script> \r\n" + 
 					"   $('"+ NombreTabla +"').DataTable({\r\n" + 
 					"\r\n" + 
 					"	   pagingType: 'full_numbers'\r\n" + 
 					"   });\r\n" + 
 					"</script>";
 			
-		case 2:
-			
-			return "";
 			
 		default:
 			

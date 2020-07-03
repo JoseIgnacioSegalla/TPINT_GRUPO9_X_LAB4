@@ -10,6 +10,7 @@ import java.util.List;
 import dao.DaoCurso;
 import entidad.Alumno;
 import entidad.Curso;
+import entidad.Profesor;
 
 public class DaoImplCurso implements DaoCurso {
 
@@ -17,8 +18,10 @@ public class DaoImplCurso implements DaoCurso {
 	private static final String edit = "UPDATE cursos SET IdMateria= ?,IdProfesor= ?, Cuatrimestre= ?,Año= ? WHERE IdCurso  = ?";
 	private static final String delete = "DELETE FROM cursos WHERE IdCurso= ?";
 	private static final String logic_delete = "UPDATE cursos SET Estado = 0 WHERE IdCurso = ?";
-	private static final String readall_Cursos = "select m.Nombre as Materia,c.Cuatrimestre,c.Año from Cursos as c\r\n" + 
-			"inner join materias as m on m.IdMateria = c.IdMateria where c.Estado = 1";
+	private static final String readall_Cursos = "select m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo from Cursos as c \r\n" + 
+			"inner join materias as m on m.IdMateria = c.IdMateria \r\n" + 
+			"inner join profesores as p on p.IdProfesor = c.IdProfesor\r\n" + 
+			"where c.Estado = 1";
 	private static final String readall_Alumnos_x_Curso = "SELECT * FROM cursos where Estado = 1";
 	private static final String find = "select a.Legajo,concat(a.nombre,' ',a.Apellido) as \"Nombre y Apellido\",a.Dni,c.EstadoAlumno from alumnos as a\r\n" + 
 			"inner join alumnosxcurso as c on c.IdAlumno = a.IdAlumno\r\n" + 
@@ -184,12 +187,13 @@ public class DaoImplCurso implements DaoCurso {
 	
 	private Curso getCurso(ResultSet resultSet) throws SQLException
 	{
-		Curso NCurso = new Curso(); 
-		NCurso.setIdNumCurso(resultSet.getInt("IdCurso"));
-		NCurso.getNMateria().setIdMateria(resultSet.getInt("IdMateria"));
-		NCurso.getNProfesor().setIdProfesor(resultSet.getInt("IdProfesor"));
+		Curso NCurso = new Curso();
+		
+		NCurso.getNMateria().setNombre(resultSet.getString("Materia"));
 		NCurso.setCuatrimestre(resultSet.getString("Cuatrimestre"));
-		NCurso.setAño(resultSet.getString("Año"));
+		NCurso.setAño(resultSet.getString("Año"));	
+		NCurso.getNProfesor().setNombre(resultSet.getString("Profesor"));
+		NCurso.getNProfesor().setLegajo(resultSet.getString("Legajo"));
 
 		return NCurso;
 	}
