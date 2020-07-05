@@ -1,8 +1,11 @@
 package Negocio;
-import java.util.ArrayList;
+
+import java.util.List;
+
 import entidad.Localidad;
 public interface NegLocalidad {
 
-	public ArrayList<Localidad> readAll(int x);
+	public List<Localidad> readAll();
+	public Localidad Find();
 	
 }

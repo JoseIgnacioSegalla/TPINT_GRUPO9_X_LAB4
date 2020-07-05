@@ -1,9 +1,10 @@
 package Negocio;
+
 import entidad.Provincia;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface NegProvincia {
 	
-	public ArrayList<Provincia> Readall();
-	
+	public List<Provincia> Readall();
+	public Provincia Find(int x);
 }

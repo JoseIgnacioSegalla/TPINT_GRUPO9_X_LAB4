@@ -32,6 +32,10 @@ private static final String readall = "SELECT IdMateria,Nombre FROM materias";
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return LMate;
 	}
 

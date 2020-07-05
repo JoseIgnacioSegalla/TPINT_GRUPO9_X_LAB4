@@ -1,6 +1,8 @@
 package NegocioImpl;
 
-import java.util.ArrayList;
+
+import java.util.List;
+
 import Negocio.NegAlumno;
 import entidad.Alumno;
 import dao.DaoAlumnos;
@@ -10,13 +12,11 @@ public class  NegImplAlumno implements NegAlumno {
 
 	private DaoAlumnos DaoAlum = new DaoImplAlumnos();
 	
-	public NegImplAlumno(DaoAlumnos DaoAlum) {
-		this.DaoAlum = DaoAlum;
-	}
 	
-	public ArrayList<Alumno> ListarAlumnos()
+	
+	public List<Alumno> ListarAlumnos()
 	{
-		return (ArrayList<Alumno>) DaoAlum.readAll();
+		return DaoAlum.readAll();
 	}
 	
 	public boolean Insertar (Alumno Alumno)
@@ -29,13 +29,13 @@ public class  NegImplAlumno implements NegAlumno {
 		return DaoAlum.edit(Alumno);
 	}
 	
-	public boolean Borrar (Alumno Alumno)
+	public boolean Borrar (int x)
 	{
-		return DaoAlum.logic_delete(Alumno);
+		return DaoAlum.logic_delete(x);
 	}
 	
-	public boolean BuscarDni (Alumno Alumno)
+	public Alumno Buscar (int x)
 	{
-		return DaoAlum.find(Alumno);
+		return DaoAlum.find(x);
 	}
 }

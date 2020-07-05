@@ -1,6 +1,6 @@
 package NegocioImpl;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import DaoImpl.DaoImplProvincia;
 import Negocio.NegProvincia;
@@ -11,9 +11,14 @@ public class NegImplProvincia implements NegProvincia{
 
 	private DaoProvincia DaoPro = new DaoImplProvincia();
 	@Override
-	public ArrayList<Provincia> Readall() {
+	public List<Provincia> Readall() {
 		
-		return (ArrayList<Provincia>) DaoPro.readAll();
+		return DaoPro.readAll();
+	}
+	@Override
+	public Provincia Find(int x) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

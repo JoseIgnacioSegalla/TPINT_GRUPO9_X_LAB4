@@ -10,6 +10,7 @@ public class Persona {
 	private String FechaNac;
 	private String Direccion;
 	private Localidad Localidad = new Localidad();
+	private Usuario NUs = new Usuario();
 	private String Email;
 	private String telefono;
 	
@@ -70,6 +71,12 @@ public class Persona {
 	
 	public void setLocalidad(Localidad localidad) {
 		Localidad = localidad;
+	}
+	public Usuario getNUs() {
+		return NUs;
+	}
+	public void setNUs(Usuario nUs) {
+		NUs = nUs;
 	}
 
 

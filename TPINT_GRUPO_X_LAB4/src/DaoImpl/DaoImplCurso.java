@@ -18,7 +18,7 @@ public class DaoImplCurso implements DaoCurso {
 	private static final String edit = "UPDATE cursos SET IdMateria= ?,IdProfesor= ?, Cuatrimestre= ?,Año= ? WHERE IdCurso  = ?";
 	private static final String delete = "DELETE FROM cursos WHERE IdCurso= ?";
 	private static final String logic_delete = "UPDATE cursos SET Estado = 0 WHERE IdCurso = ?";
-	private static final String readall_Cursos = "select m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo from Cursos as c \r\n" + 
+	private static final String readall_Cursos = "select c.IdCurso as IdCurso, m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo,p.dni as dni from Cursos as c \r\n" + 
 			"inner join materias as m on m.IdMateria = c.IdMateria \r\n" + 
 			"inner join profesores as p on p.IdProfesor = c.IdProfesor\r\n" + 
 			"where c.Estado = 1";
@@ -55,6 +55,10 @@ public class DaoImplCurso implements DaoCurso {
 				e1.printStackTrace();
 			}
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		
 		return isInsertExitoso;
 	}
@@ -87,6 +91,11 @@ public class DaoImplCurso implements DaoCurso {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		return isEditExistoso;
 	}
@@ -109,6 +118,10 @@ public class DaoImplCurso implements DaoCurso {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return isdeleteExitoso;
 	}
 	
@@ -130,6 +143,10 @@ public class DaoImplCurso implements DaoCurso {
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		return isdeleteExitoso;
 	}
@@ -160,6 +177,10 @@ public class DaoImplCurso implements DaoCurso {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return isfindExitoso;
 		
 	}
@@ -167,7 +188,7 @@ public class DaoImplCurso implements DaoCurso {
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
-		ArrayList<Curso> Cursos = new ArrayList<Curso>();
+		List<Curso> Cursos = new ArrayList<Curso>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -182,6 +203,10 @@ public class DaoImplCurso implements DaoCurso {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return Cursos;
 	}
 	
@@ -189,12 +214,14 @@ public class DaoImplCurso implements DaoCurso {
 	{
 		Curso NCurso = new Curso();
 		
+		NCurso.setIdNumCurso(resultSet.getInt("IdCurso"));
 		NCurso.getNMateria().setNombre(resultSet.getString("Materia"));
 		NCurso.setCuatrimestre(resultSet.getString("Cuatrimestre"));
 		NCurso.setAño(resultSet.getString("Año"));	
 		NCurso.getNProfesor().setNombre(resultSet.getString("Profesor"));
 		NCurso.getNProfesor().setLegajo(resultSet.getString("Legajo"));
-
+		NCurso.getNProfesor().setDni(resultSet.getString("dni"));
+		
 		return NCurso;
 	}
 	
@@ -216,6 +243,10 @@ public class DaoImplCurso implements DaoCurso {
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		return AlumnosXCurso;
 	

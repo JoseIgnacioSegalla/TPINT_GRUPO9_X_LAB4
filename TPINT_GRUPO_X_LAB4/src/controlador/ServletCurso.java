@@ -34,11 +34,11 @@ public class ServletCurso extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.print(request.getParameter("Value"));
-		if(request.getParameter("Value").equals("MenuCurso"))
+
+		if(request.getParameter("param").equals("1"))
 		{
 			
-		
+				
 				NegImplCursos NCursos = new NegImplCursos();
 				List<Curso> NLCursos = NCursos.ListarCursos();
 				
@@ -53,6 +53,12 @@ public class ServletCurso extends HttpServlet {
 			
 			
 			
+			
+		}
+		
+		if(request.getParameter("VerCurso") != null) {
+			
+			System.out.print(request.getParameter("VerCurso"));
 			
 		}
 		

@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="entidad.Curso" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Menu Administrador</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -17,16 +16,16 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link active" href="ServletCurso?Value=MenuCurso">Menu</a>
+        <a class="nav-link active" href="ServletCurso?param=1">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministradorAlumnos.jsp">Alumnos</a>
+        <a class="nav-link" href="ServletAlumnos?param=1">Alumnos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ServletProfesor?Param=1">Profesores</a>
+        <a class="nav-link" href="ServletProfesor?param=1">Profesores</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministradorReportes.jsp">Reportes</a>
+        <a class="nav-link" href="ServletReportes?param=1">Reportes</a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -37,16 +36,8 @@
   </div>	
 </nav>
 
-
-
- 
-	
-
-
-
-
-<table id="TablaMenuAdmin" class="table table-hover table-bordered" style="width:80%">
-    <thead>
+<table id="TablaMenuAdmin" class="table table-bordered table-hover" style="margin-top: 2%">
+    <thead class="thead-dark">
         <tr>
             <th>Materia</th>
             <th>Cuatrimestre</th>
@@ -59,7 +50,7 @@
     
     <tbody>
 <%
-    ArrayList<Curso> list = (ArrayList<Curso>) request.getAttribute("Tabla");
+    List<Curso> list = (List<Curso>) request.getAttribute("Tabla");
     for(Curso curso : list) {
     	%>
         <tr>
@@ -67,24 +58,27 @@
             <td><%=curso.getCuatrimestre() %></td>
             <td><%=curso.getAño() %></td>
             <td><%=curso.getNProfesor().getNombre() %></td>
-            <td><a href="ServletPerfil?Legajo=<%=curso.getNProfesor().getLegajo()%>"><%=curso.getNProfesor().getLegajo() %></a></td>
-          
+            <td><a href="ServletPerfil?Profesor= <%=curso.getNProfesor().getIdProfesor()%>"> 
+            <%=curso.getNProfesor().getLegajo()%>
+            </a>
+            </td>
+            <td><a href="ServletCurso?VerCurso= <%=curso.getIdNumCurso() %>" class="btn btn-primary btn-lg" role="button">Ver Curso</a>
+            </td>
+            
+            
         </tr>
-        
+       
 <%
 }
+    
 %>
-    </tbody>
+     </tbody>
 
 </table>
 
-
-			
-				
 <%
-	out.print(request.getAttribute("ScriptTabla"));
-%>			
-
+out.print(request.getAttribute("ScriptTabla"));  
+%>
 
 </body>
 </html>

@@ -14,16 +14,16 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-     <a class="nav-link active" href="ServletCurso?Value=MenuCurso" >Menu</a>
+        <a class="nav-link" href="ServletCurso?param=1">Menu</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministradorAlumnos.jsp">Alumnos</a>
+        <a class="nav-link" href="ServletAlumnos?param=1">Alumnos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ServletProfesor?Param=1">Profesores</a>
-      </li> 
-      <li class="nav-item active">
-        <a class="nav-link" href="MenuAdministradorReportes.jsp">Reportes</a>
+        <a class="nav-link" href="ServletProfesor?param=1">Profesores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="ServletReportes?param=1">Reportes</a>
       </li>
     </ul>
     <ul class="navbar-nav">

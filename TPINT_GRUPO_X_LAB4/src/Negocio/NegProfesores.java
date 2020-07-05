@@ -1,11 +1,11 @@
 package Negocio;
 
 import entidad.Profesor;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface NegProfesores {
 
-	public ArrayList<Profesor> ListarProfesores();
+	public List<Profesor> ListarProfesores();
 	public Profesor ListarUno_X_Dni(int Dni);
 	public boolean Buscar(Profesor Pro);
 	public boolean Borrar(Profesor Pro);

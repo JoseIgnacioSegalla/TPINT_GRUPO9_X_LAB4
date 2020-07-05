@@ -1,6 +1,6 @@
 package NegocioImpl;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import DaoImpl.DaoImplProfesores;
 import Negocio.NegProfesores;
@@ -9,12 +9,13 @@ import entidad.Profesor;
 
 public class NegImplProfesores implements NegProfesores {
 
-	private DaoProfesores DaoPro = new DaoImplProfesores();
+	DaoProfesores DaoPro = new DaoImplProfesores();
 	
 	@Override
-	public ArrayList<Profesor> ListarProfesores() {
+	public List<Profesor> ListarProfesores() {
 		
-		return (ArrayList<Profesor>) DaoPro.readAll();
+		System.out.print("Neg");
+		return DaoPro.readAll();
 	}
 
 	@Override

@@ -15,13 +15,13 @@ public class DaoImplAlumnos implements DaoAlumnos {
 	private static final String insert = "INSERT INTO alumnos(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Email,Telefono,IdLocalidad) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String edit = "UPDATE alumnos SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad= ? WHERE IdAlumno = ?";
 	private static final String logic_delete = "UPDATE alumnos SET Estado = 0 WHERE IdAlumno = ?";
-	private static final String readall =  "SELECT a.Legajo,a.Dni,a.Nombre,a.Apellido,a.FechaNac,a.Direccion,a.Email,a.Telefono,l.Nombre FROM alumnos as a inner join localidades as l on l.IdLocalidad = a.IdLocalidad where Estado = 1";
-	private static final String find_Alumno = "SELECT Dni FROM alumnos WHERE IdAlumno = ? AND Estado = 1";
+	private static final String readall =  "select IdAlumno,Legajo,concat(Nombre,' ',Apellido) as Nombre,dni from Alumnos where estado = 1";
+	private static final String find_Alumno = "SELECT *  FROM alumnos WHERE IdAlumno = ?";
 	
 	public DaoImplAlumnos()
 	{
-		
 	}
+	
 	
 	public boolean insert(Alumno NAlum)
 	{
@@ -39,7 +39,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 			statement.setString(6, NAlum.getDireccion());
 			statement.setString(7, NAlum.getEmail());
 			statement.setString(8, NAlum.getTelefono());
-			statement.setString(9, NAlum.getLocalidad1());
+			statement.setString(9, NAlum.getLocalidad().getNombre());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -54,6 +54,10 @@ public class DaoImplAlumnos implements DaoAlumnos {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		
 		return isInsertExitoso;
@@ -75,7 +79,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 			statement.setString(6, NAlum.getDireccion());
 			statement.setString(7, NAlum.getEmail());
 			statement.setString(8, NAlum.getTelefono());
-			statement.setString(9, NAlum.getLocalidad1());
+			statement.setString(9, NAlum.getLocalidad().getNombre());
 			statement.setInt(10, NAlum.getIdAlumno());
 			
 			if(statement.executeUpdate() > 0)
@@ -93,9 +97,13 @@ public class DaoImplAlumnos implements DaoAlumnos {
 				e1.printStackTrace();
 			}
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return isEditExistoso;
 	}
-	public boolean logic_delete(Alumno NAlum) {
+	public boolean logic_delete(int x) {
 		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -103,7 +111,7 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		try 
 		{
 			statement = conexion.prepareStatement(logic_delete);
-			statement.setInt(1, NAlum.getIdAlumno());
+			statement.setInt(1, x);
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -114,10 +122,14 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return isdeleteExitoso;
 	}
 	
-	public boolean find(Alumno NAlum)
+	public Alumno find(int x)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -126,15 +138,25 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		try 
 		{
 			statement = conexion.prepareStatement(find_Alumno);
-			statement.setInt(1, NAlum.getIdAlumno());
+			statement.setInt(1, x);
 			resultSet = statement.executeQuery();
-			while(resultSet.next())
+			if(resultSet.next())
 			{
 				
-				if(NAlum.getIdAlumno() == resultSet.getInt("IdAlumno"))
+				if(resultSet.getInt("IdAlumno") == x)
 				{
+					Alumno NAlum = new Alumno();
 					
-					return true;
+					NAlum.setIdAlumno(resultSet.getInt("IdAlumno"));
+					NAlum.setNombre(resultSet.getString("Nombre"));
+					NAlum.setApellido(resultSet.getString("Apellido"));
+					NAlum.setFechaNac(resultSet.getString("FechaNac"));
+					NAlum.setDireccion(resultSet.getString("Direccion"));
+					NAlum.setEmail(resultSet.getString("Email"));
+					NAlum.setTelefono(resultSet.getString("Telefono"));
+					NAlum.getLocalidad().setIdLocalidad(resultSet.getInt("IdLocalicad"));
+					
+					return NAlum;
 					
 				}
 			}
@@ -144,14 +166,18 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		{
 			e.printStackTrace();
 		}
-		return isfindExitoso;
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
+		return null;
 		
 	}
 	public List<Alumno> readAll()
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
-		ArrayList<Alumno> personas = new ArrayList<Alumno>();
+		List<Alumno> personas = new ArrayList<Alumno>();
 		Conexion conexion = Conexion.getConexion();
 		try 
 		{
@@ -166,22 +192,22 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return personas;
 	}
 	
 	private Alumno getPersona(ResultSet resultSet) throws SQLException
 	{
-		Alumno NAlum = new Alumno(); 
-		NAlum.setLegajo(resultSet.getString("a.Legajo"));
-		NAlum.setDni(resultSet.getString("a.Dni"));
-		NAlum.setNombre(resultSet.getString("a.Nombre"));
-		NAlum.setApellido(resultSet.getString("a.Apellido"));
-		NAlum.setFechaNac(resultSet.getString("a.FechaNac"));
-		NAlum.setDireccion(resultSet.getString("a.Direccion"));
-		NAlum.setEmail(resultSet.getString("a.Email"));
-		NAlum.setTelefono(resultSet.getString("a.Telefono"));
-		NAlum.setLocalidad(resultSet.getString("l.Nombre"));
-	
+		Alumno NAlum = new Alumno();
+		NAlum.setIdAlumno(resultSet.getInt("IdAlumno"));
+		NAlum.setLegajo(resultSet.getString("Legajo"));
+		NAlum.setNombre(resultSet.getString("Nombre"));
+		NAlum.setDni(resultSet.getString("Dni"));
+		
+		
 		return NAlum;
 	}
 

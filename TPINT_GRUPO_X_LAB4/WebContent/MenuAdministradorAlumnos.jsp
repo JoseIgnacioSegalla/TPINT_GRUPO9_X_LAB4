@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%@ page import="entidad.Alumno"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +15,14 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<a class="nav-link active" href="ServletCurso?Value=MenuCurso" >Menu</a>
-				<li class="nav-item"><a class="nav-link  active"
-					href="MenuAdministradorAlumnos.jsp">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="ServletProfesor?Param=1">Profesores</a></li>
+					href="ServletCurso?param=1">Menu</a></li>
+				<li class="nav-item"><a class="nav-link active"
+					href="ServletAlumnos?param=1">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="MenuAdministradorReportes.jsp">Reportes</a></li>
+					href="ServletProfesor?param=1">Profesores</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="ServletReportes?param=1">Reportes</a></li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item align-right"><a class="nav-link"
@@ -27,83 +31,48 @@
 		</div>
 	</nav>
 
-	<div class="Container" style="margin: 2%">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<div class="row">
-					<div class="col-4">
-						<select class="form-control form-control-lg">
-							<option>Buscar por..</option>
-							<option>Nombre</option>
-							<option>Apellido</option>
-							<option>Dni</option>
-							<option>Legajo</option>
-						</select>
-					</div>
-					<div class="col-4">
-						<input type="text" class="form-control" name="Txt_Buscar" />
-					</div>
-					<div class="col-2">
-						<input type="submit" class=" btn btn-primary btn-lg"
-							value="Buscar" name="Btn_Buscar_Usuario" />
-					</div>
-					<div class="col-2">
-						<a href="Perfil.jsp" class="btn btn-success btn-lg" role="button" >Crear</a>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<table class="table table-bordered table-hover" 
-							style="margin-top: 2%">
 
-							<!-- CAMBIAR DATOS DE LA TABLA -->
-							<thead class="thead-dark">
+	<table id="TablaMenuAdminAlumnos"
+		class="table table-bordered table-hover" style="margin-top: 2%">
 
-								<tr>
+		<!-- CAMBIAR DATOS DE LA TABLA -->
+		<thead class="thead-dark">
 
-									<th scope="col">Legajo</th>
-									<th scope="col">Nombre y apellido</th>
-									<th scope="col">Dni</th>
-									<th scope="col"></th>
+			<tr>
 
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a class="nav-link" href="Perfil.jsp">18888</a></td>
-									<td>Nicolas Barraza</td>
-									<td>48888888</td>
-									<td><input type="submit" value="Eliminar"
-										class="btn btn-primary" /></td>
+				<th scope="col">Legajo</th>
+				<th scope="col">Nombre y apellido</th>
+				<th scope="col">Dni</th>
+				<th scope="col"></th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<%
+			List<Alumno> LAlumnos= (List<Alumno>) request.getAttribute("Tabla");
+			for (Alumno Nal : LAlumnos) {
+			%>
+
+			<tr>
+				<td><a class="nav-link"
+					href="ServletPerfil?VerAlumno=<%=Nal.getIdAlumno()%>"><%=Nal.getLegajo()%></a></td>
+				<td><%=Nal.getNombre()%></td>
+				<td><%=Nal.getDni()%></td>
+				<td><a class="btn btn-primary"
+					href="ServletAlumnos?EliminarAlumno=<%=Nal.getIdAlumno()%>"
+					role="button">Eliminar</a></td>
 
 
-								</tr>
-								<tr>
-									<td>14849</td>
-									<td>Maria Laura</td>
-									<td>27777777</td>
-									<td><input type="submit" value="Eliminar"
-										class="btn btn-primary" /></td>
+				<%
+					}
+				%>
+			
+		</tbody>
+		<%
+			out.print(request.getAttribute("ScriptTabla"));
+		%>
+	</table>
 
-
-								</tr>
-								<tr>
-									<td>89991</td>
-									<td>Leonel furister</td>
-									<td>26666666</td>
-									<td><input type="submit" value="Eliminar"
-										class="btn btn-primary" /></td>
-
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-			<div class="col-3"></div>
-		</div>
-	</div>
 
 
 </body>

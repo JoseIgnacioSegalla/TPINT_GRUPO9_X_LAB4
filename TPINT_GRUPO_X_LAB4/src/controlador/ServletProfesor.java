@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DaoImpl.DaoImplProfesores;
+import NegocioImpl.NegImplProfesores;
 import entidad.Profesor;
 
 /**
@@ -32,20 +33,31 @@ public class ServletProfesor extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		DaoImplProfesores DProf= new DaoImplProfesores();
-		List<Profesor> P = DProf.readAll();
-		//String test= "alan";		
-		if(request.getParameter("Param")!=null) 
+
+		
+		if(request.getParameter("param")!=null) 
 		{
-			request.setAttribute("listaP", P);
+			List<Profesor> LProf = new ArrayList<Profesor>();
+			NegImplProfesores NProf = new NegImplProfesores();
+			LProf = NProf.ListarProfesores();
+			
+			
+			request.setAttribute("Tabla", LProf);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
+			
 			RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
 			rd.forward(request, response);
+			
 		}
 		
 		
 				//////////RequestDispatcher
-		RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
-		rd.forward(request, response);
+		
+	}
+
+	private NegImplProfesores NegImplProfesores() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**

@@ -6,6 +6,6 @@ import entidad.Localidad;
 
 public interface DaoLocalidad {
 
-	public List<Localidad> readAll(int x);	
-
+	public List<Localidad> readAll();	
+	public Localidad Find(int x);
 }

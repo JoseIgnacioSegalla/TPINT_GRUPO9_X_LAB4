@@ -46,6 +46,10 @@ public class DaoImplUsuarios implements DaoUsuarios {
 				e1.printStackTrace();
 			}
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		
 		return isInsertExitoso;
 	}
@@ -78,6 +82,10 @@ public class DaoImplUsuarios implements DaoUsuarios {
 				e1.printStackTrace();
 			}
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return isEditExistoso;
 	}
 	public boolean logic_delete(Usuario NUsu) 
@@ -99,6 +107,10 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		return isdeleteExitoso;
 	}
@@ -135,6 +147,10 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return NUs;
 		
 	}
@@ -156,6 +172,10 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
 		}
 		return LUsu;
 	}

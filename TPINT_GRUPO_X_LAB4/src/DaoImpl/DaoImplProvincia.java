@@ -33,6 +33,10 @@ private static final String readall = "SELECT IdProvincia,Nombre FROM provincias
 		{
 			e.printStackTrace();
 		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
 		return LProv;
 	}
 

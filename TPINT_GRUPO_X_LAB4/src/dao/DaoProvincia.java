@@ -7,6 +7,5 @@ import entidad.Provincia;
 public interface DaoProvincia {
 	
 	public List<Provincia> readAll();
-	
 } 
 
