@@ -18,9 +18,9 @@ public class NegImplLocalidad implements NegLocalidad{
 	}
 
 	@Override
-	public Localidad Find() {
+	public List<Localidad> Find(int x) {
 	
-		return null;
+		return DaoLoc.Find(x);
 	}
 	
 }

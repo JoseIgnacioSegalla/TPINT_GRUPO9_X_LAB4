@@ -44,7 +44,7 @@
             <th>Año</th>
             <th>Nombre de Profesor</th>
             <th>Legajo</th>
-            
+            <th></th>
         </tr>
     </thead>
     

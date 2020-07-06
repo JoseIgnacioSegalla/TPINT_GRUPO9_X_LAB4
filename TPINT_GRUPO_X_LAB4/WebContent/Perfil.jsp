@@ -37,22 +37,23 @@
     <label for="Tit_FechNac">Fecha Nacimiento:</label>
     <input type="date" class="form-control" name="FechNac" value="<%=request.getAttribute("FechaNac") %>" required>
     <br>
+    
 	<label for="Tit_Prov">Provincia:</label>
      <%
 
-    if(request.getParameter("Provincia") != null)
+    if(request.getAttribute("Provincia") != null)
     {
+    	System.out.print("Entro");
     List<Provincia> LProv = (List<Provincia>) request.getAttribute("Provincia");	
     %>
-    <select class="form-control" name="DDLProvincia" id="IdLocalidad">
+    <select class="form-control" name="DDLProvincia" id="IdProvincia" onchange="">
     <option value="0">Seleccione Provincia</option>
     <%
     for(Provincia NProv : LProv){
     	%>
 
-  <option value="<%=NProv.getIdProvincia() %>"><%=NProv.getNombre()%></option>
-
-    	
+ 	 <option value="<%=NProv.getIdProvincia() %>"><%=NProv.getNombre()%></option>
+ 	 	
     	<%
     }
     %>
@@ -60,7 +61,6 @@
     <%
    	}
     %>
-    <input type="Text" class="form-control" name="Localidad" min="3" max="45" required>
     <br>
     <label for="Tit_Email">Email:</label>
     <input type="email" class="form-control" name="Email" min="8" max="45" value="<%=request.getAttribute("Email") %>" required>
@@ -80,22 +80,20 @@
     <input type="Text" class="form-control" name="Direccion" min="8" max="45" value="<%=request.getAttribute("Direccion") %>" required>
     <br>
  
-        <label for="Tit_Loc">Localidad:</label>
+    <label for="Tit_Loc">Localidad:</label>
     <%
 
-    if(request.getParameter("Localidad") != null)
+    if(request.getAttribute("Localidad") != null)
     {
     List<Localidad> LLoc = (List<Localidad>) request.getAttribute("Localidad");	
     %>
+    
     <select class="form-control" name="DDLLocalidad" id="IdLocalidad">
     <option value="0">Seleccione Localidad</option>
     <%
     for(Localidad NLoc : LLoc){
     	%>
-
   <option value="<%=NLoc.getIdLocalidad()%>"><%=NLoc.getNombre()%></option>
-
-    	
     	<%
     }
     %>
@@ -112,10 +110,18 @@
 </div>
 <div class="row">
 <div class="col-12">
-<button type="submit" class="btn btn-primary btn-block" name="Btn_Guardar_Cambios">Guardar Cambios</button>
+<a href="ServletAlumno?ActualizarAlumno=<%=request.getAttribute("IdUsuario") %>" class="btn btn-primary btn-lg btn-block" role="button" >Guardar Cambios</a>
 </div>
 </div>
 </div>
 </form>
 </body>
+<%
+out.print(request.getAttribute("ScriptDDLProvincia"));  
+%>
+<%
+out.print(request.getAttribute("ScriptDDLLocalidad"));  
+%>
+
+
 </html>

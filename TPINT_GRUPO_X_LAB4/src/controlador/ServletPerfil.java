@@ -36,50 +36,59 @@ public class ServletPerfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
-		System.out.print("F0");
+		System.out.printf(request.getParameter("VerAlumno"));
 		
 		if(request.getParameter("VerAlumno") != null) {
 		
 			NegImplAlumno NegAlum = new NegImplAlumno();
+			Alumno NAlum = new Alumno();
+			NAlum  = NegAlum.Buscar(Integer.parseInt(request.getParameter("VerAlumno")));
 			
-			Alumno NAlum  = NegAlum.Buscar(Integer.parseInt(request.getParameter("Alumno")));
+		if(NAlum != null) {
+			System.out.print("Genial");
 			
-			System.out.print("F1");
 			
-			request.setAttribute("Nombre", NAlum.getNombre());
+			
+			request.setAttribute("IdAlumno", NAlum.getIdAlumno());
 			request.setAttribute("Legajo",NAlum.getLegajo());
+			request.setAttribute("Dni",NAlum.getDni());
+			request.setAttribute("Nombre", NAlum.getNombre());
+			request.setAttribute("Apellido",NAlum.getApellido());
 			request.setAttribute("FechaNac",NAlum.getFechNac());
+			request.setAttribute("Direccion",NAlum.getDireccion());
+			request.setAttribute("Email",NAlum.getEmail());
+			request.setAttribute("Telefono",NAlum.getTelefono());
+	
 			
-			Localidad NLoc = new Localidad();
-			NegImplLocalidad NegLoc = new NegImplLocalidad();
-			
-			System.out.print("F2");
-			List<Localidad> LLocalidad = NegLoc.readAll();
-			
-			request.setAttribute("DDLLocalidad", LLocalidad);
-			
-			Provincia NProv = new Provincia();
 			NegImplProvincia NegProv = new NegImplProvincia();
 			
-		
 			List<Provincia> LProvincia = NegProv.Readall();
-			
-			System.out.print("F3");
-			request.setAttribute("DDLProvincia", LProvincia);
 		
-			request.setAttribute("Email",NAlum.getEmail());
-			request.setAttribute("Apellido",NAlum.getApellido());
-			request.setAttribute("Dni",NAlum.getDni());
-			request.setAttribute("Direccion",NAlum.getDireccion());
-			request.setAttribute("Telefono",NAlum.getTelefono());
+			request.setAttribute("Provincia", LProvincia);	
+			request.setAttribute("ScriptDDLProvincia", OtrasFunciones.DDL(1, "DDLProvincia", NAlum.getProvincia().getIdProvincia()));
+			
+		
+			NegImplLocalidad NegLoc = new NegImplLocalidad();
+	
+			List<Localidad> LLocalidad = NegLoc.Find(NAlum.getProvincia().getIdProvincia());
+			
+			request.setAttribute("Localidad", LLocalidad);
+			request.setAttribute("ScriptDDLLocalidad", OtrasFunciones.DDL(1, "DDLLocalidad", NAlum.getLocalidad().getIdLocalidad()));
+			
 		
 			
-			RequestDispatcher rd = request.getRequestDispatcher("perfil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
 			rd.include(request, response);
 			
+			
 		}
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+			
+			
+			
+	
+			
+		}
+
 	}
 
 	/**

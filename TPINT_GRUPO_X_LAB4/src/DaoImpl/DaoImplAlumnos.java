@@ -16,7 +16,9 @@ public class DaoImplAlumnos implements DaoAlumnos {
 	private static final String edit = "UPDATE alumnos SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad= ? WHERE IdAlumno = ?";
 	private static final String logic_delete = "UPDATE alumnos SET Estado = 0 WHERE IdAlumno = ?";
 	private static final String readall =  "select IdAlumno,Legajo,concat(Nombre,' ',Apellido) as Nombre,dni from Alumnos where estado = 1";
-	private static final String find_Alumno = "SELECT *  FROM alumnos WHERE IdAlumno = ?";
+	private static final String find_Alumno = "SELECT IdAlumno,Legajo,Dni,a.Nombre as Nombre,Apellido,FechaNac,Direccion,Email,Telefono,l.IdLocalidad as IdLocalidad,l.IdProvincia as IdProvincia FROM alumnos as a\r\n" + 
+			"INNER JOIN localidades as l on l.IdLocalidad = a.IdLocalidad\r\n" + 
+			"WHERE IdAlumno = ?";
 	
 	public DaoImplAlumnos()
 	{
@@ -148,13 +150,17 @@ public class DaoImplAlumnos implements DaoAlumnos {
 					Alumno NAlum = new Alumno();
 					
 					NAlum.setIdAlumno(resultSet.getInt("IdAlumno"));
+					NAlum.setLegajo(resultSet.getString("Legajo"));
+					NAlum.setDni(resultSet.getString("Dni"));
 					NAlum.setNombre(resultSet.getString("Nombre"));
 					NAlum.setApellido(resultSet.getString("Apellido"));
 					NAlum.setFechaNac(resultSet.getString("FechaNac"));
 					NAlum.setDireccion(resultSet.getString("Direccion"));
 					NAlum.setEmail(resultSet.getString("Email"));
 					NAlum.setTelefono(resultSet.getString("Telefono"));
-					NAlum.getLocalidad().setIdLocalidad(resultSet.getInt("IdLocalicad"));
+					NAlum.getLocalidad().setIdLocalidad(resultSet.getInt("IdLocalidad"));
+					NAlum.getProvincia().setIdProvincia(resultSet.getInt("IdProvincia"));
+					
 					
 					return NAlum;
 					

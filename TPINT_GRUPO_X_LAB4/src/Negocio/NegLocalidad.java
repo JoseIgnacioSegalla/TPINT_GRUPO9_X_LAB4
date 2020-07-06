@@ -6,6 +6,6 @@ import entidad.Localidad;
 public interface NegLocalidad {
 
 	public List<Localidad> readAll();
-	public Localidad Find();
+	public List<Localidad> Find(int x);
 	
 }

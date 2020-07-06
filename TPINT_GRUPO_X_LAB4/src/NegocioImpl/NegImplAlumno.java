@@ -10,7 +10,7 @@ import DaoImpl.DaoImplAlumnos;
 
 public class  NegImplAlumno implements NegAlumno {
 
-	private DaoAlumnos DaoAlum = new DaoImplAlumnos();
+	DaoImplAlumnos DaoAlum = new DaoImplAlumnos();
 	
 	
 	

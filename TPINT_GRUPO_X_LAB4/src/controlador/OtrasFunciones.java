@@ -68,6 +68,24 @@ public class OtrasFunciones {
 		
 		}
 	}
+	public static String DDL(int Opcion,String NombreDDL,int Pos) {
+		
+		switch(Opcion) {
+		
+		case 1:
+			
+		return "<script src=\"https://code.jquery.com/jquery-3.2.1.js\"></script>" +
+		"<script type=\"text/javascript\">" +
+		"$(document).ready(function(){" +
+		"$('#" + NombreDDL + "> option[value=\" "+ Pos +" \"]').attr('selected', 'selected');" +
+		"});" +
+		"</script>";
+			
+		default:
+			
+			return "";
+		}
+	}
 	
 	
 }
