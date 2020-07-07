@@ -18,7 +18,7 @@ public class DaoImplCurso implements DaoCurso {
 	private static final String edit = "UPDATE cursos SET IdMateria= ?,IdProfesor= ?, Cuatrimestre= ?,Año= ? WHERE IdCurso  = ?";
 	private static final String delete = "DELETE FROM cursos WHERE IdCurso= ?";
 	private static final String logic_delete = "UPDATE cursos SET Estado = 0 WHERE IdCurso = ?";
-	private static final String readall_Cursos = "select c.IdCurso as IdCurso, m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo,p.dni as dni from Cursos as c \r\n" + 
+	private static final String readall_Cursos = "select c.IdCurso as IdCurso, m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,c.IdProfesor as IdProfesor, concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo,p.dni as dni from Cursos as c \r\n" + 
 			"inner join materias as m on m.IdMateria = c.IdMateria \r\n" + 
 			"inner join profesores as p on p.IdProfesor = c.IdProfesor\r\n" + 
 			"where c.Estado = 1";
@@ -218,6 +218,7 @@ public class DaoImplCurso implements DaoCurso {
 		NCurso.getNMateria().setNombre(resultSet.getString("Materia"));
 		NCurso.setCuatrimestre(resultSet.getString("Cuatrimestre"));
 		NCurso.setAño(resultSet.getString("Año"));	
+		NCurso.getNProfesor().setIdProfesor(resultSet.getInt("IdProfesor"));
 		NCurso.getNProfesor().setNombre(resultSet.getString("Profesor"));
 		NCurso.getNProfesor().setLegajo(resultSet.getString("Legajo"));
 		NCurso.getNProfesor().setDni(resultSet.getString("dni"));

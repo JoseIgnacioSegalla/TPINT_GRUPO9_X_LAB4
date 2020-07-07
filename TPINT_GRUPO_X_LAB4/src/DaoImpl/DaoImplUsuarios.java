@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoUsuarios;
-import entidad.Profesor;
 import entidad.Usuario;
 
 public class DaoImplUsuarios implements DaoUsuarios {
@@ -27,15 +26,15 @@ public class DaoImplUsuarios implements DaoUsuarios {
 	
 	
 	
-	public boolean insert_usuario_x_profesor(Profesor NProf) {
+	public boolean insert_usuario_x_profesor(int IdUsuario,int IdProfesor) {
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try
 		{
 			statement = conexion.prepareStatement(insert_usuario_x_profesor);
-			statement.setInt(1, NProf.getIdProfesor());
-			statement.setInt(2, NProf.getNUs().getIdUsuario());
+			statement.setInt(1, IdUsuario);
+			statement.setInt(2, IdProfesor);
 			
 			
 			if(statement.executeUpdate() > 0)
@@ -103,10 +102,11 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		try
 		{
 			statement = conexion.prepareStatement(edit);
-			
+			System.out.print(NUsu.getNombre());
+			System.out.print(NUsu.getClave());
 			statement.setString(1, NUsu.getNombre());
 			statement.setString(2, NUsu.getClave());
-			
+			statement.setInt(3, NUsu.getIdUsuario());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -155,7 +155,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		return isdeleteExitoso;
 	}
 	
-	public boolean find_Usuario_Registrado(int x)
+	public int find_Usuario_Registrado(int x)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
@@ -174,7 +174,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 				{
 					
 				
-					return true;
+					return resultSet.getInt("IdUsuario");
 					
 				}
 			}
@@ -188,7 +188,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		{
 		 Conexion.getConexion().cerrarConexion();	
 		}
-		return false;
+		return 0;
 		
 	}
 	public int find_Nombre_Usuario(String Nombre)
@@ -275,6 +275,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		try 
 		{
 			statement = conexion.prepareStatement(find);
+	
 			statement.setString(1, NUsu.getNombre());
 			statement.setString(2, NUsu.getClave());
 	
@@ -284,6 +285,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 				
 				if(resultSet.getInt("IdUsuario") > 0)
 				{
+					
 					NUs.setIdUsuario(resultSet.getInt("IdUsuario"));
 					NUs.setNombre(NUsu.getNombre());
 					NUs.setTipo(resultSet.getBoolean("Tipo"));

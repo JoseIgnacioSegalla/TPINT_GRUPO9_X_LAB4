@@ -17,7 +17,7 @@ public class NegImplUsuario implements NegUsuarios {
 		return  DNUsu.readAll();
 	}
 
-	public boolean BuscarUsuReg(int IdProfesor){
+	public int BuscarUsuReg(int IdProfesor){
 		
 		return DNUsu.find_Usuario_Registrado(IdProfesor);
 	}
@@ -52,6 +52,12 @@ public class NegImplUsuario implements NegUsuarios {
 	public boolean Editar(Usuario Usu) {
 		
 		return DNUsu.edit(Usu);
+	}
+
+	@Override
+	public boolean Insertar_usuario_x_profesor(int IdUsuario, int IdProfesor) {
+		
+		return DNUsu.insert_usuario_x_profesor(IdUsuario, IdProfesor);
 	}
 
 

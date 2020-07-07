@@ -88,7 +88,7 @@ public class ServletPerfil extends HttpServlet {
 			
 			NegImplProfesores NegProf = new NegImplProfesores();
 			Profesor NProf = new Profesor();
-			NProf  = NegProf.Buscar(Integer.parseInt(request.getParameter("VerProfesor")));
+			NProf  = NegProf.Buscar(Integer.parseInt(request.getParameter("VerProfesor").trim()));
 			
 			if(NProf != null) {
 			
@@ -164,7 +164,7 @@ public class ServletPerfil extends HttpServlet {
 			request.setAttribute("Tabla", LAlumnos);
 			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminAlumnos"));
 			
-			request.setAttribute("GuardadoConExito", OtrasFunciones.Advertencia(3));
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorAlumnos.jsp");
 			rd.include(request, response);
@@ -178,7 +178,7 @@ public class ServletPerfil extends HttpServlet {
 			NegImplProfesores NegProf = new NegImplProfesores();
 			Profesor NProf = new Profesor();
 			
-			NProf.setIdProfesor(Integer.parseInt(request.getParameter("IdProfesor")));
+			NProf.setIdProfesor(Integer.parseInt(request.getParameter("IdProfesor").trim()));
 			NProf.setLegajo(request.getParameter("Legajo"));
 			NProf.setDni(request.getParameter("Dni"));
 			NProf.setNombre(request.getParameter("Nombre"));
@@ -199,7 +199,7 @@ public class ServletPerfil extends HttpServlet {
 			request.setAttribute("Tabla", LProf);
 			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
 			
-			request.setAttribute("GuardadoConExito", OtrasFunciones.Advertencia(3));
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
 			rd.include(request, response);

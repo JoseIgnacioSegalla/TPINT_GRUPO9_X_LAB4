@@ -37,7 +37,7 @@ public class ServletUsuario extends HttpServlet {
 		
 		if(request.getParameter("GuardarUsuario") != null)
 		{
-			System.out.print("Entro");
+		
 		
 			if(request.getParameter("Nombre").isEmpty() || request.getParameter("Clave").isEmpty()){
 			
@@ -51,12 +51,14 @@ public class ServletUsuario extends HttpServlet {
 				Usuario NUsu = new Usuario();
 				NUsu.setNombre(request.getParameter("Nombre"));
 				NUsu.setClave(request.getParameter("Clave"));
-				
-				
-				if(NegUs.BuscarUsuReg(Integer.parseInt(request.getParameter("IdProfesor"))))
+				NUsu.setIdUsuario(NegUs.BuscarUsuReg(Integer.parseInt(request.getParameter("IdProfesor"))));
+				System.out.print(NUsu.getIdUsuario());
+				if(NUsu.getIdUsuario() > 1)
 				{
 					int x = NegUs.BuscarNombreUsu(request.getParameter("Nombre"));
 					if(x == 0) {
+						
+						
 						
 						NegUs.Editar(NUsu);
 						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
@@ -64,6 +66,9 @@ public class ServletUsuario extends HttpServlet {
 					}
 					else
 					if(x == Integer.parseInt(request.getParameter("IdProfesor"))) {
+						
+						
+						
 						
 						NegUs.Editar(NUsu);
 						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
@@ -80,6 +85,9 @@ public class ServletUsuario extends HttpServlet {
 					if(x == 0) {
 						
 						NegUs.Insertar(NUsu);
+						Usuario NUsuario = new Usuario();
+						NUsuario = NegUs.BuscarUsu(NUsu);
+						NegUs.Insertar_usuario_x_profesor(NUsuario.getIdUsuario(),Integer.parseInt(request.getParameter("IdProfesor")));
 						
 						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
 						
@@ -88,6 +96,10 @@ public class ServletUsuario extends HttpServlet {
 					if(x == Integer.parseInt(request.getParameter("IdProfesor"))) {
 						
 						NegUs.Insertar(NUsu);
+						Usuario NUsuario = new Usuario();
+						NUsuario = NegUs.BuscarUsu(NUsu);
+						NegUs.Insertar_usuario_x_profesor(NUsuario.getIdUsuario(),Integer.parseInt(request.getParameter("IdProfesor")));
+						
 						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
 				
 					}

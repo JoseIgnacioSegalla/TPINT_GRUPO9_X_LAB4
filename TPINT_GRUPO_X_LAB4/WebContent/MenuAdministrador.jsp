@@ -58,7 +58,7 @@
             <td><%=curso.getCuatrimestre() %></td>
             <td><%=curso.getAño() %></td>
             <td><%=curso.getNProfesor().getNombre() %></td>
-            <td><a href="ServletPerfil?Profesor= <%=curso.getNProfesor().getIdProfesor()%>"> 
+            <td><a href="ServletPerfil?VerProfesor= <%=curso.getNProfesor().getIdProfesor()%>"> 
             <%=curso.getNProfesor().getLegajo()%>
             </a>
             </td>

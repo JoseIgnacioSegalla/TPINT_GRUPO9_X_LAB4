@@ -38,7 +38,6 @@ public class ServletCurso extends HttpServlet {
 		if(request.getParameter("Cursos").equals("1"))
 		{
 			
-				
 				NegImplCursos NCursos = new NegImplCursos();
 				List<Curso> NLCursos = NCursos.ListarCursos();
 				
