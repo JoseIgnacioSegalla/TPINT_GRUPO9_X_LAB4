@@ -9,20 +9,21 @@ import java.util.List;
 
 import dao.DaoProfesores;
 import entidad.Profesor;
-import entidad.Usuario;
 
 public class DaoImplProfesores implements DaoProfesores {
 
 
 	private static final String insert = "INSERT INTO profesores(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Localidad,Provincia,Email,Telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String edit = "UPDATE profesores SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLpcalidad = ? WHERE IdAlumno = ?";
+	private static final String edit = "UPDATE profesores SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad = ? WHERE IdProfesor = ?";
 	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE idprofesores = ?";
 	private static final String readAll = "select p.IdProfesor as IdProfesor,Legajo,concat(p.nombre,' ',p.apellido) as Nombre,Dni,ifnull(u.IdUsuario,'') as IdUsuario,ifnull(u.nombre,'') as Usuario, ifnull(u.Clave,'') as Clave from Profesores as p\r\n" + 
 			"left join usuarioxprofesor as uxp on uxp.IdProfesor = p.IdProfesor\r\n" + 
 			"left join usuarios as u on u.IdUsuario = uxp.IdUsuario\r\n" + 
 			"where p.estado = 1";
 	private static final String readOne = "SELECT * FROM profesores where Estado = 1 AND Dni=?";
-	private static final String find = "SELECT Dni FROM  WHERE idprofesores = ? AND Estado = 1";
+	private static final String find_Profesor = "SELECT IdProfesor,Legajo,Dni,a.Nombre as Nombre,Apellido,FechaNac,Direccion,Email,Telefono,l.IdLocalidad as IdLocalidad,l.IdProvincia as IdProvincia FROM profesores as a\r\n" + 
+			"INNER JOIN localidades as l on l.IdLocalidad = a.IdLocalidad\r\n" + 
+			"WHERE IdProfesor = ?";
 	
 	public boolean insert(Profesor NProf)
 	{
@@ -80,7 +81,7 @@ public class DaoImplProfesores implements DaoProfesores {
 			statement.setString(6, NProf.getDireccion());
 			statement.setString(7, NProf.getEmail());
 			statement.setString(8, NProf.getTelefono());
-			statement.setString(9, NProf.getLocalidad().getNombre());
+			statement.setInt(9, NProf.getLocalidad().getIdLocalidad());
 			statement.setInt(10, NProf.getIdProfesor());
 			if(statement.executeUpdate() > 0)
 			{
@@ -103,7 +104,7 @@ public class DaoImplProfesores implements DaoProfesores {
 		}
 		return isEditExistoso;
 	}
-	public boolean logic_delete(Profesor NProf) {
+	public boolean logic_delete(int i) {
 		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -111,7 +112,7 @@ public class DaoImplProfesores implements DaoProfesores {
 		try 
 		{
 			statement = conexion.prepareStatement(logic_delete);
-			statement.setInt(1, NProf.getIdProfesor());
+			statement.setInt(1, i);
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -129,25 +130,38 @@ public class DaoImplProfesores implements DaoProfesores {
 		return isdeleteExitoso;
 	}
 	
-	public boolean find(Profesor NProf)
+	public Profesor find(int x)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		boolean isfindExitoso = false;
+		
 		try 
 		{
-			statement = conexion.prepareStatement(find);
-			statement.setInt(1, NProf.getIdProfesor());
+			statement = conexion.prepareStatement(find_Profesor);
+			statement.setInt(1, x);
 			resultSet = statement.executeQuery();
-			while(resultSet.next())
+			if(resultSet.next())
 			{
 				
-				if(NProf.getIdProfesor() == resultSet.getInt("IdProfesor") )
+				if(x == resultSet.getInt("IdProfesor") )
 				{
+					Profesor NProf = new Profesor();
 					
-					return true;
+					NProf.setIdProfesor(resultSet.getInt("IdProfesor"));
+					NProf.setLegajo(resultSet.getString("Legajo"));
+					NProf.setDni(resultSet.getString("Dni"));
+					NProf.setNombre(resultSet.getString("Nombre"));
+					NProf.setApellido(resultSet.getString("Apellido"));
+					NProf.setFechaNac(resultSet.getString("FechaNac"));
+					NProf.setDireccion(resultSet.getString("Direccion"));
+					NProf.setEmail(resultSet.getString("Email"));
+					NProf.setTelefono(resultSet.getString("Telefono"));
+					NProf.getLocalidad().setIdLocalidad(resultSet.getInt("IdLocalidad"));
+					NProf.getProvincia().setIdProvincia(resultSet.getInt("IdProvincia"));
 					
+					
+					return NProf;
 				}
 			}
 			
@@ -160,7 +174,7 @@ public class DaoImplProfesores implements DaoProfesores {
 		{
 		 Conexion.getConexion().cerrarConexion();	
 		}
-		return isfindExitoso;
+		return null;
 		
 	}
 	
@@ -187,7 +201,7 @@ public class DaoImplProfesores implements DaoProfesores {
 		{
 		 Conexion.getConexion().cerrarConexion();	
 		}
-		System.out.print("Dao");
+		
 		return personas;
 	}
 	

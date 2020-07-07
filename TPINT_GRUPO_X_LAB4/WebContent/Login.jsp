@@ -21,11 +21,6 @@
 					<hr>
 					
 					<input type="submit" value="Ingresar" class="btn btn-primary btn-block">
-					
-			
-					
-					
-
 				</form>
 			</div>
 			<div class="col-4"></div>

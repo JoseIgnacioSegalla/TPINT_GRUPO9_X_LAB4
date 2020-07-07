@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import NegocioImpl.NegImplAlumno;
 import NegocioImpl.NegImplProfesores;
 import entidad.Profesor;
 
@@ -32,33 +33,41 @@ public class ServletProfesor extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		List<Profesor> LProf = new ArrayList<Profesor>();
+		NegImplProfesores NProf = new NegImplProfesores();
+		LProf = NProf.ListarProfesores();
 
 		
-		if(request.getParameter("param")!=null) 
+		//if(request.getParameter("Profesores") != null) 
+	
+	
+		if(request.getParameter("EliminarProfesor")!= null)
 		{
-			List<Profesor> LProf = new ArrayList<Profesor>();
-			NegImplProfesores NProf = new NegImplProfesores();
-			LProf = NProf.ListarProfesores();
+			NegImplProfesores NegProf = new NegImplProfesores();
+			
+			if(NegProf.Borrar(Integer.parseInt(request.getParameter("EliminarProfesor")))) {
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(4));
+				
+				
+				
+			}
 			
 			
-			request.setAttribute("Tabla", LProf);
-			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
-			
-			RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
-			rd.forward(request, response);
 			
 		}
 		
+		request.setAttribute("Tabla", LProf);
+		request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
 		
-				//////////RequestDispatcher
+		RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+		rd.forward(request, response);
+
+		
 		
 	}
 
-	private NegImplProfesores NegImplProfesores() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -68,5 +77,7 @@ public class ServletProfesor extends HttpServlet {
 		
 		doGet(request, response);
 	}
+	
+	
 
 }

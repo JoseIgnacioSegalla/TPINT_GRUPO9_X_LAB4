@@ -10,7 +10,7 @@ public interface DaoProfesores {
 	public Profesor readOne(int dni);
 	public boolean insert(Profesor NProf);
 	public boolean edit (Profesor NProf);
-	public boolean logic_delete(Profesor NProf);
-	public boolean find(Profesor NProf);
+	public boolean logic_delete(int i);
+	public Profesor find(int i);
 	
 }

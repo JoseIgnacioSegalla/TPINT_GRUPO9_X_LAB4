@@ -30,7 +30,36 @@ public class OtrasFunciones {
 			+ "</script>\r\n";
 		
 
-		
+		case 3:
+			
+			return "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js\"></script>"
+			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>"
+			+ "<script>"
+			+ " $(document).ready(function(){"
+			+ "swal('Genial', 'Guardado con exito' ,'success');"
+			+ "})" 
+			+ "</script>";
+			
+		case 4:
+			
+			return "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js\"></script>"
+					+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>"
+					+ "<script>"
+					+ " $(document).ready(function(){"
+					+ "swal('Genial', 'Eliminado con exito' ,'success');"
+					+ "})" 
+					+ "</script>";
+			
+		case 5:
+					
+			return "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js\"></script>"
+			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>"
+			+ "<script>"
+			+ " $(document).ready(function(){"
+			+ "swal('Error', 'El Nombre de usuario ya existe' ,'error');"
+			+ "})" 
+			+ "</script>";
+			
 		default:
 			
 			return "";

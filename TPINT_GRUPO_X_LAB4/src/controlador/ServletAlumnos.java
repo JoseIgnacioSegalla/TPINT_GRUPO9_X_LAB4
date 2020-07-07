@@ -33,7 +33,7 @@ public class ServletAlumnos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			if(request.getParameter("param") != null) {
+			if(request.getParameter("Alumnos").equals("1")) {
 				
 
 				NegImplAlumno NAlumno = new NegImplAlumno();
@@ -54,24 +54,8 @@ public class ServletAlumnos extends HttpServlet {
 				NegImplAlumno NegAlum = new NegImplAlumno();
 				NegAlum.Borrar(Integer.parseInt(request.getParameter("EliminarAlumno")));
 			}
-			if(request.getParameter("ActualizarAlumno")!= null) {
-				NegImplAlumno NegAlum = new NegImplAlumno();
-				Alumno Nalum = new Alumno();
-				
-				
-				Nalum.setIdAlumno(Integer.parseInt(request.getParameter("IdAlumno")));
-				Nalum.setLegajo(request.getParameter("Legajo"));
-				Nalum.setDni(request.getParameter("Dni"));
-				Nalum.setNombre(request.getParameter("Nombre"));
-				Nalum.setApellido(request.getParameter("Apellido"));
-				Nalum.setFechaNac(request.getParameter("FechaNac"));
-				Nalum.setDireccion(request.getParameter("Direccion"));
-				Nalum.setEmail(request.getParameter("Email"));
-				Nalum.setTelefono(request.getParameter("Telefono"));
-				Nalum.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("IdLocalidad")));
-				
-				NegAlum.Editar(Nalum);
-			}
+			
+			
 			
 	
 	}

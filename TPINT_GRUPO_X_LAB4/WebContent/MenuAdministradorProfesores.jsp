@@ -15,13 +15,13 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link"
-					href="ServletCurso?param=1">Menu</a></li>
+					href="ServletCurso?Cursos=1">Menu</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="ServletAlumnos?param=1">Alumnos</a></li>
+					href="ServletAlumnos?Alumnos=1">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link active"
-					href="ServletProfesor?param=1">Profesores</a></li>
+					href="ServletProfesor?Profesores=1">Profesores</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="ServletReportes?param=1">Reportes</a></li>
+					href="ServletReportes?Reportes=1">Reportes</a></li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item align-right"><a class="nav-link"
@@ -30,7 +30,7 @@
 		</div>
 	</nav>
 
-
+<form  action="ServletUsuario" method="get">
 						<table class="table table-bordered table-hover"
 							style="margin-top: 2%" id="TablaMenuAdminProfesores">
 
@@ -54,19 +54,24 @@
 
 								<%
 									List<Profesor> LProfesor = (List<Profesor>) request.getAttribute("Tabla");
-									for (Profesor prof : LProfesor) {
+									for (Profesor prof : LProfesor) 
+									{
+										
 								%>
 								<tr>
-									<td><a class="nav-link" href="ServletProfesor?VerProfesor=<%=prof.getLegajo()%>"><%=prof.getLegajo()%> </a></td>
+								
+									
+									<td><a class="nav-link" href="ServletPerfil?VerProfesor=<%=prof.getIdProfesor() %>"><%=prof.getLegajo()%> </a></td>
 									<td><%=prof.getNombre()%></td>
 									<td><%=prof.getDni() %></td>
-									<td><input class="form-control" type="text" placeholder="<%=prof.getNUs().getNombre() %>"></td>
-									<td><input class="form-control" type="text" placeholder="<%=prof.getNUs().getClave() %>"></td>
-									<td><a href="ServletProfesor?GuardarProfesor=<%=prof.getNUs().getIdUsuario() %>" class="btn btn-primary btn-lg" role="button" >Guardar</a></td>
-									<td><a href="ServletProfesor?EliminarProfesor=<%=prof.getNUs().getIdUsuario() %>" class="btn btn-danger btn-lg" role="button" >Eliminar</a></td>
+									<td><input id="Nombre" class="form-control" name="Nombre" type="text" value="<%=prof.getNUs().getNombre() %>"></td>
+									<td><input id="Clave" class="form-control" name="Clave" type="text" value="<%=prof.getNUs().getClave() %>"></td>
+									
+									<td><input id="Guardar" class="form-control btn btn-primary" name="GuardarUsuario" type="submit" value="Guardar"><input id="IdProfesor" type="hidden" name="IdProfesor" value="<%=prof.getIdProfesor()%>"></td>
+									
+									<td><input id="Eliminar" class="form-control btn btn-danger" name="EliminarProfesor" type="submit" value="Eliminar"></td>
+									
 								
-
-
 								</tr>
 								<%
 									}
@@ -74,9 +79,35 @@
 								
 							</tbody>
 						</table>
+		</form>				
+
 <%
     out.print(request.getAttribute("ScriptTabla"));  
 %>
-						
+<%
+if(request.getAttribute("Script")!= null){	
+	out.print(request.getAttribute("Script"));  
+}
+%>
+
+<script src="jquery-3.5.1.min.js"></script>
+<script>
+$('#TablaMenuAdminProfesores tbody').on('click','#Guardar',function(){
+	var currow = $(this).closest('tr');
+	var col1 = currow.find("td:eq(3) input[type='text']").val();
+	var col2 = currow.find("td:eq(4) input[type='text']").val();
+	var col3 = currow.find("td:eq(5) input[type='hidden']").val();
+	
+	$("#Nombre").val(col1);
+	$("#Clave").val(col2);
+	$("#IdProfesor").val(col3);
+	
+	var result = col1 +'\n' + col2 + '\n' + col3;
+	alert(result);
+	
+})
+</script>
+
+
 </body>
 </html>

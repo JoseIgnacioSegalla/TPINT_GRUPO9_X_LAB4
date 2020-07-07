@@ -1,23 +1,34 @@
 package NegocioImpl;
 
-import java.util.ArrayList;
+import java.util.List;
 import DaoImpl.DaoImplUsuarios;
 import entidad.Usuario;
 import Negocio.NegUsuarios;
-import dao.DaoUsuarios;
 
 public class NegImplUsuario implements NegUsuarios {
 
-	private DaoUsuarios DaoUs = new DaoImplUsuarios();
+
 	DaoImplUsuarios DNUsu = new DaoImplUsuarios();
 	
 	Usuario NUsu = new Usuario();
 	@Override
-	public ArrayList<Usuario> ListarUsuarios() {
+	public List<Usuario> ListarUsuarios() {
 		
-		return (ArrayList<Usuario>) DaoUs.readAll();
+		return  DNUsu.readAll();
 	}
 
+	public boolean BuscarUsuReg(int IdProfesor){
+		
+		return DNUsu.find_Usuario_Registrado(IdProfesor);
+	}
+	
+
+	@Override
+	public int BuscarNombreUsu(String Nombre) {
+		
+		return DNUsu.find_Nombre_Usuario(Nombre);
+	}
+	
 	@Override
 	public Usuario BuscarUsu(Usuario Usu) {
 	
@@ -42,6 +53,8 @@ public class NegImplUsuario implements NegUsuarios {
 		
 		return DNUsu.edit(Usu);
 	}
+
+
 
 	
 	

@@ -35,7 +35,7 @@ public class ServletCurso extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 
-		if(request.getParameter("param").equals("1"))
+		if(request.getParameter("Cursos").equals("1"))
 		{
 			
 				

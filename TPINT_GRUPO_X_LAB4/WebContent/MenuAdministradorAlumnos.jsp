@@ -16,13 +16,13 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link"
-					href="ServletCurso?param=1">Menu</a></li>
+					href="ServletCurso?Cursos=1">Menu</a></li>
 				<li class="nav-item"><a class="nav-link active"
-					href="ServletAlumnos?param=1">Alumnos</a></li>
+					href="ServletAlumnos?Alumnos=1">Alumnos</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="ServletProfesor?param=1">Profesores</a></li>
+					href="ServletProfesor?Profesores=1">Profesores</a></li>
 				<li class="nav-item"><a class="nav-link"
-					href="ServletReportes?param=1">Reportes</a></li>
+					href="ServletReportes?Reportes=1">Reportes</a></li>
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item align-right"><a class="nav-link"
@@ -68,11 +68,21 @@
 				%>
 			
 		</tbody>
+	
+	</table>
 		<%
 			out.print(request.getAttribute("ScriptTabla"));
 		%>
-	</table>
+		
+<%
+if(request.getAttribute("GuardadoConExito") != null){
+	
+	
+	
+	out.print(request.getAttribute("GuardadoConExito"));  
+}
 
+%>
 
 
 </body>

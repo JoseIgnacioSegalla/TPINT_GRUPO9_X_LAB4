@@ -11,4 +11,6 @@ public interface DaoUsuarios {
 	public boolean edit (Usuario NUsu);
 	public boolean logic_delete(Usuario NUsu);
 	public Usuario find(Usuario NUsu);
+	public boolean find_Usuario_Registrado(int x);
+	public int find_Nombre_Usuario(String Nombre);
 }

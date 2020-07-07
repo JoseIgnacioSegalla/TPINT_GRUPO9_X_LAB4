@@ -23,6 +23,22 @@
 </nav>
 <form action="ServletPerfil" method="post">
 <div class="Container" style="margin:2%">
+<%
+String x;
+if(request.getAttribute("IdAlumno")!= null){
+x = "GuardarAlumno";
+%>
+<input type="hidden" name="IdAlumno" value="<%=request.getAttribute("IdAlumno")%>">
+<%
+}
+else
+{
+x =  "GuardarProfesor";
+%>
+<input type="hidden" name="IdProfesor" value="<%=request.getAttribute("IdProfesor")%>">
+<% 
+}
+%>
 <div class="row">
 <div class="col-6">
 
@@ -35,7 +51,7 @@
     <input type="number" class="form-control" name="Legajo" min="1" max="99999" value="<%=request.getAttribute("Legajo") %>" required>
     <br>
     <label for="Tit_FechNac">Fecha Nacimiento:</label>
-    <input type="date" class="form-control" name="FechNac" value="<%=request.getAttribute("FechaNac") %>" required>
+    <input type="date" class="form-control" name="FechaNac" value="<%=request.getAttribute("FechaNac") %>" required>
     <br>
     
 	<label for="Tit_Prov">Provincia:</label>
@@ -50,11 +66,21 @@
     <option value="0">Seleccione Provincia</option>
     <%
     for(Provincia NProv : LProv){
+    	if(NProv.getIdProvincia() == (int) request.getAttribute("IdProvincia"))
+    	{
+    		%>
+    <option value="<%=NProv.getIdProvincia() %>" selected="selected"><%=NProv.getNombre() %></option>
+    		<%
+    	}else{
+    		
+    	
+    	
     	%>
 
  	 <option value="<%=NProv.getIdProvincia() %>"><%=NProv.getNombre()%></option>
  	 	
     	<%
+    	}
     }
     %>
     </select>
@@ -79,7 +105,7 @@
     <label for="Tit_Direc">Direccion:</label>
     <input type="Text" class="form-control" name="Direccion" min="8" max="45" value="<%=request.getAttribute("Direccion") %>" required>
     <br>
- 
+ 	
     <label for="Tit_Loc">Localidad:</label>
     <%
 
@@ -92,9 +118,16 @@
     <option value="0">Seleccione Localidad</option>
     <%
     for(Localidad NLoc : LLoc){
+    	if(NLoc.getIdLocalidad() == (int) request.getAttribute("IdLocalidad"))
+    	{
+    		%>
+    <option value="<%=NLoc.getIdLocalidad() %>" selected="selected"><%=NLoc.getNombre() %></option>
+    		<%
+    	}else{
     	%>
   <option value="<%=NLoc.getIdLocalidad()%>"><%=NLoc.getNombre()%></option>
     	<%
+    	}
     }
     %>
     </select>
@@ -110,18 +143,20 @@
 </div>
 <div class="row">
 <div class="col-12">
-<a href="ServletAlumno?ActualizarAlumno=<%=request.getAttribute("IdUsuario") %>" class="btn btn-primary btn-lg btn-block" role="button" >Guardar Cambios</a>
+<%
+//String x = "GuardarAlumno";
+//if(){
+//	 x =  "GuardarAlumno";
+	 
+	 
+//}else{
+//	 x = "GuardarProfesor";
+//}
+%>
+<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
 </div>
 </div>
 </div>
 </form>
 </body>
-<%
-out.print(request.getAttribute("ScriptDDLProvincia"));  
-%>
-<%
-out.print(request.getAttribute("ScriptDDLLocalidad"));  
-%>
-
-
 </html>

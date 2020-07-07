@@ -1,6 +1,7 @@
 package controlador;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import NegocioImpl.NegImplUsuario;
 import entidad.Curso;
+import entidad.Profesor;
 import entidad.Usuario;
 import NegocioImpl.NegImplCursos;
+import NegocioImpl.NegImplProfesores;
 
 @WebServlet("/ServletUsuario")
 public class ServletUsuario extends HttpServlet {
@@ -28,10 +31,121 @@ public class ServletUsuario extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		NegImplProfesores NegProfesor = new NegImplProfesores();
+		
+		
+		if(request.getParameter("GuardarUsuario") != null)
+		{
+			System.out.print("Entro");
+		
+			if(request.getParameter("Nombre").isEmpty() || request.getParameter("Clave").isEmpty()){
+			
+				request.setAttribute("Script", OtrasFunciones.Advertencia(1));
+
+			}
+			else
+			{
+				
+				NegImplUsuario NegUs = new NegImplUsuario();
+				Usuario NUsu = new Usuario();
+				NUsu.setNombre(request.getParameter("Nombre"));
+				NUsu.setClave(request.getParameter("Clave"));
+				
+				
+				if(NegUs.BuscarUsuReg(Integer.parseInt(request.getParameter("IdProfesor"))))
+				{
+					int x = NegUs.BuscarNombreUsu(request.getParameter("Nombre"));
+					if(x == 0) {
+						
+						NegUs.Editar(NUsu);
+						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+						
+					}
+					else
+					if(x == Integer.parseInt(request.getParameter("IdProfesor"))) {
+						
+						NegUs.Editar(NUsu);
+						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+						
+					}
+					else 
+					{
+						request.setAttribute("Script", OtrasFunciones.Advertencia(5));
+					}
+				}
+				else
+				{
+					int x = NegUs.BuscarNombreUsu(request.getParameter("Nombre"));
+					if(x == 0) {
+						
+						NegUs.Insertar(NUsu);
+						
+						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+						
+					}
+					else
+					if(x == Integer.parseInt(request.getParameter("IdProfesor"))) {
+						
+						NegUs.Insertar(NUsu);
+						request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+				
+					}
+					else 
+					{
+						request.setAttribute("Script", OtrasFunciones.Advertencia(5));
+					}
+				}
+				
+				//NegProfesor.Editar(NProf);
+
+			}
+			
+		}
+		else
+		{
+			
+	
+			
+			/*if(request.getParameter("Nombre").isEmpty() || request.getParameter("Clave").isEmpty()){
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(1));
+			}
+			else
+			{
+				System.out.print(request.getParameter("Nombre"));
+				System.out.print(request.getParameter("Clave"));
+				Profesor NProf = new Profesor();
+				NegImplProfesores NegProfesor = new NegImplProfesores();
+				NegProfesor.insert(NProf);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+				rd.include(request, response);
+			}*/
+			
+			
+			
+			
+		}
+		
+		List<Profesor> LProf = new ArrayList<Profesor>();
+		LProf = NegProfesor.ListarProfesores();
+		
+
+		request.setAttribute("Tabla", LProf);
+		request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
+		
+		RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+		rd.forward(request, response);
+		
+	
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+	
+		
 		
 		Usuario NUs = new Usuario();
 		PrintWriter out = response.getWriter();
@@ -61,19 +175,18 @@ public class ServletUsuario extends HttpServlet {
 
 
 			HttpSession session = request.getSession();
-
+			
 			session.setAttribute("Nombre", NUs.getNombre());
 			session.setAttribute("IdUsuario", NUs.getIdUsuario());
 
 			if(NUs.getTipo())
 			{
-				out.println("<script>					\r\n" + 
-						"   $('#TablaMenuAdmin').DataTable({\r\n" + 
-						"\r\n" + 
-						"	   pagingType: 'full_numbers'\r\n" + 
-						"   });\r\n" + 
-						"</script>"); 
 				
+				NegImplCursos NCursos = new NegImplCursos();
+				List<Curso> NLCursos = NCursos.ListarCursos();
+				
+				request.setAttribute("Tabla", NLCursos);
+				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuProf"));
 
 				RequestDispatcher rd = request.getRequestDispatcher("MenuProfesor.jsp");
 				rd.include(request, response);

@@ -8,15 +8,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.DaoUsuarios;
+import entidad.Profesor;
 import entidad.Usuario;
 
 public class DaoImplUsuarios implements DaoUsuarios {
 	
-	private static final String insert = "INSERT INTO usuarios(Nombre, Clave,Tipo) VALUES(?, ?, ?)";
-	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ?, Tipo= ?,Estado= ? WHERE IdUsuario= ?";
-	private static final String logic_delete = "UPDATE usuarios SET Estado = 0 WHERE IdUsuarios= ?";
+	private static final String insert = "INSERT INTO usuarios(Nombre, Clave) VALUES(?,?)";
+	private static final String insert_usuario_x_profesor = "INSERT INTO usuarioxprofesor(IdUsuario,IdProfesor) VALUES(?,?)";
+	private static final String edit = "UPDATE usuarios SET Nombre= ?,Clave= ? WHERE IdUsuario= ?";
+	private static final String logic_delete = "UPDATE usuarios SET Estado = 0 WHERE IdUsuario= ?";
 	private static final String readall = "SELECT * FROM usuarios where Estado = 1";
-	private static final String find = "SELECT IdUsuario,Tipo FROM usuarios WHERE Nombre= ? AND Clave= ? AND Estado = 1";
+	private static final String find_Usuario_Registrado = "SELECT IdUsuario FROM usuarioxprofesor WHERE IdProfesor = ?";
+	private static final String find_Usuario = "SELECT IdProfesor from usuarioxprofesor as uxp\r\n" + 
+			"inner join usuarios as u on u.IdUsuario = uxp.IdUsuario\r\n" + 
+			"where u.nombre = ?";
+	private static final String  find = "select IdUsuario,tipo from usuarios\r\n" + 
+			"where nombre = ? and clave = ? and Estado = 1";
+	
+	
+	
+	public boolean insert_usuario_x_profesor(Profesor NProf) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isInsertExitoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(insert_usuario_x_profesor);
+			statement.setInt(1, NProf.getIdProfesor());
+			statement.setInt(2, NProf.getNUs().getIdUsuario());
+			
+			
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isInsertExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
+		
+		return isInsertExitoso;
+	}
 	
 	public boolean insert(Usuario NUsu)
 	{
@@ -28,7 +71,6 @@ public class DaoImplUsuarios implements DaoUsuarios {
 			statement = conexion.prepareStatement(insert);
 			statement.setString(1, NUsu.getNombre());
 			statement.setString(2, NUsu.getClave());
-			statement.setBoolean(3, NUsu.getTipo());
 			
 			
 			if(statement.executeUpdate() > 0)
@@ -64,8 +106,6 @@ public class DaoImplUsuarios implements DaoUsuarios {
 			
 			statement.setString(1, NUsu.getNombre());
 			statement.setString(2, NUsu.getClave());
-			statement.setBoolean(3, NUsu.getTipo());
-			statement.setInt(4, NUsu.getIdUsuario());
 			
 			if(statement.executeUpdate() > 0)
 			{
@@ -115,29 +155,26 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		return isdeleteExitoso;
 	}
 	
-	public Usuario find(Usuario NUsu)
+	public boolean find_Usuario_Registrado(int x)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
-		Usuario NUs = new Usuario();
+		
 		try 
 		{
-			statement = conexion.prepareStatement(find);
-			statement.setString(1, NUsu.getNombre());
-			statement.setString(2, NUsu.getClave());
-	
+			statement = conexion.prepareStatement(find_Usuario_Registrado);
+			statement.setInt(1, x);
+			
 			resultSet = statement.executeQuery();
 			if(resultSet.next())
 			{
 				
-				if(resultSet.getInt("IdUsuario") > 0)
+				if(resultSet.getInt("IdUsuario") > 1)
 				{
 					
-					NUs.setIdUsuario(resultSet.getInt("IdUsuario"));
-					NUs.setNombre(NUsu.getNombre());
-					NUs.setTipo(resultSet.getBoolean("Tipo"));
-					return NUs;
+				
+					return true;
 					
 				}
 			}
@@ -151,7 +188,42 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		{
 		 Conexion.getConexion().cerrarConexion();	
 		}
-		return NUs;
+		return false;
+		
+	}
+	public int find_Nombre_Usuario(String Nombre)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try 
+		{
+			statement = conexion.prepareStatement(find_Usuario);
+			statement.setString(1, Nombre);
+	
+			resultSet = statement.executeQuery();
+			if(resultSet.next())
+			{
+				
+				if(resultSet.getInt("IdProfesor") > 0)
+				{
+					
+					
+					return resultSet.getInt("IdProfesor");
+					
+				}
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
+		return 0;
 		
 	}
 	public List<Usuario> readAll()
@@ -191,5 +263,44 @@ public class DaoImplUsuarios implements DaoUsuarios {
 		
 	
 		return NUsu;
+	}
+
+	@Override
+	public Usuario find(Usuario NUsu) {
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		Usuario NUs = new Usuario();
+		try 
+		{
+			statement = conexion.prepareStatement(find);
+			statement.setString(1, NUsu.getNombre());
+			statement.setString(2, NUsu.getClave());
+	
+			resultSet = statement.executeQuery();
+			if(resultSet.next())
+			{
+				
+				if(resultSet.getInt("IdUsuario") > 0)
+				{
+					NUs.setIdUsuario(resultSet.getInt("IdUsuario"));
+					NUs.setNombre(NUsu.getNombre());
+					NUs.setTipo(resultSet.getBoolean("Tipo"));
+					return NUs;
+					
+				}
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
+		return null;
 	}
 }
