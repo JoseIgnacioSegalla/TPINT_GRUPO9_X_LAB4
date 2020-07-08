@@ -55,7 +55,7 @@ public class ServletAlumnos extends HttpServlet {
 			if(request.getParameter("AgregarAlumno") != null)
 			{
 				
-				
+				request.setAttribute("Tipo", "3");
 				request.setAttribute("Nombre", "");
 				request.setAttribute("Legajo", "");
 				request.setAttribute("FechaNac", "");
@@ -92,6 +92,16 @@ public class ServletAlumnos extends HttpServlet {
 			{
 				NegImplAlumno NegAlum = new NegImplAlumno();
 				NegAlum.Borrar(Integer.parseInt(request.getParameter("EliminarAlumno")));
+
+				List<Alumno> LAlumnos = NegAlum.ListarAlumnos();
+				
+				request.setAttribute("Tabla", LAlumnos);
+				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminAlumnos"));
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(4));
+				
+				RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorAlumnos.jsp");
+				rd.include(request, response);
 			}
 	
 	}

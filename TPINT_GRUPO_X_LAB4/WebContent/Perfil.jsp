@@ -25,6 +25,15 @@
 <div class="Container" style="margin:2%">
 <%
 String x = "";
+
+if(request.getAttribute("Tipo") == "2"){
+x = "AgregarProfesor";	
+}
+else
+if(request.getAttribute("Tipo") == "3"){
+x = "AgregarAlumno";	
+}
+else
 if(request.getAttribute("IdAlumno")!= null && request.getAttribute("Tipo") == "0"){
 x = "VerPerfilAlumno";
 }
@@ -188,6 +197,14 @@ x= "GuardarProfesor";
 %>
 <input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
 <% 
+}else if(x.equals("AgregarAlumno")){
+%>
+<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
+<%
+}else if(x.equals("AgregarProfesor")){
+%>
+<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
+<%
 }else{
 %>
 <input type="submit" name="GuardarAlumno" class="btn btn-primary btn-lg btn-block" value="Guardar">
@@ -195,6 +212,7 @@ x= "GuardarProfesor";
 }
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
 $(document).ready(function(){
 	$("#IdProvincia").on('change',function(){

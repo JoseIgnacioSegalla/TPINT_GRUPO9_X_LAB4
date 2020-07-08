@@ -70,7 +70,8 @@
 									
 									<td><input id="Guardar" class="form-control btn btn-primary" name="GuardarUsuario" type="submit" value="Guardar"><input id="IdProfesor" type="hidden" name="IdProfesor" value="<%=prof.getIdProfesor()%>"></td>
 									
-									<td><input id="Eliminar" class="form-control btn btn-danger" name="EliminarProfesor" type="submit" value="Eliminar"></td>
+									<td><a href="ServletProfesor?EliminarProfesor=<%=prof.getIdProfesor() %>" class="form-control btn btn-danger" role="button" aria-pressed="true">Eliminar</a></td>
+									
 									
 								
 								</tr>

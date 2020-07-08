@@ -13,9 +13,9 @@ import entidad.Profesor;
 public class DaoImplProfesores implements DaoProfesores {
 
 
-	private static final String insert = "INSERT INTO profesores(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Localidad,Provincia,Email,Telefono) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO profesores(Legajo, Dni, Nombre,Apellido,FechaNac,Direccion,Email,Telefono,IdLocalidad) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String edit = "UPDATE profesores SET Legajo= ?,Dni= ?, Nombre= ?,Apellido= ?,FechaNac= ?,Direccion= ?,Email= ?,Telefono=?,IdLocalidad = ? WHERE IdProfesor = ?";
-	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE idprofesores = ?";
+	private static final String logic_delete = "UPDATE profesores SET Estado = 0 WHERE idprofesor = ?";
 	private static final String readAll = "select p.IdProfesor as IdProfesor,Legajo,concat(p.nombre,' ',p.apellido) as Nombre,Dni,ifnull(u.IdUsuario,'') as IdUsuario,ifnull(u.nombre,'') as Usuario, ifnull(u.Clave,'') as Clave from Profesores as p\r\n" + 
 			"left join usuarioxprofesor as uxp on uxp.IdProfesor = p.IdProfesor\r\n" + 
 			"left join usuarios as u on u.IdUsuario = uxp.IdUsuario\r\n" + 
@@ -41,7 +41,7 @@ public class DaoImplProfesores implements DaoProfesores {
 			statement.setString(6, NProf.getDireccion());
 			statement.setString(7, NProf.getEmail());
 			statement.setString(8, NProf.getTelefono());
-			statement.setString(9, NProf.getLocalidad().getNombre());
+			statement.setInt(9, NProf.getLocalidad().getIdLocalidad());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();

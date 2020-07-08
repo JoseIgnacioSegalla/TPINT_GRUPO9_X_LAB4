@@ -29,9 +29,9 @@ public class NegImplCursos implements NegCursos {
 	}
 
 	@Override
-	public boolean Borrar(Curso Cur) {
+	public boolean Borrar(int x) {
 	
-		return DaoCur.logic_delete(Cur);
+		return DaoCur.logic_delete(x);
 	}
 
 	@Override

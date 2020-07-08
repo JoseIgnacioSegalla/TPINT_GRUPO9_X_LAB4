@@ -12,7 +12,7 @@ public interface NegCursos {
 	public ArrayList<Curso> ListarCursosNombres();
 	public List<Alumno> Alumnos_X_Curso();
 	public boolean Buscar(Curso Cur);
-	public boolean Borrar(Curso Cur);
+	public boolean Borrar(int x);
 	public boolean Insertar(Curso Cur);
 	public boolean Editar(Curso Cur);
 }

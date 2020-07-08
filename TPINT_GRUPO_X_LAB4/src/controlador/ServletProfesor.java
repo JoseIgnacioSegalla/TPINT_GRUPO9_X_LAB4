@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import NegocioImpl.NegImplAlumno;
+import NegocioImpl.NegImplLocalidad;
 import NegocioImpl.NegImplProfesores;
+import NegocioImpl.NegImplProvincia;
+import entidad.Localidad;
 import entidad.Profesor;
+import entidad.Provincia;
 
 /**
  * Servlet implementation class ServletProfesor
@@ -33,12 +36,60 @@ public class ServletProfesor extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Profesor> LProf = new ArrayList<Profesor>();
-		NegImplProfesores NProf = new NegImplProfesores();
-		LProf = NProf.ListarProfesores();
-
 		
-		//if(request.getParameter("Profesores") != null) 
+
+		if(request.getParameter("Profesores") != null){
+			List<Profesor> LProf = new ArrayList<Profesor>();
+			NegImplProfesores NProf = new NegImplProfesores();
+			LProf = NProf.ListarProfesores();
+			
+			request.setAttribute("Tabla", LProf);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
+			
+			RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+			rd.forward(request, response);
+			
+			
+		}
+		
+		
+		
+		if(request.getParameter("AgregarProfesor") != null)
+		{
+			
+			request.setAttribute("Tipo", "2");
+			request.setAttribute("Nombre", "");
+			request.setAttribute("Legajo", "");
+			request.setAttribute("FechaNac", "");
+			request.setAttribute("Email", "");
+			request.setAttribute("Apellido", "");
+			request.setAttribute("Dni", "");
+			request.setAttribute("Direccion", "");
+			request.setAttribute("Telefono", "");
+		
+			
+			
+			NegImplProvincia NegProv = new NegImplProvincia();
+			
+			List<Provincia> LProvincia = NegProv.Readall();
+			
+			request.setAttribute("Provincia", LProvincia);	
+			
+			request.setAttribute("IdProvincia", 0);
+		
+			NegImplLocalidad NegLoc = new NegImplLocalidad();
+	
+			List<Localidad> LLocalidad = NegLoc.readAll();
+			
+			request.setAttribute("Localidad", LLocalidad);
+			
+			request.setAttribute("IdLocalidad", 0);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
+			rd.include(request, response);
+		}
+		
+		
 	
 	
 		if(request.getParameter("EliminarProfesor")!= null)
@@ -47,8 +98,16 @@ public class ServletProfesor extends HttpServlet {
 			
 			if(NegProf.Borrar(Integer.parseInt(request.getParameter("EliminarProfesor")))) {
 				
-				request.setAttribute("Script", OtrasFunciones.Advertencia(4));
+				List<Profesor> LProf = new ArrayList<Profesor>();
+				LProf = NegProf.ListarProfesores();
 				
+				request.setAttribute("Tabla", LProf);
+				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(4));	
+				
+				RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+				rd.forward(request, response);
 				
 				
 			}
@@ -57,11 +116,7 @@ public class ServletProfesor extends HttpServlet {
 			
 		}
 		
-		request.setAttribute("Tabla", LProf);
-		request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
-		
-		RequestDispatcher rd=request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
-		rd.forward(request, response);
+	
 
 		
 		

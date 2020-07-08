@@ -63,9 +63,9 @@
             <%=curso.getNProfesor().getLegajo()%>
             </a>
             </td>
-            <td><a href="ServletCurso?VerCurso= <%=curso.getIdNumCurso() %>" class="btn btn-primary btn-lg" role="button">Ver Curso</a>
+            <td><a href="ServletCurso?VerCurso= <%=curso.getIdNumCurso() %>" class="btn btn-primary " role="button">Ver Curso</a>
             </td>
-            <td><a href="ServletCurso?EliminarCurso= <%=curso.getIdNumCurso() %>" class="btn btn-danger btn-lg" role="button">Eliminar Curso</a>
+            <td><a href="ServletCurso?EliminarCurso=<%=curso.getIdNumCurso() %>" class="btn btn-danger " role="button">Eliminar Curso</a>
             </td>
             
             
@@ -81,6 +81,11 @@
 
 <%
 out.print(request.getAttribute("ScriptTabla"));  
+%>
+<%
+if(request.getAttribute("Script") != null){
+out.print(request.getAttribute("Script")); 
+}
 %>
 
 

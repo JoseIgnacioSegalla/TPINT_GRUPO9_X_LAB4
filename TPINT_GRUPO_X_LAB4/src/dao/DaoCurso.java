@@ -12,7 +12,7 @@ public interface DaoCurso {
 	public List<Curso> readAll_Cursos_Nombres();
 	public boolean insert(Curso NCurs);
 	public boolean edit (Curso NCurs);
-	public boolean logic_delete(Curso NCurs);
+	public boolean logic_delete(int x);
 	public boolean delete(Curso NCurso);
 	public boolean find(Curso NCurso);
 	

@@ -110,7 +110,7 @@ public class DaoImplCurso implements DaoCurso {
 		}
 		return isEditExistoso;
 	}
-	public boolean logic_delete(Curso NCurs) {
+	public boolean logic_delete(int x) {
 		
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
@@ -118,7 +118,7 @@ public class DaoImplCurso implements DaoCurso {
 		try 
 		{
 			statement = conexion.prepareStatement(logic_delete);
-			statement.setInt(1, NCurs.getIdNumCurso());
+			statement.setInt(1, x);
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();

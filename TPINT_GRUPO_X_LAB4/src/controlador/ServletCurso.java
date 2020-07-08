@@ -36,9 +36,40 @@ public class ServletCurso extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-
+		if(request.getParameter("AgregarCurso") != null) {
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorCursos.jsp");
+			rd.include(request, response);
+			
+		}
+		
+		if(request.getParameter("EliminarCurso") != null) {
+			
+			NegImplCursos NCursos = new NegImplCursos();
+			
+			
+			if(NCursos.Borrar(Integer.parseInt(request.getParameter("EliminarCurso").trim()))) {
+				
+			
+				List<Curso> NLCursos = NCursos.ListarCursos();
+		
+				
+				request.setAttribute("Tabla", NLCursos);
+				
+				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdmin"));
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(4));
+				
+				RequestDispatcher rd = request.getRequestDispatcher("MenuAdministrador.jsp");
+				rd.include(request, response);
+				
+			}
+			
+			
+			
 		
 		
+		}
 			
 		if(request.getParameter("Cursos") != null)
 		{
@@ -59,6 +90,8 @@ public class ServletCurso extends HttpServlet {
 			
 			
 		}
+		
+		
 		if(request.getParameter("VerCursosProfesor") != null)
 		{
 			
@@ -74,9 +107,11 @@ public class ServletCurso extends HttpServlet {
 			rd.include(request, response);
 		}
 		
-		if(request.getParameter("VerCurso") != null) {
+		if(request.getParameter("VerAlumnoXCurso") != null) {
 			
-			System.out.print(request.getParameter("VerCurso"));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesorAlumnosXCurso.jsp");
+			rd.include(request, response);
 			
 		}
 		

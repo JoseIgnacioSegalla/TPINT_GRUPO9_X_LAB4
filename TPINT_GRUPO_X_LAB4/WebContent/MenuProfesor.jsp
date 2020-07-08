@@ -55,7 +55,7 @@
 					<td><%=curso.getCuatrimestre()%></td>
 					<td><%=curso.getAño()%></td>
 					<td><a
-						href="ServletCurso?VerCurso= <%=curso.getIdNumCurso()%>"
+						href="ServletCurso?VerAlumnosXCurso= <%=curso.getIdNumCurso()%>"
 						class="btn btn-primary btn-lg" role="button">Ver Curso</a>
 					</td>
 

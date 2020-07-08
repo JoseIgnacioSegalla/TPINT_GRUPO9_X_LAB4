@@ -76,11 +76,11 @@
 		%>
 		
 <%
-if(request.getAttribute("GuardadoConExito") != null){
+if(request.getAttribute("Script") != null){
 	
 	
 	
-	out.print(request.getAttribute("GuardadoConExito"));  
+	out.print(request.getAttribute("Script"));  
 }
 
 %>

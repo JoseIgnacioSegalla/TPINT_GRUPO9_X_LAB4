@@ -231,10 +231,90 @@ public class ServletPerfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		if(request.getParameter("AgregarProfesor") != null) {
+			
+			
+			System.out.print("AgregarProfesor");
+			NegImplProfesores NegProf = new NegImplProfesores();
+			Profesor NProf = new Profesor();
+			
+			
+			NProf.setLegajo(request.getParameter("Legajo"));
+			NProf.setDni(request.getParameter("Dni"));
+			NProf.setNombre(request.getParameter("Nombre"));
+			NProf.setApellido(request.getParameter("Apellido"));
+			NProf.setFechaNac(request.getParameter("FechaNac"));
+			NProf.setDireccion(request.getParameter("Direccion"));
+			NProf.setEmail(request.getParameter("Email"));
+			NProf.setTelefono(request.getParameter("Telefono"));
+			NProf.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("DDLLocalidad")));
+			NProf.getProvincia().setIdProvincia(Integer.parseInt(request.getParameter("DDLProvincia")));
+			
+			if(NProf.getLocalidad().getIdLocalidad() == 0 || NProf.getProvincia().getIdProvincia() == 0) {
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(6));
+				
+			}else {
+				
+			
+			
+			NegProf.Insertar(NProf);
+			
+			
+			List<Profesor> LProf = NegProf.ListarProfesores();
+			
+			request.setAttribute("Tabla", LProf);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminProfesores"));
+			
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
+			rd.include(request, response);
+			
+			}
+			
+			
+		}
+		
+		if(request.getParameter("AgregarAlumno") != null) {
+			
+			
+			System.out.print("AgregarAlumno");
+			NegImplAlumno NegAlum = new NegImplAlumno();
+			Alumno Nalum = new Alumno();
+			
+			Nalum.setLegajo(request.getParameter("Legajo"));
+			Nalum.setDni(request.getParameter("Dni"));
+			Nalum.setNombre(request.getParameter("Nombre"));
+			Nalum.setApellido(request.getParameter("Apellido"));
+			Nalum.setFechaNac(request.getParameter("FechaNac"));
+			Nalum.setDireccion(request.getParameter("Direccion"));
+			Nalum.setEmail(request.getParameter("Email"));
+			Nalum.setTelefono(request.getParameter("Telefono"));
+			Nalum.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("DDLLocalidad")));
+			Nalum.getProvincia().setIdProvincia(Integer.parseInt(request.getParameter("DDLProvincia")));
+			
+
+			
+			NegAlum.Insertar(Nalum);
+			
+			List<Alumno> LAlumnos = NegAlum.ListarAlumnos();
+			
+			request.setAttribute("Tabla", LAlumnos);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdminAlumnos"));
+			
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorAlumnos.jsp");
+			rd.include(request, response);
+			
+		}
 		
 		
 		if(request.getParameter("GuardarAlumno") != null){
 			
+			
+			System.out.print("GuardarAlumno");
 			NegImplAlumno NegAlum = new NegImplAlumno();
 			Alumno Nalum = new Alumno();
 			
@@ -250,7 +330,13 @@ public class ServletPerfil extends HttpServlet {
 			Nalum.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("DDLLocalidad")));
 			Nalum.getProvincia().setIdProvincia(Integer.parseInt(request.getParameter("DDLProvincia")));
 			
-
+			if(Nalum.getLocalidad().getIdLocalidad() == 0 || Nalum.getProvincia().getIdProvincia() == 0) {
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(6));
+				
+				
+			}else {
+			
 			
 			NegAlum.Editar(Nalum);
 			
@@ -263,13 +349,14 @@ public class ServletPerfil extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorAlumnos.jsp");
 			rd.include(request, response);
-			
+			}
 		}
 		
 		
 		
 		if(request.getParameter("GuardarProfesor") != null){
 			
+			System.out.print("GuardarProfesor");
 			NegImplProfesores NegProf = new NegImplProfesores();
 			Profesor NProf = new Profesor();
 			
@@ -312,6 +399,8 @@ public class ServletPerfil extends HttpServlet {
 		
 		if(request.getParameter("GuardarPerfilProfesor") != null){
 			
+			
+			System.out.print("GuardarPerfilProfesor");
 			NegImplProfesores NegProf = new NegImplProfesores();
 			Profesor NProf = new Profesor();
 			
