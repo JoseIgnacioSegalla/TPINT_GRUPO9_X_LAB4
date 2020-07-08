@@ -31,7 +31,7 @@
 		</div>
 	</nav>
 
-
+<a href="ServletAlumnos?AgregarAlumno=1" class="btn btn-success btn-lg btn-block" role="button" style="margin-top:2%">Agregar Alumno</a>
 	<table id="TablaMenuAdminAlumnos"
 		class="table table-bordered table-hover" style="margin-top: 2%">
 
@@ -40,10 +40,11 @@
 
 			<tr>
 
-				<th scope="col">Legajo</th>
-				<th scope="col">Nombre y apellido</th>
-				<th scope="col">Dni</th>
-				<th scope="col"></th>
+				<th >Legajo</th>
+				<th >Nombre y apellido</th>
+				<th >Dni</th>
+				<th ></th>
+				
 
 			</tr>
 		</thead>
@@ -58,7 +59,7 @@
 					href="ServletPerfil?VerAlumno=<%=Nal.getIdAlumno()%>"><%=Nal.getLegajo()%></a></td>
 				<td><%=Nal.getNombre()%></td>
 				<td><%=Nal.getDni()%></td>
-				<td><a class="btn btn-primary"
+				<td><a class="btn btn-danger"
 					href="ServletAlumnos?EliminarAlumno=<%=Nal.getIdAlumno()%>"
 					role="button">Eliminar</a></td>
 

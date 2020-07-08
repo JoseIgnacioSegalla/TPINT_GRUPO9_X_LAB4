@@ -60,6 +60,16 @@ public class OtrasFunciones {
 			+ "})" 
 			+ "</script>";
 			
+		case 6:
+			
+			return "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js\"></script>"
+			+ "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>"
+			+ "<script>"
+			+ " $(document).ready(function(){"
+			+ "swal('Error', 'La localidad o provincia se deben seleccionar' ,'error');"
+			+ "})" 
+			+ "</script>";
+			
 		default:
 			
 			return "";

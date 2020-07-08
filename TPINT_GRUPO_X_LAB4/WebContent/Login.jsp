@@ -27,4 +27,11 @@
 		</div>
 	</div>
 </body>
+
+<%
+	if(request.getAttribute("Script") != null){
+		out.print(request.getAttribute("Script"));
+	}
+		
+	%>
 </html>

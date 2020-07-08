@@ -1,6 +1,5 @@
 package controlador;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,8 +108,7 @@ public class ServletUsuario extends HttpServlet {
 					}
 				}
 				
-				//NegProfesor.Editar(NProf);
-
+				
 			}
 			
 		}
@@ -119,22 +117,7 @@ public class ServletUsuario extends HttpServlet {
 			
 	
 			
-			/*if(request.getParameter("Nombre").isEmpty() || request.getParameter("Clave").isEmpty()){
-				
-				request.setAttribute("Script", OtrasFunciones.Advertencia(1));
-			}
-			else
-			{
-				System.out.print(request.getParameter("Nombre"));
-				System.out.print(request.getParameter("Clave"));
-				Profesor NProf = new Profesor();
-				NegImplProfesores NegProfesor = new NegImplProfesores();
-				NegProfesor.insert(NProf);
-				
-				RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
-				rd.include(request, response);
-			}*/
-			
+		
 			
 			
 			
@@ -160,7 +143,7 @@ public class ServletUsuario extends HttpServlet {
 		
 		
 		Usuario NUs = new Usuario();
-		PrintWriter out = response.getWriter();
+		
 		NUs.setNombre(request.getParameter("Txt_NomUs"));
 		NUs.setClave(request.getParameter("Txt_ClvUs"));
 		
@@ -168,23 +151,20 @@ public class ServletUsuario extends HttpServlet {
 		if (NUs.getNombre().isEmpty() || NUs.getClave().isEmpty()) {
 			
 	
-			
-		out.println(OtrasFunciones.Advertencia(1));
-
-			
-			
+			request.setAttribute("Script", OtrasFunciones.Advertencia(1));
+	
 		
 			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 			rd.include(request, response);
+			
 		} else {
 
 
 			NegImplUsuario NegUsu = new NegImplUsuario();
 			NUs = NegUsu.BuscarUsu(NUs);
 
-		if(NUs.getIdUsuario() != 0) 
+		if(NUs != null) 
 		{
-
 
 			HttpSession session = request.getSession();
 			
@@ -195,7 +175,8 @@ public class ServletUsuario extends HttpServlet {
 			{
 				
 				NegImplCursos NCursos = new NegImplCursos();
-				List<Curso> NLCursos = NCursos.ListarCursos();
+				
+				List<Curso> NLCursos = NCursos.ListarCursosxProfesor(NegUsu.BuscarNombreUsu(NUs.getNombre()));
 				
 				request.setAttribute("Tabla", NLCursos);
 				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuProf"));
@@ -212,9 +193,7 @@ public class ServletUsuario extends HttpServlet {
 				request.setAttribute("Tabla", NLCursos);
 				request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuAdmin"));
 				
-				
-				
-				
+
 				RequestDispatcher rd = request.getRequestDispatcher("MenuAdministrador.jsp");
 				rd.include(request, response);
 			}
@@ -222,8 +201,8 @@ public class ServletUsuario extends HttpServlet {
 		}
 		else 
 		{
-			out.println(OtrasFunciones.Advertencia(2)); 
-
+			
+			request.setAttribute("Script", OtrasFunciones.Advertencia(2));
 
 			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 			rd.include(request, response);

@@ -29,7 +29,7 @@
 			</ul>
 		</div>
 	</nav>
-
+<a href="ServletProfesor?AgregarProfesor=1" class="btn btn-success btn-lg btn-block" role="button" style="margin-top: 2%">Agregar Profesor</a>
 <form  action="ServletUsuario" method="get">
 						<table class="table table-bordered table-hover"
 							style="margin-top: 2%" id="TablaMenuAdminProfesores">
@@ -39,13 +39,14 @@
 
 								<tr>
 
-									<th scope="col">Legajo</th>
-									<th scope="col">Nombre y apellido</th>
-									<th scope="col">Dni</th>
-									<th scope="col">Usuario</th>
-									<th scope="col">Clave</th>
-									<th scope="col"></th>
-									<th scope="col"></th>
+									<th>Legajo</th>
+									<th>Nombre y apellido</th>
+									<th>Dni</th>
+									<th>Usuario</th>
+									<th>Clave</th>
+									<th></th>
+									<th></th>
+								
 
 								</tr>
 							</thead>

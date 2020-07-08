@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import NegocioImpl.NegImplCursos;
+import NegocioImpl.NegImplUsuario;
 import entidad.Curso;
 
 /**
@@ -35,7 +37,10 @@ public class ServletCurso extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 
-		if(request.getParameter("Cursos").equals("1"))
+		
+		
+			
+		if(request.getParameter("Cursos") != null)
 		{
 			
 				NegImplCursos NCursos = new NegImplCursos();
@@ -54,6 +59,20 @@ public class ServletCurso extends HttpServlet {
 			
 			
 		}
+		if(request.getParameter("VerCursosProfesor") != null)
+		{
+			
+			NegImplCursos NCursos = new NegImplCursos();
+			NegImplUsuario NegUsu = new NegImplUsuario();
+			
+			List<Curso> NLCursos = NCursos.ListarCursosxProfesor(NegUsu.BuscarNombreUsu(request.getParameter("VerCursosProfesor")));
+			
+			request.setAttribute("Tabla", NLCursos);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuProf"));
+
+			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesor.jsp");
+			rd.include(request, response);
+		}
 		
 		if(request.getParameter("VerCurso") != null) {
 			
@@ -68,8 +87,23 @@ public class ServletCurso extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+
+		if(request.getParameter("BtnActualizar")!=null)
+		{
+			NegImplCursos NegCur = new NegImplCursos();
+			ArrayList<Curso> ListaCur = NegCur.ListarCursosNombres();
+
+			request.setAttribute("ListaCurso", ListaCur);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/MenuAdministrador.jsp");
+			rd.forward(request, response);
+		}
+	
+		
+		
+		
+		
 	}
 
 }

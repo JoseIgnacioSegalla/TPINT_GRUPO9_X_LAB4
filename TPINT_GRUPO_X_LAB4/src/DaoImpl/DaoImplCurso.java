@@ -10,6 +10,7 @@ import java.util.List;
 import dao.DaoCurso;
 import entidad.Alumno;
 import entidad.Curso;
+import entidad.Materia;
 import entidad.Profesor;
 
 public class DaoImplCurso implements DaoCurso {
@@ -22,6 +23,16 @@ public class DaoImplCurso implements DaoCurso {
 			"inner join materias as m on m.IdMateria = c.IdMateria \r\n" + 
 			"inner join profesores as p on p.IdProfesor = c.IdProfesor\r\n" + 
 			"where c.Estado = 1";
+	
+	private static final String readall_Cursos_X_Profesor = "select c.IdCurso as IdCurso, m.Nombre as Materia,c.Cuatrimestre as Cuatrimestre,c.Año,c.IdProfesor as IdProfesor, concat(p.nombre,' ',p.apellido) as Profesor,p.legajo as Legajo,p.dni as dni from Cursos as c\r\n" + 
+			"inner join materias as m on m.IdMateria = c.IdMateria \r\n" + 
+			"inner join profesores as p on p.IdProfesor = c.IdProfesor\r\n" + 
+			"where  p.IdProfesor = ? and c.Estado = 1";
+	
+	private static final String readall_Cursos_Nombre = "select materias.Nombre, cursos.Cuatrimestre,cursos.Año,profesores.Nombre AS 'pNombre',"
+			+ "cursos.IdCurso from cursos inner join materias on materias.IdMateria = cursos.IdMateria  "
+			+ "inner join profesores on profesores.IdProfesor = cursos.IdProfesor where cursos.Estado =1";
+	
 	private static final String readall_Alumnos_x_Curso = "SELECT * FROM cursos where Estado = 1";
 	private static final String find = "select a.Legajo,concat(a.nombre,' ',a.Apellido) as \"Nombre y Apellido\",a.Dni,c.EstadoAlumno from alumnos as a\r\n" + 
 			"inner join alumnosxcurso as c on c.IdAlumno = a.IdAlumno\r\n" + 
@@ -184,6 +195,32 @@ public class DaoImplCurso implements DaoCurso {
 		return isfindExitoso;
 		
 	}
+	public List<Curso> readAll_Cursos_x_Profesor(int x){
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		List<Curso> LCursos = new ArrayList<Curso>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall_Cursos_X_Profesor);
+			statement.setInt(1,x );
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				LCursos.add(getCurso(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+		 Conexion.getConexion().cerrarConexion();	
+		}
+		return LCursos;
+	}
 	public List<Curso> readAll_Cursos()
 	{
 		PreparedStatement statement;
@@ -263,5 +300,48 @@ public class DaoImplCurso implements DaoCurso {
 		
 		
 		return NAlumno;
+	}
+	
+	@Override
+	public List<Curso> readAll_Cursos_Nombres(){
+		
+		PreparedStatement statement;
+		ResultSet resultSet;
+		ArrayList<Curso> Cursos = new ArrayList<Curso>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall_Cursos_Nombre);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				Cursos.add(getCurso_Nombre(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	
+			conexion.cerrarConexion();
+	
+		return Cursos;
+	}
+	
+	
+	private Curso getCurso_Nombre(ResultSet resultSet) throws SQLException
+	{
+		Curso NCurso = new Curso(); 
+		Profesor p = new Profesor();
+		Materia m = new Materia();
+		
+		NCurso.setIdNumCurso(resultSet.getInt("IdCurso"));
+		m.setNombre(resultSet.getString("Nombre"));
+		p.setNombre(resultSet.getString("pNombre"));
+		NCurso.setCuatrimestre(resultSet.getString("Cuatrimestre"));
+		NCurso.setAño(resultSet.getString("Año"));
+		NCurso.setNMateria(m);
+		NCurso.setNProfesor(p);
+		return NCurso;
 	}
 }

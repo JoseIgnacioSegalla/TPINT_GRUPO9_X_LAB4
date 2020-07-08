@@ -30,12 +30,12 @@
     </ul>
     <ul class="navbar-nav">
      <li class="nav-item align-right">
-        <a class="nav-link" href="ServletUsuario?Usuario=1">Cerrar Sesion</a>
+        <a class="nav-link" href="Login.jsp">Cerrar Sesion</a>
       </li>
     </ul>
   </div>	
 </nav>
-
+<a href="ServletCurso?AgregarCurso=1" class="btn btn-success btn-lg btn-block" role="button" style="margin-top: 2%">Agregar Curso</a>
 <table id="TablaMenuAdmin" class="table table-bordered table-hover" style="margin-top: 2%">
     <thead class="thead-dark">
         <tr>
@@ -44,6 +44,7 @@
             <th>Año</th>
             <th>Nombre de Profesor</th>
             <th>Legajo</th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -63,6 +64,8 @@
             </a>
             </td>
             <td><a href="ServletCurso?VerCurso= <%=curso.getIdNumCurso() %>" class="btn btn-primary btn-lg" role="button">Ver Curso</a>
+            </td>
+            <td><a href="ServletCurso?EliminarCurso= <%=curso.getIdNumCurso() %>" class="btn btn-danger btn-lg" role="button">Eliminar Curso</a>
             </td>
             
             

@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import NegocioImpl.NegImplAlumno;
+import NegocioImpl.NegImplLocalidad;
+import NegocioImpl.NegImplProvincia;
 import entidad.Alumno;
+import entidad.Localidad;
+import entidad.Provincia;
 
 /**
  * Servlet implementation class ServletAlumnos
@@ -33,7 +37,7 @@ public class ServletAlumnos extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			if(request.getParameter("Alumnos").equals("1")) {
+			if(request.getParameter("Alumnos") != null) {
 				
 
 				NegImplAlumno NAlumno = new NegImplAlumno();
@@ -48,15 +52,47 @@ public class ServletAlumnos extends HttpServlet {
 			
 			}
 			
+			if(request.getParameter("AgregarAlumno") != null)
+			{
+				
+				
+				request.setAttribute("Nombre", "");
+				request.setAttribute("Legajo", "");
+				request.setAttribute("FechaNac", "");
+				request.setAttribute("Email", "");
+				request.setAttribute("Apellido", "");
+				request.setAttribute("Dni", "");
+				request.setAttribute("Direccion", "");
+				request.setAttribute("Telefono", "");
+			
+				
+				
+				NegImplProvincia NegProv = new NegImplProvincia();
+				
+				List<Provincia> LProvincia = NegProv.Readall();
+				
+				request.setAttribute("Provincia", LProvincia);	
+				
+				request.setAttribute("IdProvincia", 0);
+			
+				NegImplLocalidad NegLoc = new NegImplLocalidad();
+		
+				List<Localidad> LLocalidad = NegLoc.readAll();
+				
+				request.setAttribute("Localidad", LLocalidad);
+				
+				request.setAttribute("IdLocalidad", 0);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
+				rd.include(request, response);
+			}
+			
 			
 			if(request.getParameter("EliminarAlumno")!= null)
 			{
 				NegImplAlumno NegAlum = new NegImplAlumno();
 				NegAlum.Borrar(Integer.parseInt(request.getParameter("EliminarAlumno")));
 			}
-			
-			
-			
 	
 	}
 

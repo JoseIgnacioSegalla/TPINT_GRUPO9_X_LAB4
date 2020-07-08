@@ -11,10 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import NegocioImpl.NegImplAlumno;
+import NegocioImpl.NegImplCursos;
 import NegocioImpl.NegImplLocalidad;
 import NegocioImpl.NegImplProfesores;
 import NegocioImpl.NegImplProvincia;
+import NegocioImpl.NegImplUsuario;
 import entidad.Alumno;
+import entidad.Curso;
 import entidad.Localidad;
 import entidad.Profesor;
 import entidad.Provincia;
@@ -35,10 +38,102 @@ public class ServletPerfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		
 	
+		//MENU PROFESOR
+		if(request.getParameter("VerPerfilProfesor") != null) {
+			NegImplUsuario NegUs = new NegImplUsuario();
+			NegImplProfesores NegProf = new NegImplProfesores();
+			Profesor NProf = new Profesor();
+			NProf  = NegProf.Buscar(NegUs.BuscarNombreUsu(request.getParameter("VerPerfilProfesor")));
+			
+			if(NProf != null) {
+			
+			request.setAttribute("Tipo", "0");
+			request.setAttribute("IdProfesor", NProf.getIdProfesor());
+			request.setAttribute("Legajo",NProf.getLegajo());
+			request.setAttribute("Dni",NProf.getDni());
+			request.setAttribute("Nombre", NProf.getNombre());
+			request.setAttribute("Apellido",NProf.getApellido());
+			request.setAttribute("FechaNac",NProf.getFechNac());
+			request.setAttribute("Direccion",NProf.getDireccion());
+			request.setAttribute("Email",NProf.getEmail());
+			request.setAttribute("Telefono",NProf.getTelefono());
+	
+			
+			NegImplProvincia NegProv = new NegImplProvincia();
+			
+			List<Provincia> LProvincia = NegProv.Readall();
+		
+			request.setAttribute("Provincia", LProvincia);	
+			request.setAttribute("IdProvincia", NProf.getProvincia().getIdProvincia());
+			
+			
+		
+			NegImplLocalidad NegLoc = new NegImplLocalidad();
+	
+			List<Localidad> LLocalidad = NegLoc.Find(NProf.getProvincia().getIdProvincia());
+			
+			request.setAttribute("Localidad", LLocalidad);
+			request.setAttribute("IdLocalidad", NProf.getLocalidad().getIdLocalidad());
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
+			rd.include(request, response);
+			
+		}
+			
+		}
 		
 		
+		
+		if(request.getParameter("VerPerfilAlumno") != null) {
+			
+			NegImplAlumno NegAlum = new NegImplAlumno();
+			Alumno NAlum = new Alumno();
+			NAlum  = NegAlum.Buscar(Integer.parseInt(request.getParameter("VerAlumno")));
+			
+		if(NAlum != null) {
+			
+			request.setAttribute("Tipo", "0");
+			request.setAttribute("IdAlumno", NAlum.getIdAlumno());
+			request.setAttribute("Legajo",NAlum.getLegajo());
+			request.setAttribute("Dni",NAlum.getDni());
+			request.setAttribute("Nombre", NAlum.getNombre());
+			request.setAttribute("Apellido",NAlum.getApellido());
+			request.setAttribute("FechaNac",NAlum.getFechNac());
+			request.setAttribute("Direccion",NAlum.getDireccion());
+			request.setAttribute("Email",NAlum.getEmail());
+			request.setAttribute("Telefono",NAlum.getTelefono());
+	
+			
+			NegImplProvincia NegProv = new NegImplProvincia();
+			
+			List<Provincia> LProvincia = NegProv.Readall();
+		
+			request.setAttribute("Provincia", LProvincia);	
+			request.setAttribute("IdProvincia", NAlum.getProvincia().getIdProvincia());
+			
+			
+		
+			NegImplLocalidad NegLoc = new NegImplLocalidad();
+	
+			List<Localidad> LLocalidad = NegLoc.Find(NAlum.getProvincia().getIdProvincia());
+			
+			request.setAttribute("Localidad", LLocalidad);
+			request.setAttribute("IdLocalidad", NAlum.getLocalidad().getIdLocalidad());
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Perfil.jsp");
+			rd.include(request, response);
+			
+			
+			}
+			
+		}
+		
+		//MENU ADMINISTRADOR
 		if(request.getParameter("VerAlumno") != null) {
 		
 			NegImplAlumno NegAlum = new NegImplAlumno();
@@ -47,7 +142,7 @@ public class ServletPerfil extends HttpServlet {
 			
 		if(NAlum != null) {
 			
-			request.setAttribute("Tipo", "0");
+			request.setAttribute("Tipo", "1");
 			request.setAttribute("IdAlumno", NAlum.getIdAlumno());
 			request.setAttribute("Legajo",NAlum.getLegajo());
 			request.setAttribute("Dni",NAlum.getDni());
@@ -190,6 +285,13 @@ public class ServletPerfil extends HttpServlet {
 			NProf.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("DDLLocalidad")));
 			NProf.getProvincia().setIdProvincia(Integer.parseInt(request.getParameter("DDLProvincia")));
 			
+			if(NProf.getLocalidad().getIdLocalidad() == 0 || NProf.getProvincia().getIdProvincia() == 0) {
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(6));
+				
+			}else {
+				
+			
 			
 			NegProf.Editar(NProf);
 			
@@ -203,6 +305,52 @@ public class ServletPerfil extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorProfesores.jsp");
 			rd.include(request, response);
+			
+			}
+		}		
+		
+		
+		if(request.getParameter("GuardarPerfilProfesor") != null){
+			
+			NegImplProfesores NegProf = new NegImplProfesores();
+			Profesor NProf = new Profesor();
+			
+			NProf.setIdProfesor(Integer.parseInt(request.getParameter("IdProfesor").trim()));
+			NProf.setLegajo(request.getParameter("Legajo"));
+			NProf.setDni(request.getParameter("Dni"));
+			NProf.setNombre(request.getParameter("Nombre"));
+			NProf.setApellido(request.getParameter("Apellido"));
+			NProf.setFechaNac(request.getParameter("FechaNac"));
+			NProf.setDireccion(request.getParameter("Direccion"));
+			NProf.setEmail(request.getParameter("Email"));
+			NProf.setTelefono(request.getParameter("Telefono"));
+			NProf.getLocalidad().setIdLocalidad(Integer.parseInt(request.getParameter("DDLLocalidad")));
+			NProf.getProvincia().setIdProvincia(Integer.parseInt(request.getParameter("DDLProvincia")));
+			
+			if(NProf.getLocalidad().getIdLocalidad() == 0 || NProf.getProvincia().getIdProvincia() == 0) {
+				
+				request.setAttribute("Script", OtrasFunciones.Advertencia(6));
+				
+			}else {
+				
+			
+			
+			NegProf.Editar(NProf);
+			
+			
+			NegImplCursos NCursos = new NegImplCursos();
+			
+			List<Curso> NLCursos = NCursos.ListarCursosxProfesor(NProf.getIdProfesor());
+			
+			request.setAttribute("Tabla", NLCursos);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaMenuProf"));
+
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesor.jsp");
+			rd.include(request, response);
+			
+			}
 		}		
 		
 		

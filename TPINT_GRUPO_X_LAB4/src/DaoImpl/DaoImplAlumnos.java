@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.SetOfIntegerSyntax;
+import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing.Validation;
 import dao.DaoAlumnos;
 import entidad.Alumno;
+import entidad.Instancia;
 
 public class DaoImplAlumnos implements DaoAlumnos {
 
@@ -19,12 +22,77 @@ public class DaoImplAlumnos implements DaoAlumnos {
 	private static final String find_Alumno = "SELECT IdAlumno,Legajo,Dni,a.Nombre as Nombre,Apellido,FechaNac,Direccion,Email,Telefono,l.IdLocalidad as IdLocalidad,l.IdProvincia as IdProvincia FROM alumnos as a\r\n" + 
 			"INNER JOIN localidades as l on l.IdLocalidad = a.IdLocalidad\r\n" + 
 			"WHERE IdAlumno = ?";
+	private static final String readAll_Notas = "select alumnos.Legajo, alumnos.Nombre, alumnos.Apellido, alumnosxcurso.IdCurso,alumnos.Dni, alumnosxcurso.Estado,"+
+			"alumnosxcurso.Nota1,alumnosxcurso.Nota2,alumnosxcurso.Nota3,alumnosxcurso.Nota4 from alumnos "+
+			"inner join alumnosxcurso on alumnosxcurso.IdAlumno = alumnos.IdAlumno "+
+			"where alumnosxcurso.Estado = 1;";
+	private static final String Update_Notas = "UPDATE alumnosxcurso SET Estado=?,Nota1=?,Nota2=?,Nota3=?,Nota4=? " + 
+			"WHERE alumnosxcurso.IdCurso = ? and alumnosxcurso.IdAlumno = ?";
 	
 	public DaoImplAlumnos()
 	{
 	}
 	
-	
+	@Override
+	public boolean Update_Notas(Alumno NAlum) {
+		PreparedStatement statement;
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		boolean isEditExistoso = false;
+		try
+		{
+			statement = conexion.prepareStatement(Update_Notas);
+
+			statement.setInt(1, Integer.parseInt( NAlum.getEstado_Alumno()));
+			statement.setInt(2, NAlum.getLInst().get(0).getNota());
+			statement.setInt(3, NAlum.getLInst().get(1).getNota());
+			statement.setInt(4, NAlum.getLInst().get(2).getNota());
+			statement.setInt(5, NAlum.getLInst().get(3).getNota());
+			statement.setInt(6, NAlum.getLInst().get(0).getIdCurso());
+			statement.setInt(7, NAlum.getIdAlumno());
+
+
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isEditExistoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			try {
+				conexion.rollback();
+				conexion.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return isEditExistoso;
+	}
+
+	@Override
+	public ArrayList<Alumno> Listar_Notas() {
+
+		PreparedStatement statement;
+		ResultSet resultSet;
+		ArrayList<Alumno> personas = new ArrayList<Alumno>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readAll_Notas);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				personas.add(getPersona_Notas(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		conexion.cerrarConexion();
+		return personas;
+	}
 	public boolean insert(Alumno NAlum)
 	{
 		PreparedStatement statement;
@@ -217,6 +285,36 @@ public class DaoImplAlumnos implements DaoAlumnos {
 		return NAlum;
 	}
 
+	private Alumno getPersona_Notas(ResultSet rs) throws SQLException
+	{
+		Alumno NAlum = new Alumno();
+		List<Instancia> LInst = new ArrayList<Instancia>();
+
+		NAlum.setLegajo(rs.getString("Legajo"));
+		NAlum.setNombre(rs.getString("Nombre"));
+		NAlum.setApellido(rs.getString("Apellido"));
+		NAlum.setDni(rs.getString("Dni"));
+		NAlum.setEstado_Alumno(rs.getString("Estado"));
+		for(int i=1;i<5;i++)
+		{		
+			LInst.add(get_Nota(rs,"Nota"+String.valueOf(i), i));
+		}
+
+		NAlum.setLInst(LInst);
+
+		return NAlum;
+
+	}
+
+	private Instancia get_Nota(ResultSet rs, String Nota, int NumNota) throws SQLException
+	{
+		Instancia Ins = new Instancia();
+		Ins.setIdIntancia(NumNota);
+		Ins.setIdCurso(rs.getInt("IdCurso"));
+		Ins.setNota(rs.getInt(Nota));
+
+		return Ins;
+	}
 	
 	
 }

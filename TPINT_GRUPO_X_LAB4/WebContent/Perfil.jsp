@@ -24,19 +24,25 @@
 <form action="ServletPerfil" method="post">
 <div class="Container" style="margin:2%">
 <%
-String x;
-if(request.getAttribute("IdAlumno")!= null){
-x = "GuardarAlumno";
-%>
-<input type="hidden" name="IdAlumno" value="<%=request.getAttribute("IdAlumno")%>">
-<%
+String x = "";
+if(request.getAttribute("IdAlumno")!= null && request.getAttribute("Tipo") == "0"){
+x = "VerPerfilAlumno";
 }
-else
+else if(request.getAttribute("IdProfesor") != null && request.getAttribute("Tipo") == "0")
 {
-x =  "GuardarProfesor";
+x="GuardarPerfilProfesor";
 %>
 <input type="hidden" name="IdProfesor" value="<%=request.getAttribute("IdProfesor")%>">
 <% 
+}else if(request.getAttribute("IdProfesor") != null && request.getAttribute("Tipo") == "1"){
+x= "GuardarProfesor";
+%>
+<input type="hidden" name="IdProfesor" value="<%=request.getAttribute("IdProfesor")%>">
+<% 
+}else{
+%>
+<input type="hidden" name="IdAlumno" value="<%=request.getAttribute("IdAlumno")%>">
+<%	
 }
 %>
 <div class="row">
@@ -54,16 +60,23 @@ x =  "GuardarProfesor";
     <input type="date" class="form-control" name="FechaNac" value="<%=request.getAttribute("FechaNac") %>" required>
     <br>
     
+    
+    
+    
+    
+    <!-- PROVINCIA -->
+    
+    
 	<label for="Tit_Prov">Provincia:</label>
      <%
 
     if(request.getAttribute("Provincia") != null)
-    {
-    	System.out.print("Entro");
+    {	
     List<Provincia> LProv = (List<Provincia>) request.getAttribute("Provincia");	
     %>
-    <select class="form-control" name="DDLProvincia" id="IdProvincia" onchange="">
-    <option value="0">Seleccione Provincia</option>
+    <select class="form-control" name="DDLProvincia" id="IdProvincia" onchange="document.form1.submit()">
+    
+    <option value="0" disabled>Seleccione Provincia</option>
     <%
     for(Provincia NProv : LProv){
     	if(NProv.getIdProvincia() == (int) request.getAttribute("IdProvincia"))
@@ -87,6 +100,11 @@ x =  "GuardarProfesor";
     <%
    	}
     %>
+    
+    
+    
+    
+    
     <br>
     <label for="Tit_Email">Email:</label>
     <input type="email" class="form-control" name="Email" min="8" max="45" value="<%=request.getAttribute("Email") %>" required>
@@ -106,6 +124,11 @@ x =  "GuardarProfesor";
     <input type="Text" class="form-control" name="Direccion" min="8" max="45" value="<%=request.getAttribute("Direccion") %>" required>
     <br>
  	
+ 	
+ 	
+ 	<!-- LOCALIDAD -->
+ 	
+ 	
     <label for="Tit_Loc">Localidad:</label>
     <%
 
@@ -114,8 +137,8 @@ x =  "GuardarProfesor";
     List<Localidad> LLoc = (List<Localidad>) request.getAttribute("Localidad");	
     %>
     
-    <select class="form-control" name="DDLLocalidad" id="IdLocalidad">
-    <option value="0">Seleccione Localidad</option>
+    <select class="form-control" name="DDLLocalidad" id="IdLLocalidad">
+    <option value="0" disabled>Seleccione Localidad</option>
     <%
     for(Localidad NLoc : LLoc){
     	if(NLoc.getIdLocalidad() == (int) request.getAttribute("IdLocalidad"))
@@ -134,6 +157,14 @@ x =  "GuardarProfesor";
     <%
     }
     %>
+    
+    
+    
+    
+    
+    
+    
+    
     <br>
     <label for="Tit_Tel">Telefono:</label>
     <input type="tel" class="form-control" name="Telefono" min="8" max="25" value="<%=request.getAttribute("Telefono") %>" required>
@@ -143,17 +174,45 @@ x =  "GuardarProfesor";
 </div>
 <div class="row">
 <div class="col-12">
+
+<%if(x.equals("VerPerfilAlumno")){
+%>
+<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar" disabled>
 <%
-//String x = "GuardarAlumno";
-//if(){
-//	 x =  "GuardarAlumno";
-	 
-	 
-//}else{
-//	 x = "GuardarProfesor";
-//}
+}else if(x.equals("GuardarPerfilProfesor"))
+{
 %>
 <input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
+<%	
+}else if(x.equals("GuardarProfesor")){
+%>
+<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar">
+<% 
+}else{
+%>
+<input type="submit" name="GuardarAlumno" class="btn btn-primary btn-lg btn-block" value="Guardar">
+<%
+}
+%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#IdProvincia").on('change',function(){
+		var IdProvincia = $('#IdProvincia option:selected').val();
+	$.post( "ServletLocalidades",
+	{
+		Prov: IdProvincia
+	},
+	function(data){
+		$('#IdLocalidad').html(data);
+	});
+
+	});
+});
+
+</script>
+
+
 </div>
 </div>
 </div>

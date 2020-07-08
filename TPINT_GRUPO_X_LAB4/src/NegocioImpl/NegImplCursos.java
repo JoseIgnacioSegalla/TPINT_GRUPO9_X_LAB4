@@ -1,17 +1,17 @@
 package NegocioImpl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import DaoImpl.DaoImplCurso;
 import Negocio.NegCursos;
-import dao.DaoCurso;
 import entidad.Alumno;
 import entidad.Curso;
 
 public class NegImplCursos implements NegCursos {
 
-	private DaoCurso DaoCur = new DaoImplCurso();
+	private DaoImplCurso DaoCur = new DaoImplCurso();
 	
 	@Override
 	public List<Curso> ListarCursos() {
@@ -19,6 +19,9 @@ public class NegImplCursos implements NegCursos {
 		return DaoCur.readAll_Cursos();
 	}
 
+	public List<Curso> ListarCursosxProfesor(int x){
+		return DaoCur.readAll_Cursos_x_Profesor(x);
+	}
 	@Override
 	public boolean Buscar(Curso Cur) {
 		
@@ -47,6 +50,11 @@ public class NegImplCursos implements NegCursos {
 	public List<Alumno> Alumnos_X_Curso() {
 	
 		return DaoCur.readAll_AlumnosxCurso();
+	}
+
+	@Override
+	public ArrayList<Curso> ListarCursosNombres() {
+		return (ArrayList<Curso>) DaoCur.readAll_Cursos_Nombres();
 	}
 
 	

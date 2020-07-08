@@ -1,11 +1,11 @@
 package NegocioImpl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Negocio.NegAlumno;
 import entidad.Alumno;
-import dao.DaoAlumnos;
 import DaoImpl.DaoImplAlumnos;
 
 public class  NegImplAlumno implements NegAlumno {
@@ -37,5 +37,14 @@ public class  NegImplAlumno implements NegAlumno {
 	public Alumno Buscar (int x)
 	{
 		return DaoAlum.find(x);
+	}
+	public ArrayList<Alumno> ListarNotas() {
+
+		return (ArrayList<Alumno>) DaoAlum.Listar_Notas();
+	}
+	@Override
+	public boolean Update_Notas(Alumno Alumno) {
+
+		return DaoAlum.Update_Notas(Alumno);
 	}
 }
