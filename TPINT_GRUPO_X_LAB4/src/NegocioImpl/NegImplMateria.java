@@ -17,5 +17,9 @@ public class NegImplMateria implements NegMateria {
 		return (ArrayList<Materia>) DaoMat.readAll();
 	}
 
-	
+	@Override
+	public int getIdMateria(String NombreMateria) {
+
+		return DaoMat.getId(NombreMateria);
+	}
 }

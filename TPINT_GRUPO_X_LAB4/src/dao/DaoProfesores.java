@@ -12,5 +12,6 @@ public interface DaoProfesores {
 	public boolean edit (Profesor NProf);
 	public boolean logic_delete(int i);
 	public Profesor find(int i);
+	public int GetID(String pNombre);
 	
 }

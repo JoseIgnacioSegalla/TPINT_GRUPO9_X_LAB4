@@ -20,7 +20,7 @@ public class DaoImplUsuarios implements DaoUsuarios {
 	private static final String find_Usuario_Registrado = "SELECT IdUsuario FROM usuarioxprofesor WHERE IdProfesor = ?";
 	private static final String find_Usuario = "SELECT IdProfesor from usuarioxprofesor as uxp\r\n" + 
 			"inner join usuarios as u on u.IdUsuario = uxp.IdUsuario\r\n" + 
-			"where u.nombre = ?";
+			"where u.nombre = ? and u.Estado = 1";
 	private static final String  find = "select IdUsuario,tipo from usuarios\r\n" + 
 			"where nombre = ? and clave = ? and Estado = 1";
 	

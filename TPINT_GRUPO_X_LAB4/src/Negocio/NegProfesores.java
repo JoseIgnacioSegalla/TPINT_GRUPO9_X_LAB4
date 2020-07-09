@@ -11,4 +11,6 @@ public interface NegProfesores {
 	public boolean Insertar(Profesor Pro);
 	public boolean Editar(Profesor Pro);
 	
+	public int getID(String PNombre);
+	
 }

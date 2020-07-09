@@ -56,6 +56,40 @@ public class NegImplCursos implements NegCursos {
 	public ArrayList<Curso> ListarCursosNombres() {
 		return (ArrayList<Curso>) DaoCur.readAll_Cursos_Nombres();
 	}
+	@Override
+	public int getID(int idMateria, int idProfesor) {
+
+		return DaoCur.getID(idMateria,idProfesor);
+	}
+
+	@Override
+	public boolean insertar_Alumno(Alumno b) {
+
+		return DaoCur.insert_Alumno(b);
+	}
+
+	@Override
+	public boolean CheckAlumnoExista(Alumno alumno) {
+
+		return DaoCur.VerificarExistencia_EnCurso_x(alumno);
+	}
+
+	@Override
+	public boolean ExisteCurso(String IdMateria, String IdProfesor, String Cuatrimestre, String Año) {
+
+		return DaoCur.Existe(IdMateria,IdProfesor,Cuatrimestre,Año);
+	}
+
+	@Override
+	public boolean AgregarCurso(String idMateria, String idProfesor, String cuatrimestre, String año) {
+
+		return DaoCur.Insertar(idMateria,idProfesor,cuatrimestre,año);
+
+	}
+	public int getID_V2(int idMateria, int idProfesor, int año, String cuatrimestre) {
+
+		return DaoCur.getID_V2(idMateria, idProfesor,año,cuatrimestre);
+	}
 
 	
 

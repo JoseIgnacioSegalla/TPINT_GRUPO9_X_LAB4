@@ -8,4 +8,5 @@ import entidad.Materia;
 public interface DaoMateria {
 
 	public List<Materia> readAll();
+	public int getId(String NombreMateria);
 }

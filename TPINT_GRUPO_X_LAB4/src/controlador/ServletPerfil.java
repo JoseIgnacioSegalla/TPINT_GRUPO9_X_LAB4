@@ -92,7 +92,7 @@ public class ServletPerfil extends HttpServlet {
 			
 			NegImplAlumno NegAlum = new NegImplAlumno();
 			Alumno NAlum = new Alumno();
-			NAlum  = NegAlum.Buscar(Integer.parseInt(request.getParameter("VerAlumno")));
+			NAlum  = NegAlum.Buscar(Integer.parseInt(request.getParameter("VerPerfilAlumno")));
 			
 		if(NAlum != null) {
 			

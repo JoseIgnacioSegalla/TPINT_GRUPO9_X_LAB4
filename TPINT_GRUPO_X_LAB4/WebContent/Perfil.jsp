@@ -83,7 +83,7 @@ x= "GuardarProfesor";
     {	
     List<Provincia> LProv = (List<Provincia>) request.getAttribute("Provincia");	
     %>
-    <select class="form-control" name="DDLProvincia" id="IdProvincia" onchange="document.form1.submit()">
+    <select class="form-control" name="DDLProvincia" id="IdProvincia" onchange="ServletLocalidades">
     
     <option value="0" disabled>Seleccione Provincia</option>
     <%
@@ -186,7 +186,7 @@ x= "GuardarProfesor";
 
 <%if(x.equals("VerPerfilAlumno")){
 %>
-<input type="submit" name="<%=x%>" class="btn btn-primary btn-lg btn-block" value="Guardar" disabled>
+<input type="submit" class="btn btn-primary btn-lg btn-block" value="Guardar" disabled>
 <%
 }else if(x.equals("GuardarPerfilProfesor"))
 {
@@ -212,23 +212,21 @@ x= "GuardarProfesor";
 }
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
 $(document).ready(function(){
-	$("#IdProvincia").on('change',function(){
-		var IdProvincia = $('#IdProvincia option:selected').val();
-	$.post( "ServletLocalidades",
-	{
-		Prov: IdProvincia
-	},
-	function(data){
-		$('#IdLocalidad').html(data);
-	});
-
-	});
-});
-
+	  $('#IdProvincia').change(function(){
+		  var provincia = $('#IdProvincia option:selected').val();
+		alert(provincia);
+	  })
+	  $.POST(
+		 "ServletLocalidades", function(provincia) {
+			  $( "#IdLocalidad" ).val( provincia );
+		  
+	  	});
+	  });
 </script>
+
+
 
 
 </div>

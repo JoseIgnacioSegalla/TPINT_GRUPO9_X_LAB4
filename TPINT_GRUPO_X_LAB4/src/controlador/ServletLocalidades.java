@@ -1,6 +1,8 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -28,23 +30,23 @@ public class ServletLocalidades extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		String Nombre  = request.getParameter("Prov");
+		System.out.print(Nombre);
+		
+		//out.print("<select><% for(Localidad l : LLoc) {%><option value=\"<%=l.getIdLocalidad() %>\"><%l.getNombre()  %><option></select><%}%>");
+		
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		NegImplLocalidad NegLoc = new NegImplLocalidad();
 	
-		//List<Localidad> LLoc = NegLoc.Find(Integer.parseInt(request.getParameter("prov").trim()));
 		
-		//request.setAttribute("DDLLocalidad", LLoc);
-		
-		System.out.print(request.getParameter("Prov"));
-		
+
 	}
 
 }

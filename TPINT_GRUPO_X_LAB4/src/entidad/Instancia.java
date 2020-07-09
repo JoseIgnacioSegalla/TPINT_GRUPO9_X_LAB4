@@ -31,6 +31,13 @@ public class Instancia {
 	public void setNota(int nota) {
 		this.nota = nota;
 	}
+	public Instancia()
+	{
+		idIntancia= -1;
+		NombreInstancia ="Vacio";
+		nota=-1;
+		IdCurso=-1;
+	}
 	@Override
 	public String toString() {
 		return "Instancia [idIntancia=" + idIntancia + ", NombreInstancia=" + NombreInstancia + ", nota=" + nota + "]";

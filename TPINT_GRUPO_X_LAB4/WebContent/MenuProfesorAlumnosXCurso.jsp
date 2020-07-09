@@ -20,7 +20,7 @@
         <a class="nav-link" href="ServletCurso?VerCursosProfesor=<%=session.getAttribute("Nombre") %>">Cursos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="SevletPerfil?VerPefilProfesor=<%=session.getAttribute("Nombre") %>">Perfil</a>
+        <a class="nav-link" href="SevletPerfil?VerPefilProfesor=<%=session.getAttribute("Nombre") %>"><%=session.getAttribute("Nombre")%></a>
       </li>
     </ul>
     <ul class="navbar-nav">
@@ -32,26 +32,12 @@
 </nav>
 
 <div class="Container" style="margin:2%">
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">
-				<h2>
-				<%int id= 0; %>
-				<%if(request.getAttribute("IdCurso")!=null) { 
-					id = (int)request.getAttribute("IdCurso");	
-				}
-				%>
-				Curso:<%=id %>
-				 Materia | Cuatrimestre | Año
-				
-				</h2>
+				<h3>
+				 <%=request.getAttribute("Materia") %>  | <%=request.getAttribute("Cuatrimestre") %> | <%=request.getAttribute("Año") %>
+				</h3>
 				<hr>
-				<div class="row">
+				<br>	
 				
-					<div class="col-6">
-						<input type="submit" class="btn btn-primary btn-lg" value="Actualizar" name="BtnActualizar"/>
-					</div>
-					</form>
 					<%
 						ArrayList<Alumno> listarNotas = null;
 						if(request.getAttribute("listarNotas")!=null)
@@ -59,11 +45,14 @@
 							listarNotas = (ArrayList<Alumno>) request.getAttribute("listarNotas");
 						}
 					%>
-				</div>
+				
 		<form id='form1' method="post" action="ServletAlumnosXCurso">
-				<div class="row" style="margin-top:2%">
+				
 				<!--TABLA  --> 
-		
+				<input type="hidden" name="Materia" value="<%=request.getAttribute("Materia") %>">
+				<input type="hidden" name="Cuatrimestre" value="<%=request.getAttribute("Cuatrimestre") %>">
+				<input type="hidden" name="Año" value="<%=request.getAttribute("Año") %>">
+				<input type="hidden" name="IdCurso" value="<%=request.getAttribute("IdCurso") %>">
 				<table class="table table-bordered table-hover" style="margin-top: 2%"  id="TablaAdmin" onchange="val1()" >
 				
 					<!-- CAMBIAR DATOS DE LA TABLA -->
@@ -99,18 +88,30 @@
 						%>
 						<tr>
 							
-							<td><a href="MenuProfesorAlumnos.jsp"><%=a.getLegajo() %></a><input type="hidden" name="Legajo" value="<%=a.getLegajo() %>"></td>
+							<td><a href="ServletPerfil?VerPerfilAlumno=<%=a.getIdAlumno() %>"><%=a.getLegajo() %></a><input type="hidden" name="Legajo" value="<%=a.getLegajo() %>"></td>
 							<td><%= a.getNombre() + " " + a.getApellido() %><input type="hidden" name="Apellido" value="<%=a.getApellido() %>">	</td>
 							<td><%= a.getDni() %><input type="hidden" name="Dni" value="<%=a.getDni() %>"></td>
-						<%	String va=""; 
+							<td>
+							<select class="form-control" id="AlumnoEstado" name="AlumnoEstado">
+						<%
 							if(a.getEstado_Alumno().equals("1")){
-								va="checked";}						
+							%>
+							<option value="1" selected>Regular</option>
+							<option value="2" >Libre</option>
+						<%
+							}else{
+								
 						%>
-							<td><div class="custom-control custom-switch">
-									<input type="checkbox" class="custom-control-input" name="AlumnoEstado" id="AlumnoEstado" <%=va%> value="1"> 
-									<label class="custom-control-label" for="customSwitch2"></label>
-								</div></td>
+							<option value="1" >Regular</option>
+							<option value="2" selected>Libre</option>
+						<%
+							}
+						 %>
 						
+						</select>	
+						</td>
+							
+
 							<td contenteditable="true"><input type="number" class="form-control" name="1erParcial" id="1erParcial" value="<%= a.getLInst().get(0).getNota()%>"
 								min="0" max="10">
 							<input type="hidden" name="Nota1" value="<%=a.getLInst().get(0).getNota() %>"></td>
@@ -131,16 +132,13 @@
 						
 					</tbody>
 				</table>
-				</div>
-				<div class="row">
-				<input type="submit"  class="btn btn-success btn-lg btn-block " value="Guardar test" name="Btn_Guardar_Cambios">
-				</div>
+				
+				
+				<input type="submit"  class="btn btn-success btn-lg btn-block " value="Guardar Cambios" name="Btn_Guardar_Cambios">
+				
 
-		</form>	
-			</div>
-			<div class="col-3"></div>
+			</form>	
 		</div>
-	</div>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -150,6 +148,12 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script src="JS/MenuProfAxC.js"></script>
+
+<%
+if(request.getAttribute("Script") != null){
+out.print(request.getAttribute("Script")); 
+}
+%>
 
 </body>
 </html>

@@ -41,6 +41,10 @@ public class NegImplProfesores implements NegProfesores {
 		return DaoPro.edit(Pro);
 	}
 
+	@Override
+	public int getID(String PNombre) {
 
+		return DaoPro.GetID(PNombre);
+	}
 
 }

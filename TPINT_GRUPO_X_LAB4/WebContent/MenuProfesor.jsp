@@ -32,7 +32,7 @@
 		<h2 style="text-align: center">Tecnico Universitario en
 			Programación</h2>
 		<hr>
-
+<form action="ServletAlumnosXCurso" method="post">
 		<table id="TablaMenuProfesor" class="table table-bordered table-hover"
 			style="margin-top: 2%">
 			<thead class="thead-dark">
@@ -40,7 +40,6 @@
 					<th>Materia</th>
 					<th>Cuatrimestre</th>
 					<th>Año</th>
-					<th></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -51,14 +50,10 @@
 				for (Curso curso : list) {
 				%>
 				<tr>
-					<td><%=curso.getNMateria().getNombre()%></td>
-					<td><%=curso.getCuatrimestre()%></td>
-					<td><%=curso.getAño()%></td>
-					<td><a
-						href="ServletCurso?VerAlumnosXCurso= <%=curso.getIdNumCurso()%>"
-						class="btn btn-primary btn-lg" role="button">Ver Curso</a>
-					</td>
-
+					<td><%=curso.getNMateria().getNombre()%><input id="Materia" type="hidden" name="Materia" value="<%=curso.getNMateria().getNombre() %>"> </td>
+					<td><%=curso.getCuatrimestre()%><input id="Cuatrimestre" type="hidden" name="Cuatrimestre" value="<%=curso.getCuatrimestre() %>"></td>
+					<td><%=curso.getAño()%><input id="Año" type="hidden" name="Año" value="<%=curso.getAño() %>"></td>
+					<td><input id="VerCursos" name="VerAlumnosXCurso" class="form-control btn btn-primary" type="submit" value="Ver Curso"><input id="IdCurso" type="hidden" name="IdCurso" value="<%=curso.getIdNumCurso() %>"></td>
 
 				</tr>
 
@@ -68,7 +63,7 @@
 			</tbody>
 
 		</table>
-
+</form>
 
 
 	</div>
@@ -80,5 +75,21 @@
 		out.print(request.getAttribute("Script"));
 	%>
 	
+<script src="jquery-3.5.1.min.js"></script>
+<script>
+$('#TablaMenuProfesor tbody').on('click','#VerCursos',function(){
+	var currow = $(this).closest('tr');
+	var col1 = currow.find("td:eq(0) input[type='hidden']").val();
+	var col2 = currow.find("td:eq(1) input[type='hidden']").val();
+	var col3 = currow.find("td:eq(2) input[type='hidden']").val();
+	var col4 = currow.find("td:eq(3) input[type='hidden']").val();
+	
+	$("#Materia").val(col1);
+	$("#Cuatrimestre").val(col2);
+	$("#Año").val(col3);
+	$("#IdCurso").val(col4);
+	
+})
+</script>
 </body>
 </html>

@@ -7,4 +7,6 @@ public interface NegMateria {
 	
 	public List<Materia> ListarTodos();
 	
+	public int getIdMateria(String NombreMateria);
+	
 }

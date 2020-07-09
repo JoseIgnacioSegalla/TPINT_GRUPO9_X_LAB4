@@ -1,11 +1,17 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import NegocioImpl.NegImplCursos;
+import entidad.Curso;
 
 /**
  * Servlet implementation class ServletReportes
@@ -26,8 +32,26 @@ public class ServletReportes extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		if(request.getParameter("Reportes") != null) {
+			
+			NegImplCursos NCursos = new NegImplCursos();
+			
+			List<Curso> NLCursos = NCursos.ListarCursos();
+			
+			request.setAttribute("Tabla", NLCursos);
+			request.setAttribute("ScriptTabla", OtrasFunciones.Tablas(1, "#TablaReportes"));
+
+			request.setAttribute("Script", OtrasFunciones.Advertencia(3));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuAdministradorReportes.jsp");
+			rd.include(request, response);
+		}
+		
+		if(request.getParameter("TablaReportes") != null) {
+			
+			
+		}
 	}
 
 	/**

@@ -24,7 +24,31 @@ public class DaoImplProfesores implements DaoProfesores {
 	private static final String find_Profesor = "SELECT IdProfesor,Legajo,Dni,a.Nombre as Nombre,Apellido,FechaNac,Direccion,Email,Telefono,l.IdLocalidad as IdLocalidad,l.IdProvincia as IdProvincia FROM profesores as a\r\n" + 
 			"INNER JOIN localidades as l on l.IdLocalidad = a.IdLocalidad\r\n" + 
 			"WHERE IdProfesor = ?";
+	private static final String ID="select profesores.IdProfesor from profesores where Nombre = ?";
 	
+	
+	public int GetID(String pNombre) {
+
+		PreparedStatement statement;
+		ResultSet resultSet;
+		int id=-1;
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(ID);
+			statement.setString(1, pNombre);
+			resultSet = statement.executeQuery();
+			if(resultSet.next())
+			{
+			id= resultSet.getInt("IdProfesor");
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return id;
+	}
 	public boolean insert(Profesor NProf)
 	{
 		PreparedStatement statement;

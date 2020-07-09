@@ -9,12 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 
 import Negocio.NegAlumno;
 import NegocioImpl.NegImplAlumno;
 import entidad.Alumno;
+import entidad.Curso;
 import entidad.Instancia;
 /**
  * Servlet implementation class ServletAlumnosXCurso
@@ -45,24 +45,48 @@ public class ServletAlumnosXCurso extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		if(request.getParameter("BtnActualizar")!=null)
+		if(request.getParameter("VerAlumnosXCurso")!=null)
 		{
+			
+			
+			Curso NCurso = new Curso();
+			//int id =listarNotas.get(0).getLInst().get(0).getIdCurso();
+			
+			NCurso.setIdNumCurso(Integer.parseInt(request.getParameter("IdCurso").trim()));
+			NCurso.getNMateria().setNombre(request.getParameter("Materia"));
+			NCurso.setCuatrimestre(request.getParameter("Cuatrimestre"));
+			NCurso.setAño(request.getParameter("Año"));
+			
 			NegAlumno NegAlumno = new NegImplAlumno();
-			ArrayList<Alumno> listarNotas = NegAlumno.ListarNotas();
-			int id =listarNotas.get(0).getLInst().get(0).getIdCurso();
+			ArrayList<Alumno> listarNotas = NegAlumno.ListarNotas(NCurso.getIdNumCurso());
 			
-			HttpSession session = request.getSession(true);
-			session.setAttribute("CursoID", Integer.toString(id));
-			
+			//HttpSession session = request.getSession(true);
+			//session.setAttribute("CursoID", Integer.toString(id));
+			//session.setAttribute("CursoID", NCurso.getIdNumCurso());
 			request.setAttribute("listarNotas", listarNotas);
-			request.setAttribute("IdCurso",id );
+			request.setAttribute("IdCurso",NCurso.getIdNumCurso());
+			request.setAttribute("Materia",NCurso.getNMateria().getNombre());
+			request.setAttribute("Cuatrimestre",NCurso.getCuatrimestre());
+			request.setAttribute("Año", NCurso.getAño());
 
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/MenuProfesorAlumnosXCurso.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesorAlumnosXCurso.jsp");
 			rd.forward(request, response);
 		}
 		if(request.getParameter("Btn_Guardar_Cambios")!=null)
 		{	
+			
+			Curso NCurso = new Curso();
+			
+			NCurso.setIdNumCurso(Integer.parseInt(request.getParameter("IdCurso").trim()));
+			NCurso.getNMateria().setNombre(request.getParameter("Materia"));
+			NCurso.setCuatrimestre(request.getParameter("Cuatrimestre"));
+			NCurso.setAño(request.getParameter("Año"));
+			
+			request.setAttribute("IdCurso",NCurso.getIdNumCurso());
+			request.setAttribute("Materia",NCurso.getNMateria().getNombre());
+			request.setAttribute("Cuatrimestre",NCurso.getCuatrimestre());
+			request.setAttribute("Año", NCurso.getAño());
+			
 			NegAlumno NegAlu = new NegImplAlumno();
 			String[] Legajo = request.getParameterValues("Legajo");
 			String[] Dni = request.getParameterValues("Dni");
@@ -71,9 +95,9 @@ public class ServletAlumnosXCurso extends HttpServlet {
 			String[] Nota3 = request.getParameterValues("1erRecuperatorio");
 			String[] Nota4 = request.getParameterValues("2doRecuperatorio");
 			String[] Estado = request.getParameterValues("AlumnoEstado");
-			HttpSession session = request.getSession(true);
+			//HttpSession session = request.getSession(true);
 			//String IdCursoString = (String) session.getAttribute("CursoID");
-			int IdCurso = Integer.parseInt((String)session.getAttribute("CursoID"));
+			int IdCurso = Integer.parseInt(request.getParameter("IdCurso"));
 					
 			CargaMasiva(Nota1, Legajo.length+1);
 			CargaMasiva(Nota2, Legajo.length+1);
@@ -96,12 +120,14 @@ public class ServletAlumnosXCurso extends HttpServlet {
 			}
 			
 			NegAlumno NegAlumno = new NegImplAlumno();
-			ArrayList<Alumno> listarNotas = NegAlumno.ListarNotas();
-			int id =listarNotas.get(0).getLInst().get(0).getIdCurso();
+			ArrayList<Alumno> listarNotas = NegAlumno.ListarNotas(IdCurso);
 			request.setAttribute("listarNotas", listarNotas);
-			request.setAttribute("IdCurso",id );
+			request.setAttribute("IdCurso", IdCurso);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/MenuProfesorAlumnosXCurso.jsp");
+			
+			request.setAttribute("Script", OtrasFunciones.Advertencia(4));
+			
+			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesorAlumnosXCurso.jsp");
 			rd.forward(request, response);
 		}
 		

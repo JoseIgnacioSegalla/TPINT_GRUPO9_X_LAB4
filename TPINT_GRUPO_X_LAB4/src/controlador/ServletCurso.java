@@ -65,9 +65,6 @@ public class ServletCurso extends HttpServlet {
 				
 			}
 			
-			
-			
-		
 		
 		}
 			
@@ -107,13 +104,7 @@ public class ServletCurso extends HttpServlet {
 			rd.include(request, response);
 		}
 		
-		if(request.getParameter("VerAlumnoXCurso") != null) {
-			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("MenuProfesorAlumnosXCurso.jsp");
-			rd.include(request, response);
-			
-		}
+	
 		
 		
 	}
@@ -124,20 +115,6 @@ public class ServletCurso extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 
-		if(request.getParameter("BtnActualizar")!=null)
-		{
-			NegImplCursos NegCur = new NegImplCursos();
-			ArrayList<Curso> ListaCur = NegCur.ListarCursosNombres();
-
-			request.setAttribute("ListaCurso", ListaCur);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/MenuAdministrador.jsp");
-			rd.forward(request, response);
-		}
-	
-		
-		
-		
 		
 	}
 
