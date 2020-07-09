@@ -1,0 +1,291 @@
+-- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+--
+-- Host: localhost    Database: dbgestion
+-- ------------------------------------------------------
+-- Server version	8.0.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `alumnos`
+--
+
+DROP TABLE IF EXISTS `alumnos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `alumnos` (
+  `IdAlumno` int NOT NULL AUTO_INCREMENT,
+  `Legajo` varchar(45) NOT NULL,
+  `Dni` varchar(45) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `FechaNac` varchar(45) NOT NULL,
+  `Direccion` varchar(45) NOT NULL,
+  `Email` varchar(45) NOT NULL,
+  `Telefono` varchar(45) NOT NULL,
+  `IdLocalidad` int NOT NULL,
+  `Estado` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`IdAlumno`),
+  KEY `IdLocalidad_idx` (`IdLocalidad`),
+  CONSTRAINT `IdLocalidad_Alumn` FOREIGN KEY (`IdLocalidad`) REFERENCES `localidades` (`IdLocalidad`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alumnos`
+--
+
+LOCK TABLES `alumnos` WRITE;
+/*!40000 ALTER TABLE `alumnos` DISABLE KEYS */;
+INSERT INTO `alumnos` VALUES (1,'1','38999777','Mechelle','Rivers','22/04/2020','Apdo.:197-1657 Nisi Ctra.','at.risus@convallisligula.net','011-6772-7681',106,1),(2,'2','2','Noah','Reilly','09/06/2019','Apartado núm.: 851, 5403 Adipiscing Calle','senectus.et@Nullafacilisi.edu','011-3922-8701',106,1),(3,'3','3','Iola','Burks','23/10/2020','Apartado núm.: 366, 827 Commodo Ctra.','purus@magnaPraesentinterdum.com','011-3648-8072',106,1),(4,'4','4','Francesca','Good','13/06/2020','Apartado núm.: 213, 8563 Lobortis Ctra.','sed.dolor@DonecegestasAliquam.ca','011-6262-7687',106,1),(5,'5','5','Octavius','Pugh','31/08/2019','Apdo.:334-6260 Ullamcorper Avenida','felis.eget.varius@semPellentesque.com','011-1903-2533',106,1),(6,'6','6','Regina','Cox','20/04/2021','Apdo.:109-848 Cursus Calle','mi.ac.mattis@Loremipsum.com','011-3639-6655',106,1),(7,'7','7','Inga','Emerson','15/07/2020','768-6096 Mauris Av.','Nam.consequat.dolor@orciluctuset.co.uk','011-1813-4425',106,1),(8,'8','8','Noah','Turner','15/03/2021','Apdo.:581-7453 Auctor Calle','mollis.non@tempordiam.ca','011-2100-0312',106,1),(9,'9','9','Rowan','Pena','08/06/2020','Apartado núm.: 438, 2734 Sagittis C.','mi.felis.adipiscing@vel.org','011-1106-9595',106,1),(10,'10','10','Sawyer','Stout','03/02/2020','9511 Eget Avda.','tempus@enimcondimentum.com','011-2087-9498',106,1),(11,'11','11','Gillian','Tanner','29/10/2020','1717 Vivamus ','tempus@interdum.org','011-9498-2246',106,1),(12,'12','12','Wang','Waller','23/07/2020','Apartado núm.: 193, 2552 Commodo Calle','lobortis.mauris.Suspendisse@orcisem.co.uk','011-9834-0767',106,1),(13,'13','13','Plato','Mccray','04/07/2019','1392 Faucibus Ctra.','lectus.quis.massa@nonlacinia.co.uk','011-5786-8899',106,1),(14,'14','14','Yolanda','Velasquez','08/08/2020','943-5526 Odio Avda.','Duis.at.lacus@gravidamolestiearcu.ca','011-6164-2650',106,1),(15,'15','15','Jin','Villarreal','19/07/2019','Apartado núm.: 318, 9957 Morbi Carretera','eget.metus.eu@sedfacilisisvitae.edu','011-7944-7742',106,1),(16,'16','16','Yvette','Barber','17/06/2019','Apdo.:917-3573 Aliquet C/','mollis.vitae.posuere@Proinmi.com','011-4679-3288',106,1),(17,'17','17','Alexander','Black','22/10/2020','Apdo.:187-9220 Leo. Calle','tortor.at.risus@magna.org','011-5167-2213',106,1),(18,'18','18','Nigel','Cervantes','18/01/2021','431-976 Ornare. ','consectetuer.euismod@Etiamlaoreet.edu','011-6166-0039',106,1),(19,'19','19','Michael','Fuentes','11/01/2021','Apdo.:266-8171 Amet C/','In.ornare.sagittis@leoCrasvehicula.ca','011-7357-2423',106,1),(20,'20','20','Aidan','Figueroa','11/02/2020','959-3915 Neque Calle','diam.luctus.lobortis@ultricesDuisvolutpat.com','011-5117-6073',106,1),(21,'21','21','Chantale','Pitts','29/04/2021','Apartado núm.: 172, 8436 Donec Carretera','tincidunt@disparturientmontes.com','011-6325-1124',106,1),(22,'22','22','Jenette','Forbes','14/04/2020','125 Nec Ctra.','montes@Sednecmetus.co.uk','011-1915-2290',106,1),(23,'23','23','Noble','Stone','27/07/2019','1517 Purus C.','posuere@Sed.net','011-1433-0758',106,1),(24,'24','24','Dahlia','Bentley','27/09/2020','Apdo.:913-5812 Cras C.','vitae.sodales@quistristiqueac.co.uk','011-8011-5601',106,1),(25,'25','25','Gavin','Parker','29/04/2021','351-5320 Pede. C.','amet.ultricies@Namnulla.ca','011-5660-0410',106,1),(26,'26','26','Ishmael','Kelley','06/06/2020','Apartado núm.: 967, 5938 Vitae Ctra.','aliquet.magna@blanditenimconsequat.com','011-9140-3438',106,1),(27,'27','27','Bruno','Hunt','12/11/2020','1352 Ac Avenida','nascetur@fermentumconvallisligula.ca','011-2443-0430',106,1),(28,'28','28','Wyatt','Patel','14/03/2020','2973 Erat, ','Maecenas@dictum.ca','011-9194-1264',106,1),(29,'29','29','Madaline','Horton','01/11/2020','Apdo.:425-3144 Ullamcorper, Calle','lacus.varius.et@luctus.ca','011-9043-5588',106,1),(30,'30','30','Cullen','Ramsey','06/09/2020','Apartado núm.: 132, 9257 Pede, ','per.conubia.nostra@idblandit.ca','011-9491-4317',106,1),(31,'31','31','Leila','Barton','30/08/2020','Apartado núm.: 443, 9274 Fermentum C.','aptent.taciti.sociosqu@enim.com','011-7178-0259',106,1),(32,'32','32','Christen','Rich','22/12/2020','316-2767 Lorem, C.','et@luctus.net','011-4371-7700',106,1),(33,'33','33','Lenore','Hatfield','16/02/2021','927-3300 Quam Ctra.','vitae@sitametante.co.uk','011-2510-3087',106,1),(34,'34','34','Herrod','Woodard','10/01/2020','Apartado núm.: 634, 4454 Magna Ctra.','et@lobortisnisi.com','011-4528-8081',106,1),(35,'35','35','Tarik','Ewing','10/08/2019','Apdo.:776-1682 At, Avenida','Duis.gravida@luctus.com','011-4492-8726',106,1),(36,'36','36','Clarke','Chapman','23/11/2020','Apdo.:846-6303 A Avda.','vulputate.risus@velitAliquam.org','011-7274-1199',106,1),(37,'37','37','Lareina','Flynn','13/04/2020','772-2703 Dolor Calle','arcu@eu.org','011-1623-3773',106,1),(38,'38','38','Maxwell','Bonner','14/10/2019','Apartado núm.: 508, 2305 Auctor Av.','dui@loremfringillaornare.com','011-9110-1053',106,1),(39,'39','39','Cara','Smith','19/08/2019','2553 Aliquam Carretera','sed.orci@tempuslorem.co.uk','011-6846-0794',106,1),(40,'40','40','Wyatt','Boyer','10/10/2019','6403 Risus. Avenida','lorem@commodohendrerit.ca','011-1962-7638',106,1),(41,'41','41','Pandora','Lambert','06/07/2019','Apdo.:942-3488 In Avenida','justo.Praesent.luctus@Praesent.ca','011-4173-1540',106,1),(42,'42','42','Kaye','Chambers','04/04/2020','4917 In Ctra.','egestas.blandit@faucibus.ca','011-9933-1419',106,1),(43,'43','43','Lee','Foreman','27/09/2020','697 Dui Av.','hendrerit.id@egestaslaciniaSed.co.uk','011-8460-5543',106,1),(44,'44','44','Zephr','Wyatt','30/09/2019','Apdo.:520-9615 Sed Calle','metus@Aenean.org','011-5518-0280',106,1),(45,'45','45','Mark','Knowles','27/07/2019','Apartado núm.: 153, 459 Vivamus Av.','quam@euismodenim.net','011-5550-1079',106,1),(46,'46','46','Alden','Gates','31/03/2021','Apdo.:850-4104 Lacinia Calle','elit.erat.vitae@lacusEtiam.co.uk','011-5681-9103',106,1),(47,'47','47','Ferris','Sykes','23/11/2020','586-1144 Cursus. Av.','Nullam@laciniaSed.co.uk','011-6190-3898',106,1),(48,'48','48','Eugenia','English','27/03/2020','Apdo.:520-6543 Ipsum. C/','dui.semper@ametluctusvulputate.net','011-1638-3940',106,1),(49,'49','49','Marshall','Franco','02/07/2020','Apdo.:457-5992 Aliquam Avda.','nibh@maurissit.com','011-5248-2899',106,1),(50,'50','50','Lillian','King','12/12/2019','Apartado núm.: 807, 2670 Vitae Calle','nunc.nulla.vulputate@est.com','011-6427-5560',106,1),(51,'51','51','Tarik','York','24/02/2021','7094 Curabitur Avenida','In.nec@diamnunc.com','011-5731-0563',106,1),(52,'52','52','Curran','Davidson','19/11/2019','138-5821 Purus. C/','mollis.Integer@maurisut.com','011-8453-7776',106,1),(53,'53','53','Amos','Tyler','01/06/2020','9951 Parturient Calle','vestibulum@Duis.net','011-4061-5449',106,1),(54,'54','54','Tamara','Carroll','01/12/2019','Apdo.:545-1537 Ridiculus C.','ornare@loremDonecelementum.org','011-1334-0433',106,1),(55,'55','55','Lani','England','14/10/2019','Apdo.:208-9128 Auctor, Ctra.','sed@gravidaAliquamtincidunt.com','011-2776-3814',106,1),(56,'56','56','Henry','Crane','18/12/2019','Apdo.:998-3668 Non Carretera','ipsum.porta@nislQuisque.net','011-3046-7683',106,1),(57,'57','57','Chester','Dillon','11/08/2019','Apartado núm.: 360, 7618 Pellentesque Avenida','fames@facilisis.com','011-1645-8178',106,1),(58,'58','58','Nora','White','23/12/2019','Apartado núm.: 758, 6667 Tempus C.','Curabitur@adipiscing.edu','011-3402-0739',106,1),(59,'59','59','Fletcher','Norman','07/04/2021','973-3201 Facilisis. Ctra.','in@Fuscemollis.ca','011-4485-1039',106,1),(60,'60','60','Upton','Cooper','11/01/2021','1396 Libero. C.','risus@afelisullamcorper.org','011-1139-8188',106,1),(61,'61','61','Rachel','Joseph','10/03/2020','6832 Enim, Avenida','at.arcu.Vestibulum@elitpellentesque.net','011-3552-4698',106,1),(62,'62','62','Reese','Gates','18/06/2019','4478 Vestibulum. C.','mauris.eu@Proinnislsem.ca','011-6938-3547',106,1),(63,'63','63','Cedric','Case','24/04/2021','Apdo.:182-3049 Enim ','dis.parturient@montes.net','011-9629-0755',106,1),(64,'64','64','Whilemina','Montgomery','31/10/2020','Apdo.:776-7562 Neque. C/','enim.gravida.sit@ornare.net','011-8688-7427',106,1),(65,'65','65','Sylvester','Hogan','10/07/2019','Apdo.:245-1642 Imperdiet Calle','aliquet.magna@metusIn.org','011-4942-1041',106,1),(66,'66','66','Lance','Murphy','13/05/2021','549-9837 Tincidunt, ','amet.consectetuer.adipiscing@varius.org','011-1863-9701',106,1),(67,'67','67','Patrick','Matthews','26/11/2019','452-6033 Integer Ctra.','metus@orcilobortis.ca','011-6097-9256',106,1),(68,'68','68','Hanna','Hampton','26/06/2020','Apartado núm.: 624, 4283 Magna. C/','Aenean@placerat.org','011-9912-6090',106,1),(69,'69','69','Odette','Ray','15/10/2020','Apdo.:571-5408 Pharetra, C.','pede@euturpisNulla.net','011-8160-6164',106,1),(70,'70','70','Dora','Zimmerman','11/02/2020','9118 Purus C.','dolor.Fusce.feugiat@facilisi.ca','011-3112-7869',106,1),(71,'71','71','Ella','Gill','06/07/2019','569-3206 Ut, ','Maecenas@mi.ca','011-1552-8603',106,1),(72,'72','72','Cheryl','Stephenson','20/04/2020','Apartado núm.: 530, 2156 Neque. Carretera','aliquet@ornareelit.com','011-7066-3765',106,1),(73,'73','73','Gabriel','Dillard','24/05/2020','681-8971 Volutpat C.','Sed.id@adipiscinglacus.ca','011-5219-9865',106,1),(74,'74','74','Chase','Ross','05/06/2021','1641 Quam, Ctra.','Vivamus.rhoncus.Donec@Mauriseuturpis.ca','011-8910-0734',106,1),(75,'75','75','Paul','Washington','06/12/2020','Apartado núm.: 279, 842 Ultrices, Avda.','hendrerit.Donec.porttitor@nec.ca','011-4850-0545',106,1),(76,'76','76','Dorothy','Mosley','31/10/2020','4315 Eget Avenida','mus.Donec.dignissim@laoreet.com','011-3701-3381',106,1),(77,'77','77','Angelica','Frye','20/05/2020','568-9690 Ultrices. ','auctor.vitae.aliquet@amet.edu','011-4987-2674',106,1),(78,'78','78','Anjolie','Compton','06/05/2021','7005 Mauris Avenida','iaculis.quis.pede@nonleo.edu','011-8508-8507',106,1),(79,'79','79','Pamela','Guzman','29/12/2020','199-3210 Ultricies C.','ligula.Aliquam.erat@Mauris.edu','011-1575-1922',106,1),(80,'80','80','Nehru','Stevens','20/08/2019','Apartado núm.: 760, 2687 Non Avenida','ut.mi.Duis@felisorci.com','011-2333-8788',106,1),(81,'81','81','Akeem','Nielsen','11/02/2020','Apdo.:989-1302 Mi Av.','libero.Proin.mi@dictumeleifendnunc.co.uk','011-3712-9219',106,1),(82,'82','82','Mariko','Day','08/03/2020','Apdo.:772-7237 Dapibus Ctra.','ultrices@Suspendissealiquet.ca','011-1706-9147',106,1),(83,'83','83','Porter','Woods','17/10/2019','Apartado núm.: 855, 4713 Sed ','Aenean.euismod.mauris@miac.co.uk','011-2791-8924',106,1),(84,'84','84','Jemima','Gamble','19/11/2020','Apartado núm.: 610, 2302 Fringilla C/','eu@egetipsum.com','011-5327-4506',106,1),(85,'85','85','Azalia','Frye','30/09/2020','Apartado núm.: 265, 1586 Dui Avda.','massa@eleifendnecmalesuada.ca','011-5806-1211',106,1),(86,'86','86','Jane','Chapman','27/07/2020','4564 Arcu Calle','est.mauris.rhoncus@gravida.net','011-5461-2342',106,1),(87,'87','87','Alma','Lewis','25/05/2020','Apartado núm.: 931, 3029 Et ','Integer@Fusce.edu','011-7098-3021',106,1),(88,'88','88','Beatrice','Aguirre','11/02/2021','Apartado núm.: 635, 8033 Mauris Avenida','eget.venenatis@vitae.net','011-5469-7995',106,1),(89,'89','89','Ulric','Potts','11/03/2020','Apdo.:425-9191 Metus. C/','et.rutrum@malesuadaInteger.ca','011-4194-0017',106,1),(90,'90','90','Marsden','Schwartz','27/09/2020','Apartado núm.: 407, 4863 Congue Carretera','cursus.Nunc@est.net','011-9931-5518',106,1),(91,'91','91','Davis','Poole','30/10/2020','3070 Lacus. Calle','sociis.natoque@dapibusgravida.edu','011-8865-6560',106,1),(92,'92','92','TaShya','Gonzales','01/07/2019','Apartado núm.: 274, 7736 Et, Av.','tempor.erat@tempusscelerisquelorem.com','011-2011-5821',106,1),(93,'93','93','Constance','Crane','17/08/2019','Apdo.:302-8944 Sit Av.','quam.elementum@nuncQuisque.net','011-9756-4005',106,1),(94,'94','94','Vivien','Allen','19/03/2020','Apdo.:964-7425 Ut C/','eget.magna@Nullaaliquet.co.uk','011-3921-3421',106,1),(95,'95','95','Zeph','Vaughan','27/02/2020','291-8793 Ipsum Av.','enim@ac.ca','011-9694-8504',106,1),(96,'96','96','Lance','Witt','17/11/2019','Apdo.:191-7903 Imperdiet, Avda.','est.arcu.ac@iaculis.edu','011-7194-6346',106,1),(97,'97','97','Travis','Merritt','20/08/2020','604-5454 Accumsan Calle','at@sodalesnisimagna.org','011-5572-3906',106,1),(98,'98','98','Nasim','Pena','12/02/2020','Apartado núm.: 215, 5316 Dolor. Avenida','semper.erat@ametnullaDonec.net','011-5476-8552',106,1),(99,'99','99','Demetria','Merrill','27/08/2020','1222 Pede. ','accumsan.neque@etnetuset.net','011-3057-6719',106,1),(100,'100','100','Desirae','Golden','09/12/2019','Apartado núm.: 381, 4707 Arcu. Avda.','congue@augue.ca','011-5647-4273',106,1),(101,'88888','28999999','Nicolas','Sabatini','04/04/1996','Nicolas Sabatini 456789','Nicolas@gmail.com','123456789',78,1);
+/*!40000 ALTER TABLE `alumnos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `alumnosxcurso`
+--
+
+DROP TABLE IF EXISTS `alumnosxcurso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `alumnosxcurso` (
+  `IdCurso` int NOT NULL,
+  `IdAlumno` int NOT NULL,
+  `EstadoAlumno` int NOT NULL DEFAULT '1',
+  `Nota1` int DEFAULT '0',
+  `Nota2` int DEFAULT '0',
+  `Nota3` int DEFAULT '0',
+  `Nota4` int DEFAULT '0',
+  KEY `fk_IdCurso_idx` (`IdCurso`),
+  KEY `fk_IdAlumno_idx` (`IdAlumno`),
+  CONSTRAINT `fk_IdAlumno` FOREIGN KEY (`IdAlumno`) REFERENCES `alumnos` (`IdAlumno`),
+  CONSTRAINT `fk_IdCurso` FOREIGN KEY (`IdCurso`) REFERENCES `cursos` (`IdCurso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alumnosxcurso`
+--
+
+LOCK TABLES `alumnosxcurso` WRITE;
+/*!40000 ALTER TABLE `alumnosxcurso` DISABLE KEYS */;
+INSERT INTO `alumnosxcurso` VALUES (1,1,2,1,9,0,0),(1,2,2,1,10,5,5),(2,3,1,9,9,8,7);
+/*!40000 ALTER TABLE `alumnosxcurso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cursos`
+--
+
+DROP TABLE IF EXISTS `cursos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cursos` (
+  `IdCurso` int NOT NULL AUTO_INCREMENT,
+  `IdMateria` int NOT NULL,
+  `IdProfesor` int NOT NULL,
+  `Cuatrimestre` varchar(45) NOT NULL,
+  `Año` varchar(45) NOT NULL,
+  `Estado` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`IdCurso`),
+  KEY `fk_IdMateria_idx` (`IdMateria`),
+  KEY `fk_IdProfesor_idx` (`IdProfesor`),
+  CONSTRAINT `fk_IdMateria` FOREIGN KEY (`IdMateria`) REFERENCES `materias` (`IdMateria`),
+  CONSTRAINT `fk_IdProfesor` FOREIGN KEY (`IdProfesor`) REFERENCES `profesores` (`IdProfesor`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cursos`
+--
+
+LOCK TABLES `cursos` WRITE;
+/*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT INTO `cursos` VALUES (1,1,1,'Primer Cuatrimestre','2020',1),(2,1,2,'Segundo Cuatrimestre','2019',1);
+/*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `localidades`
+--
+
+DROP TABLE IF EXISTS `localidades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `localidades` (
+  `IdLocalidad` int NOT NULL AUTO_INCREMENT,
+  `IdProvincia` int NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`IdLocalidad`),
+  KEY `IdProvincia_idx` (`IdProvincia`),
+  CONSTRAINT `IdProvincia` FOREIGN KEY (`IdProvincia`) REFERENCES `provincias` (`IdProvincia`)
+) ENGINE=InnoDB AUTO_INCREMENT=575 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `localidades`
+--
+
+LOCK TABLES `localidades` WRITE;
+/*!40000 ALTER TABLE `localidades` DISABLE KEYS */;
+INSERT INTO `localidades` VALUES (1,1,'Alejandro Petion'),(2,1,'Alto Los Cardales'),(3,1,'Arribeños'),(4,1,'Ascension'),(5,1,'Balneario Chapalco'),(6,1,'Cachari'),(7,1,'Campos Salles'),(8,1,'Casbas'),(9,1,'Chascomus Country Club'),(10,1,'Chillar'),(11,1,'Claromeco'),(12,1,'Comandante Nicanor Otamendi'),(13,1,'Country Club Bosque Real-Barrio Morabo'),(14,1,'Country Los Medanos'),(15,1,'Darregueira'),(16,1,'El Remanso'),(17,1,'Estacion Camet'),(18,1,'Ferre'),(19,1,'General Mansilla'),(20,1,'General Rojo'),(21,1,'Henderson'),(22,1,'Hilario Ascasubi'),(23,1,'Hinojo'),(24,1,'Huanguelen'),(25,1,'Jeppener'),(26,1,'Juan Bautista Alberdi'),(27,1,'Juan Couste'),(28,1,'Juan Jose Paso'),(29,1,'Juan Nepomuceno Fernandez'),(30,1,'La Dulce'),(31,1,'Leandro N. Alem'),(32,1,'Lima'),(33,1,'Loma Negra'),(34,1,'Los Cardales'),(35,1,'Lujan'),(36,1,'Mayor Buratovich'),(37,1,'Moquehua'),(38,1,'Nicolas Levalle'),(39,1,'Norberto de la Riestra'),(40,1,'Orense'),(41,1,'Palemon Huergo'),(42,1,'Parada Robles'),(43,1,'Paraje Vallimanca'),(44,1,'Pavon'),(45,1,'Pedro Luro'),(46,1,'Perez Millan'),(47,1,'Piedritas'),(48,1,'Quequen'),(49,1,'Rawson'),(50,1,'Roberts'),(51,1,'Saavedra'),(52,1,'San Jose'),(53,1,'Santa Lucia'),(54,1,'Santa Rosa'),(55,1,'Sierra Chica'),(56,1,'Sierra de la Ventana'),(57,1,'Sierras Bayas'),(58,1,'Treinta de Agosto'),(59,1,'Tres Algarrobos'),(60,1,'Urdampilleta'),(61,1,'Villa Arcadia'),(62,1,'Villa Cacique'),(63,1,'Villa Campi'),(64,1,'Villa Canto'),(65,1,'Villa Ramallo'),(66,1,'Villalonga'),(67,1,'Acassuso'),(68,1,'Aeropuerto Internacional Ezeiza'),(69,1,'Alejandro Kom'),(70,1,'Area de Promocion El Triangulo'),(71,1,'Bancalari'),(72,1,'Barrio Parque General San Martin'),(73,1,'Barrio Ruta Sol'),(74,1,'Barrio Uno'),(75,1,'Beccar'),(76,1,'Belen de Escobar'),(77,1,'Bella Vista'),(78,1,'Benavidez'),(79,1,'Berazategui'),(80,1,'Billinghurst'),(81,1,'Boulogne Sur Mer'),(82,1,'Canning'),(83,1,'Cañuelas'),(84,1,'Carlos Spegazzini'),(85,1,'Caseros'),(86,1,'Castelar'),(87,1,'Churruca'),(88,1,'Ciudad de San Martin'),(89,1,'Ciudad Jardin El Libertador'),(90,1,'Ciudad Jardin Lomas del Palomar'),(91,1,'Ciudadela'),(92,1,'Club de Campo Larena-Los Quinchos'),(93,1,'Cuartel V'),(94,1,'Del Viso'),(95,1,'Dique Lujan'),(96,1,'Don Torcuato'),(97,1,'El Jaguel'),(98,1,'El Libertador'),(99,1,'El Palomar'),(100,1,'El Pato'),(101,1,'El Talar'),(102,1,'Ezeiza'),(103,1,'Fatima'),(104,1,'Francisco Alvarez'),(105,1,'Garin'),(106,1,'General Pacheco'),(107,1,'General Rodriguez'),(108,1,'Grand Bourg'),(109,1,'Guernica'),(110,1,'Haedo'),(111,1,'Hudson'),(112,1,'Ingeniero Adolfo Sourdeaux'),(113,1,'Ingeniero Maschwitz'),(114,1,'Ingeniero Pablo Nogues'),(115,1,'Isidro Casanova'),(116,1,'Ituzaingo'),(117,1,'Jose C. Paz'),(118,1,'Jose Ingenieros'),(119,1,'Jose Leon Suarez'),(120,1,'Juan Maria Gutierrez'),(121,1,'La Lonja'),(122,1,'La Reja'),(123,1,'La Tablada'),(124,1,'La Union'),(125,1,'Lagomarsino'),(126,1,'Lanus'),(127,1,'Libertad'),(128,1,'Loma Hermosa'),(129,1,'Loma Verde'),(130,1,'Los Polvorines'),(131,1,'Luis Guillon'),(132,1,'Malvinas Argentinas'),(133,1,'Manuel Alberti'),(134,1,'Manzanares'),(135,1,'Maquinista F. Savio'),(136,1,'Marcos Paz'),(137,1,'Mariana Acosta'),(138,1,'Martin Coronado'),(139,1,'Martinez'),(140,1,'Matheu'),(141,1,'Maximo Paz'),(142,1,'Merlo'),(143,1,'Monte Chingolo'),(144,1,'Monte Grande'),(145,1,'Moreno'),(146,1,'Muñiz'),(147,1,'Nordelta'),(148,1,'Nueve de Abril'),(149,1,'Once de Septiembre'),(150,1,'Pablo Podesta'),(151,1,'Parque San Martin'),(152,1,'Paso del Rey'),(153,1,'Pereyra'),(154,1,'Pilar'),(155,1,'Platanos'),(156,1,'Pontevedra'),(157,1,'Presidente Derqui'),(158,1,'Puerto Parana'),(159,1,'Punta Chica'),(160,1,'Ramos Mejia'),(161,1,'Ranelagh'),(162,1,'Remedios de Escalada(Lanus)'),(163,1,'Remedios de Escalada(Tres de Febrero)'),(164,1,'Ricardo Rojas'),(165,1,'Rincon de Milberg'),(166,1,'Saenz Peña'),(167,1,'San Andres'),(168,1,'San Antonio de Padua'),(169,1,'San Justo'),(170,1,'San Miguel'),(171,1,'San Vicente'),(172,1,'Santa Maria'),(173,1,'Santos Lugares'),(174,1,'Sourigues'),(175,1,'Tortuguitas'),(176,1,'Tristan Suarez'),(177,1,'Troncos del Talar'),(178,1,'Trujui'),(179,1,'Valentin Alsina'),(180,1,'Vicente Lopez'),(181,1,'Victoria'),(182,1,'Villa Adelina'),(183,1,'Villa Ayacucho'),(184,1,'Villa Ballester'),(185,1,'Villa Bernardo Monteagudo'),(186,1,'Villa Bosch'),(187,1,'Villa Chacabuco'),(188,1,'Villa Coronel Jose M. Zapiola'),(189,1,'Villa de Mayo'),(190,1,'Villa España'),(191,1,'Villa General Antonio J. de Sucre'),(192,1,'Villa General Eugenio Necochea'),(193,1,'Villa General Jose Tomas Guido'),(194,1,'Villa General Juan G. Las Heras'),(195,1,'Villa Godoy Cruz'),(196,1,'Villa Juan Martin de Pueyrredon'),(197,1,'Villa Libertad'),(198,1,'Villa Lynch'),(199,1,'Villa Maipu'),(200,1,'Villa Maria Irene de Los Remedios de Escalada'),(201,1,'Villa Marques Alejandro Maria de Aguado'),(202,1,'Villa Parque Presidente Figueroa Alcorta'),(203,1,'Villa Parque San Lorenzo'),(204,1,'Villa Raffo'),(205,1,'Villa Rosa'),(206,1,'Villa Sarmiento'),(207,1,'Villa Tesei'),(208,1,'Villa Udaondo'),(209,1,'Villa Yapeyu'),(210,1,'Virreyes'),(211,1,'William C. Morris'),(212,1,'Abasto(La Plata)'),(213,1,'Altos de San Lorenzo'),(214,1,'Angel Etcheverry'),(215,1,'Arana'),(216,1,'Arturo Segui'),(217,1,'Barrio Banco Provincia'),(218,1,'Barrio de Las Mil Casas'),(219,1,'Barrio El Carmen'),(220,1,'Barrio Las Malvinas'),(221,1,'Barrio Las Quintas'),(222,1,'Barrio Universitario'),(223,1,'El Peligro'),(224,1,'Berisso'),(225,1,'City Bell'),(226,1,'Dique n.° 1'),(227,1,'El Retiro'),(228,1,'Ensenada'),(229,1,'Esquina Negra'),(230,1,'Gambier'),(231,1,'Gonnet'),(232,1,'Joaquin Gorina'),(233,1,'Ignacio Correas'),(234,1,'Isla Santiago Oeste'),(235,1,'Jose Hernandez'),(236,1,'La Cumbre'),(237,1,'Lisandro Olmos'),(238,1,'Lomas de Copello'),(239,1,'Los Hornos'),(240,1,'Los Talas'),(241,1,'Melchor Romero'),(242,1,'Museos a la Luz de la Luna'),(243,1,'Punta Lara'),(244,1,'Ringuelet'),(245,1,'Rufino de Elizable'),(246,1,'San Carlos'),(247,1,'Tolosa'),(248,1,'Transradio'),(249,1,'Villa Arguello'),(250,1,'Villa Catella'),(251,1,'Villa Dolores'),(252,1,'Villa Dolores'),(253,1,'Villa Elisa'),(254,1,'Villa Elvira'),(255,1,'Villa Garibaldi'),(256,1,'Villa Independencia'),(257,1,'Villa Montoro'),(258,1,'Villa Nueva'),(259,1,'Villa Parque Sicardi'),(260,1,'Villa Porteña'),(261,1,'Villa Progreso'),(262,1,'Villa San Carlos'),(263,1,'Villa Zula'),(264,1,'Abasto(Capital Federal)'),(265,1,'Agronomia'),(266,1,'Almagro'),(267,1,'Balvanera'),(268,1,'Barrio Norte'),(269,1,'Belgrano'),(270,1,'Boedo'),(271,1,'Caballito'),(272,1,'Chacarita'),(273,1,'Coghlan'),(274,1,'Colegiales'),(275,1,'Colegiales'),(276,1,'Constitucion'),(277,1,'Flores'),(278,1,'Floresta'),(279,1,'La Boca'),(280,1,'Liniers'),(281,1,'Mataderos'),(282,1,'Microcentro'),(283,1,'Monte Castro'),(284,1,'Montserrat'),(285,1,'Nueva Pompeya'),(286,1,'Nuñez'),(287,1,'Palermo'),(288,1,'Palermo Viejo'),(289,1,'Parque Avellaneda'),(290,1,'Parque Chacabuco'),(291,1,'Parque Patricios'),(292,1,'Paternal'),(293,1,'Puerto Madero'),(294,1,'Recoleta'),(295,1,'Retiro'),(296,1,'Saavedra'),(297,1,'San Cristobal'),(298,1,'San Nicolas'),(299,1,'San Telmo'),(300,1,'Velez Sarsfield'),(301,1,'Versalles'),(302,1,'Villa Crespo'),(303,1,'Villa del Parque'),(304,1,'Villa Devoto'),(305,1,'Villa General Mitre'),(306,1,'Villa Lugano'),(307,1,'Villa Luro'),(308,1,'Villa Ortuzar'),(309,1,'Villa Pueyrredon'),(310,1,'Villa Real'),(311,1,'Villa Riachuelo'),(312,1,'Villa Santa Rita'),(313,1,'Villa Soldati'),(314,1,'Villa Urquiza'),(315,2,'Andalgala'),(316,2,'Belen'),(317,2,'Casa de Piedra'),(318,2,'Chumbicha'),(319,2,'Fiambala'),(320,2,'Huillapima'),(321,2,'Icaño'),(322,2,'La Puntilla'),(323,2,'La Ramadita'),(324,2,'Lavalle'),(325,2,'Londres'),(326,2,'Los Altos'),(327,2,'Palo Seco'),(328,2,'Pampa Blanca'),(329,2,'San Jose'),(330,2,'San Jose Norte'),(331,2,'San Jose Villa'),(332,2,'San Pedro de Guasayan'),(333,2,'Santa Maria'),(334,2,'Santa Rosa'),(335,2,'Saujil'),(336,2,'Tinogasta'),(337,2,'Villa de Poman'),(338,3,'Avia Terai'),(339,3,'Campo Largo'),(340,3,'Charata'),(341,3,'Colonia Benitez'),(342,3,'Colonia Elisa'),(343,3,'Colonias Unidas'),(344,3,'Comandancia Frias'),(345,3,'Concepcion del Bermejo'),(346,3,'Coronel Du Graty'),(347,3,'Corzuela'),(348,3,'El Paranacito'),(349,3,'El Sauzalito'),(350,3,'Fortin Belgrano'),(351,3,'Gancedo'),(352,3,'General Jose de San Martin'),(353,3,'General Pinedo'),(388,4,'Alto Rio Senguer'),(389,4,'Bahia Bustamante'),(390,4,'Camarones'),(391,4,'Cholila'),(392,4,'Comodoro Rivadavia'),(393,4,'Corcovado'),(394,4,'El Hoyo'),(395,4,'El Maiten'),(396,4,'Epuyen'),(414,5,'Achiras'),(415,5,'Adelia Maria'),(416,5,'Alcira Gigena'),(417,5,'Alejandro Roca'),(418,5,'Alejo Ledesma'),(419,5,'Alicia'),(420,5,'Almafuerte'),(421,5,'Alta Gracia'),(422,5,'Alto Resbaloso-El Barrial'),(423,5,'Anisacate'),(424,5,'Arias'),(425,5,'Arroyito'),(426,5,'Arroyo'),(427,5,'Ballesteros'),(428,5,'Balnearia'),(429,5,'Berrotaran'),(430,5,'Bialet Masse'),(431,5,'Brinkmann'),(432,5,'Calchin'),(433,5,'Camilo Aldao'),(434,5,'Canals'),(435,5,'Casa Grande'),(436,5,'Colonia Caroya'),(437,5,'Colonia La Argentina'),(438,5,'Coronel Moldes'),(439,5,'Corral de Bustos'),(440,5,'Country Chacras'),(441,5,'Cruz Alta'),(442,5,'Cuesta Blanca'),(443,5,'Del Campillo'),(444,5,'Despeñaderos'),(445,5,'Devoto'),(446,5,'Dolores'),(447,5,'El Pueblito'),(448,5,'Elena'),(449,5,'Embalse'),(450,5,'Estacion Juarez'),(451,5,'Etruria'),(452,5,'Freyre'),(453,5,'General Baldissera'),(454,5,'General Cabrera'),(455,5,'General Deheza'),(456,5,'General Levalle'),(457,5,'General Roca'),(458,5,'Guatimozin'),(459,5,'Hernando'),(460,5,'Huerta Grande'),(461,5,'Huinca Renanco'),(462,5,'Inriville'),(463,5,'Isla Verde'),(464,5,'James Craik'),(465,5,'Jose de la Quintana'),(466,5,'Jovita'),(467,5,'Justiniano Posse'),(468,5,'La Carlota'),(469,5,'La Cumbre'),(470,5,'La Cumbrecita'),(471,5,'La Falda'),(472,5,'La Francia'),(473,5,'La Para'),(474,5,'La Paz'),(475,5,'La Perla'),(476,5,'La Poblacion'),(477,5,'La Rancherita'),(478,5,'La Serranita'),(479,5,'Laborde'),(480,5,'Laboulaye'),(481,5,'Laguna Larga'),(482,5,'Las Acequias'),(483,5,'Las Chacras'),(484,5,'Las Higueras'),(485,5,'Las Perdices'),(486,5,'Las Tapias'),(487,5,'Leones'),(488,5,'Los Cerrillos'),(489,5,'Los Cocos'),(490,5,'Los Condores'),(491,5,'Los Romeros'),(492,5,'Los Surgentes'),(493,5,'Luque'),(494,5,'Malagueño'),(495,5,'Malvinas Argentinas'),(496,5,'Marcos Juarez'),(497,5,'Mayu Sumaj'),(498,5,'Mi Granja'),(499,5,'Mina Clavero'),(500,5,'Molinari'),(501,5,'Monte Buey'),(502,5,'Monte Cristo'),(503,5,'Monte Maiz'),(504,5,'Morrison'),(505,5,'Morteros'),(506,5,'Noetinger'),(507,5,'Oliva'),(508,5,'Oncativo'),(509,5,'Ordoñez'),(510,5,'Pascanas'),(511,5,'Paso del Durazno'),(512,5,'Pilar'),(513,5,'La Playosa'),(514,5,'Porteña'),(515,5,'Pozo del Molle'),(516,5,'Quilino'),(517,5,'Rio Primero'),(518,5,'Rio Segundo'),(519,5,'Rumi Huasi'),(520,5,'Sacanta'),(521,5,'Sampacho'),(522,5,'San Agustin'),(523,5,'San Antonio de Arredondo'),(524,5,'San Basilio'),(525,5,'San Esteban'),(526,5,'San Francisco del Chañar'),(527,5,'San Jose  de la Dormida'),(528,5,'San Marcos Sud'),(529,5,'San Pedro'),(530,5,'San Roque'),(531,5,'Santa Catalina'),(532,5,'Santa Elena'),(533,5,'Santa Maria de Punilla'),(534,5,'Santa Monica'),(535,5,'Santa Rosa de Calamuchita'),(536,5,'Santa Rosa de Rio Primero'),(537,5,'Santiago Temple'),(538,5,'Santurnino Maria Laspiur'),(539,5,'Sebastian Elcano'),(540,5,'Serrano'),(541,5,'Serrezuela'),(542,5,'Tancacha');
+/*!40000 ALTER TABLE `localidades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `materias`
+--
+
+DROP TABLE IF EXISTS `materias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `materias` (
+  `IdMateria` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Estado` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`IdMateria`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `materias`
+--
+
+LOCK TABLES `materias` WRITE;
+/*!40000 ALTER TABLE `materias` DISABLE KEYS */;
+INSERT INTO `materias` VALUES (1,'Laboratorio de Computacion 1',1),(2,'Laboratorio de Computacion 2',1),(3,'Laboratorio de Computacion 3',1),(4,'Laboratorio de Computacion 4',1),(5,'Programacion 1',1),(6,'Programacion 2',1),(7,'Programacion 3',1),(8,'Programacion 4',1);
+/*!40000 ALTER TABLE `materias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `profesores`
+--
+
+DROP TABLE IF EXISTS `profesores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `profesores` (
+  `IdProfesor` int NOT NULL AUTO_INCREMENT,
+  `Legajo` varchar(45) NOT NULL,
+  `Dni` varchar(45) NOT NULL,
+  `Nombre` varchar(45) NOT NULL,
+  `Apellido` varchar(45) NOT NULL,
+  `FechaNac` varchar(45) NOT NULL,
+  `Direccion` varchar(45) NOT NULL,
+  `Email` varchar(45) NOT NULL,
+  `Telefono` varchar(45) NOT NULL,
+  `IdLocalidad` int NOT NULL,
+  `Estado` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`IdProfesor`),
+  KEY `IdLocalidad_idx` (`IdLocalidad`),
+  CONSTRAINT `IdLocalidad` FOREIGN KEY (`IdLocalidad`) REFERENCES `localidades` (`IdLocalidad`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `profesores`
+--
+
+LOCK TABLES `profesores` WRITE;
+/*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
+INSERT INTO `profesores` VALUES (1,'1','26555444','Jelly','Gallaghir','03/04/2020','9220 Ut Avda.','gravida@eulacus.com','011-3287-9578',19,1),(2,'2','28777888','Lawrence','Whitaker','19/01/2020','815-8939 Ut, ','euismod.enim@iaculisnec.ca','011-8186-5267',1,1),(3,'3','37999888','Kieran','Parrish','26/09/2019','Apdo.:834-1449 Nunc ','vitae.risus@consequatlectus.com','011-6091-2032',1,1),(4,'4','4','Jesse','Vega','21/10/2019','353 Ornare Avda.','sem.ut.dolor@famesacturpis.ca','011-7343-9644',1,1),(5,'5','28998112','Dexter','Mcgee','09/11/2019','Apdo.:735-1083 Tellus Avda.','malesuada.id@Proin.edu','011-5825-6423',1,1),(6,'6','6','Todd','Tyson','15/09/2020','Apdo.:893-7378 Nec, Carretera','auctor.velit@Donecvitaeerat.net','011-2999-6567',1,1),(7,'7','7','Graham','Fuentes','24/04/2021','Apdo.:990-7252 Interdum C/','ligula.Donec.luctus@maurisMorbinon.org','011-8448-9004',1,1),(8,'8','8','Sydnee','Buckner','15/05/2021','Apdo.:180-9275 Vivamus Avenida','erat.semper@iaculis.org','011-7621-2515',1,1),(9,'9','9','Chadwick','Gilmore','21/05/2020','4142 In ','Nulla.eget.metus@faucibus.co.uk','011-4083-0665',1,1),(10,'10','10','TaShya','Morse','24/12/2019','Apdo.:668-4987 Dis Ctra.','et.netus@Morbi.edu','011-9890-6624',1,1),(11,'11','11','Amal','Odom','31/12/2020','Apdo.:741-8485 Lectus, Avda.','arcu@pretiumneque.edu','011-3799-7218',1,1),(12,'12','12','Burke','Mooney','23/10/2019','Apdo.:354-9055 Ipsum ','dictum.Phasellus.in@duiFuscealiquam.ca','011-8292-5728',1,1),(13,'13','13','Camilla','Wiley','31/12/2020','601-6334 Pellentesque. Ctra.','enim.Etiam@telluseu.net','011-4321-5138',1,1),(14,'14','14','Germaine','Rosario','22/09/2020','Apdo.:654-2323 Tristique Ctra.','eget@Maecenasiaculis.ca','011-2287-6350',1,1),(15,'15','15','Shellie','Meyer','30/08/2020','Apartado núm.: 460, 4405 Quis C/','eget.metus.eu@molestiesodales.co.uk','011-2389-4857',1,1),(16,'16','16','Nolan','Avila','05/04/2021','5086 Tortor, Ctra.','pede@antebibendum.edu','011-1298-6737',1,1),(17,'17','17','Xandra','Conner','26/10/2019','418-727 Euismod Avda.','odio@sapienAenean.co.uk','011-9494-4159',1,1),(18,'18','18','Robert','Vega','04/05/2021','5672 Sem, C.','iaculis.aliquet.diam@nonenim.ca','011-9460-5720',1,1),(19,'19','19','Heidi','Burnett','10/03/2020','1737 Erat C.','Nulla.eget.metus@amet.ca','011-7140-2209',1,1),(20,'20','20','Jarrod','Hendricks','05/12/2019','6610 Pede. Calle','torquent@dolor.co.uk','011-4653-4498',1,1),(21,'21','21','Elaine','Robertson','17/04/2020','8568 Nam Carretera','Quisque@In.co.uk','011-9130-7909',1,1),(22,'22','22','Grant','Lopez','05/05/2021','Apdo.:951-5486 Eleifend Avenida','a.purus.Duis@Quisque.ca','011-3505-7839',1,1),(23,'23','23','Linus','Ellis','16/12/2020','9578 Elit. C.','Nullam.nisl@nonummyFuscefermentum.edu','011-8255-5457',1,1),(24,'24','24','Kenneth','Fowler','12/02/2021','1773 Etiam Avenida','Praesent.eu@feugiattelluslorem.edu','011-9813-7246',1,1),(25,'25','25','Katelyn','Anthony','30/03/2021','Apartado núm.: 501, 4742 Donec ','Ut.nec@elementumduiquis.com','011-7814-5334',1,1),(26,'26','26','Addison','Barber','29/10/2020','6923 Malesuada Carretera','a@ullamcorpereu.ca','011-9415-2485',1,1),(27,'27','27','Samson','Buckley','27/12/2019','Apdo.:677-1652 Pede ','non@rutrumeuultrices.edu','011-7112-6350',1,1),(28,'28','28','Clayton','Mitchell','12/02/2020','Apartado núm.: 834, 8871 Molestie C/','odio@Sedauctor.edu','011-2171-3591',1,1),(29,'29','29','Justina','Norton','07/10/2019','6995 Neque Ctra.','morbi.tristique@sitametnulla.com','011-5517-5733',1,1),(30,'30','30','Molly','Knapp','01/04/2020','6541 Tellus C/','Morbi.neque.tellus@velsapienimperdiet.co.uk','011-6740-0279',1,1),(31,'31','31','Chastity','Pratt','14/06/2019','1146 Pede Calle','et.lacinia@aodiosemper.ca','011-1303-7930',1,1),(32,'32','32','Logan','Campos','13/01/2021','369-2381 Sem Avenida','lacinia@placerat.net','011-7443-9822',1,1),(33,'33','33','Chloe','Vinson','26/05/2021','Apdo.:120-3705 Id Av.','lorem.fringilla@egestasSed.ca','011-4966-8774',1,1),(34,'34','34','Alea','Mooney','31/10/2020','Apdo.:690-4829 Ac Av.','Nunc.commodo.auctor@eleifend.edu','011-6910-8317',1,1),(35,'35','35','Blaze','Miller','24/02/2020','Apartado núm.: 882, 2134 Amet ','diam@arcu.edu','011-8784-3003',1,1),(36,'36','36','Maris','Austin','10/09/2019','2422 Quis Avda.','lorem@Proineget.com','011-5995-3228',1,1),(37,'37','37','Elmo','Carney','13/06/2020','8991 Pede. Avda.','Nunc.ac@nibh.ca','011-2587-4335',1,1),(38,'38','38','Paloma','Mann','12/02/2020','Apdo.:751-3527 Sit Ctra.','commodo@vel.co.uk','011-9709-4125',1,1),(39,'39','39','Brynn','Hodge','29/07/2020','Apdo.:957-9799 Lorem Avda.','velit@libero.com','011-2972-5878',1,1),(40,'40','40','Rahim','Baxter','31/10/2020','Apdo.:855-9897 Adipiscing C.','consectetuer.adipiscing@fringilla.co.uk','011-5358-7890',1,1),(41,'41','41','Vance','Walls','18/07/2019','Apartado núm.: 255, 3948 Id Av.','nec@magna.edu','011-9729-9081',1,1),(42,'42','42','Ulric','Huber','17/03/2020','Apdo.:501-8825 Blandit. Calle','odio.a.purus@nuncnulla.co.uk','011-5022-0682',1,1),(43,'43','43','Calvin','Tillman','22/10/2019','Apartado núm.: 808, 1500 Ante Avda.','ut.nisi@laciniaSed.co.uk','011-2844-3579',1,1),(44,'44','44','Stacy','Walker','25/09/2020','444-5379 Magna Carretera','tempus.lorem@semutcursus.com','011-1284-3610',1,1),(45,'45','45','Lee','Faulkner','29/04/2020','977 Quam Carretera','scelerisque@velitPellentesque.ca','011-5652-6734',1,1),(46,'46','46','Maia','Bush','23/12/2020','Apdo.:916-6510 Vehicula. Avda.','turpis.In.condimentum@atpede.edu','011-1478-6203',1,1),(47,'47','47','Lee','Alvarez','21/07/2019','Apdo.:939-5075 Turpis. Avda.','erat.semper@nisidictumaugue.net','011-9574-5434',1,1),(48,'48','48','Francis','Gray','04/09/2020','7207 Sociis Av.','nunc.sit@ipsum.net','011-5792-7004',1,1),(49,'49','49','Caesar','Pugh','08/02/2020','Apartado núm.: 937, 8228 Eleifend ','Nulla@erosnonenim.org','011-9037-7594',1,1),(50,'50','50','Yuli','Hodge','08/10/2020','Apdo.:241-4750 Nec, C/','purus.sapien.gravida@dapibusligula.edu','011-6585-6808',1,1),(51,'51','51','Roary','Castro','02/05/2020','Apartado núm.: 408, 5864 Mauris Avenida','mi.pede.nonummy@dapibusquam.net','011-5134-5046',1,1),(52,'52','52','Shannon','Chavez','22/07/2019','Apdo.:793-1224 Sed Avenida','rutrum@portaelita.co.uk','011-6814-7838',1,1),(53,'53','53','Adena','Mcintosh','12/09/2020','Apartado núm.: 132, 8321 Mi Carretera','gravida@Suspendissealiquetmolestie.net','011-1426-1697',1,1),(54,'54','54','Mariam','Gonzales','19/09/2020','Apdo.:961-5569 Consequat C/','augue@lobortisClass.org','011-2415-3525',1,1),(55,'55','55','Quynn','Dale','01/05/2020','Apartado núm.: 868, 2944 Vestibulum ','suscipit.est.ac@anteblandit.edu','011-6845-9074',1,1),(56,'56','56','Erin','Watts','30/03/2020','Apartado núm.: 456, 761 Vestibulum Ctra.','Mauris@Nunc.com','011-2873-5031',1,1),(57,'57','57','Colby','Decker','23/07/2020','5507 Proin C/','lorem.ac@etipsum.edu','011-9543-6821',1,1),(58,'58','58','Mohammad','Thompson','23/07/2020','Apdo.:355-5735 Ligula Calle','primis.in@idenimCurabitur.edu','011-4881-1837',1,1),(59,'59','59','Quintessa','Farley','25/05/2021','Apartado núm.: 569, 4511 Rutrum Avenida','id.mollis@dolor.com','011-5990-9823',1,1),(60,'60','60','Harriet','Witt','27/06/2019','Apartado núm.: 853, 2323 Duis Av.','a.felis@rutrum.org','011-4693-1583',1,1),(61,'61','61','Reed','Ortega','08/04/2021','Apdo.:232-7198 Nunc Av.','et.rutrum@nasceturridiculus.org','011-8980-4653',1,1),(62,'62','62','Jaime','Simmons','05/12/2020','Apdo.:618-663 Eros. C.','nunc@egestasascelerisque.edu','011-3595-8266',1,1),(63,'63','63','Hadassah','Fuentes','31/01/2020','439-2411 Adipiscing Calle','dignissim@Suspendisse.net','011-4299-8037',1,1),(64,'64','64','Danielle','Steele','11/05/2020','Apdo.:110-5265 Tincidunt Avenida','Vestibulum@Sednullaante.co.uk','011-7527-7305',1,1),(65,'65','65','Eden','Cleveland','29/08/2020','3352 Ut Ctra.','in.consectetuer.ipsum@ultriciessem.ca','011-7663-9683',1,1),(66,'66','66','Gareth','Steele','20/03/2020','4092 Libero. C/','Vestibulum@Integertincidunt.com','011-2635-3034',1,1),(67,'67','67','Silas','Rodriguez','14/02/2020','Apartado núm.: 434, 1616 Diam C.','massa@lectusconvallis.edu','011-9673-2419',1,1),(68,'68','68','Hayley','Rose','22/12/2019','620-7491 Dapibus Carretera','eu.augue@inlobortis.ca','011-3156-8387',1,1),(69,'69','69','Selma','Goodwin','03/02/2021','Apdo.:616-5187 A Calle','non.quam@Nunclectuspede.ca','011-9916-6520',1,1),(70,'70','70','Dawn','Lynch','28/01/2021','5364 Pede. Carretera','Fusce.aliquam@Cum.net','011-9654-1776',1,1),(71,'71','71','Brenda','Keith','01/11/2019','Apdo.:935-4615 Nam Ctra.','Praesent.eu@tortorNunccommodo.net','011-9319-9084',1,1),(72,'72','72','Alma','Freeman','01/05/2020','142-4360 Quam Avda.','ante@sit.ca','011-7656-7074',1,1),(73,'73','73','Tiger','Rose','12/10/2020','158-8266 Interdum. Avenida','ligula@placerat.net','011-9616-5686',1,1),(74,'74','74','Demetrius','Gilliam','25/07/2020','2894 Sit Av.','ornare.lectus.justo@adipiscing.edu','011-8945-3173',1,1),(75,'75','75','Fleur','Banks','12/12/2019','Apdo.:473-2069 Magna Avda.','metus@sit.ca','011-4231-5495',1,1),(76,'76','76','Dane','Garza','07/11/2020','Apartado núm.: 606, 6964 Dignissim Calle','penatibus@natoquepenatibuset.com','011-5256-6086',1,1),(77,'77','77','Ryder','Vaughn','06/04/2020','9765 Luctus C.','Nunc.ac@venenatislacus.net','011-5132-3619',1,1),(78,'78','78','Garrison','Doyle','04/11/2019','538-8928 Sed Carretera','consectetuer.rhoncus@tellus.org','011-5602-7653',1,1),(79,'79','79','Rowan','Sellers','09/06/2020','8726 Lorem Av.','ante.ipsum.primis@nibh.ca','011-1998-4888',1,1),(80,'80','80','Arsenio','Haney','24/12/2019','Apdo.:441-1971 Vitae Calle','ut.dolor.dapibus@arcu.ca','011-3997-1061',1,1),(81,'81','81','Karleigh','Luna','03/07/2020','8742 Cras Avda.','Aliquam.gravida@sitamet.com','011-9864-8180',1,1),(82,'82','82','Lamar','Carey','16/03/2021','637-1498 Sem, Carretera','Fusce.fermentum.fermentum@disparturient.edu','011-3376-1163',1,1),(83,'83','83','Cynthia','Witt','08/09/2020','6101 Orci Avda.','faucibus@faucibus.edu','011-2310-5626',1,1),(84,'84','84','Karen','Alvarez','12/02/2021','951-7935 Lectus, ','volutpat.ornare@quamPellentesque.ca','011-6548-8748',1,1),(85,'85','85','Maxwell','Buchanan','30/05/2021','Apdo.:750-2026 Urna ','nulla@turpis.edu','011-4315-6369',1,1),(86,'86','86','Heidi','Valenzuela','08/05/2020','Apdo.:490-4039 Donec Avenida','amet.consectetuer@Nuncmauris.ca','011-4530-9104',1,1),(87,'87','87','Guy','Owens','18/09/2020','373-4553 Magna Av.','lobortis.mauris@nequesed.edu','011-7107-9067',1,1),(88,'88','88','Stacy','Slater','08/09/2020','8233 Sagittis. Ctra.','nonummy.Fusce.fermentum@scelerisqueneque.net','011-3218-0719',1,1),(89,'89','89','Yoko','Cline','04/09/2020','335-7499 Luctus, Av.','lacus.pede.sagittis@luctusipsumleo.net','011-2453-9968',1,1),(90,'90','90','Aiko','Randolph','18/11/2020','522-9216 Tincidunt ','amet@purusgravidasagittis.ca','011-9975-0495',1,1);
+/*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `provincias`
+--
+
+DROP TABLE IF EXISTS `provincias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `provincias` (
+  `IdProvincia` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  PRIMARY KEY (`IdProvincia`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `provincias`
+--
+
+LOCK TABLES `provincias` WRITE;
+/*!40000 ALTER TABLE `provincias` DISABLE KEYS */;
+INSERT INTO `provincias` VALUES (1,'Buenos Aires'),(2,'Catamarca'),(3,'Chaco'),(4,'Chubut'),(5,'Córdoba');
+/*!40000 ALTER TABLE `provincias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarios` (
+  `IdUsuario` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(45) NOT NULL,
+  `Clave` varchar(45) NOT NULL,
+  `Tipo` tinyint NOT NULL DEFAULT '1',
+  `Estado` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`IdUsuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'Administrador','Administrador',0,1),(2,'Profesor1','Profesor2',1,1),(4,'Profesor2','Profesor3',1,1);
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarioxprofesor`
+--
+
+DROP TABLE IF EXISTS `usuarioxprofesor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuarioxprofesor` (
+  `IdUsuario` int NOT NULL,
+  `IdProfesor` int NOT NULL,
+  KEY `fk_IdUsuario_idx` (`IdUsuario`),
+  KEY `fk_IdProfesor_idx` (`IdProfesor`),
+  CONSTRAINT `fk_IdProfesorxUsuario` FOREIGN KEY (`IdProfesor`) REFERENCES `profesores` (`IdProfesor`),
+  CONSTRAINT `fk_IdUsuario` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`IdUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarioxprofesor`
+--
+
+LOCK TABLES `usuarioxprofesor` WRITE;
+/*!40000 ALTER TABLE `usuarioxprofesor` DISABLE KEYS */;
+INSERT INTO `usuarioxprofesor` VALUES (2,1),(4,2);
+/*!40000 ALTER TABLE `usuarioxprofesor` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-07-09  8:50:55
